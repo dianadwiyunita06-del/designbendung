@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/industry-7845c97f-e1e6-4c1a-96a9-0a930f5dba06/styles.css">
+<script src="_ds/industry-7845c97f-e1e6-4c1a-96a9-0a930f5dba06/_ds_bundle.js"></script>
+<style>body{margin:0;background:#f2f2f3}a{color:#416180}a:hover{color:#2c455d}.input{font-variant-numeric:tabular-nums}@media print{aside,header,.no-print{display:none!important}}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;background:var(--color-bg)">
+  <header class="nav" style="flex-wrap:wrap;row-gap:8px;padding:12px 24px;border-bottom:1px solid var(--color-divider);position:sticky;top:0;z-index:5;background:var(--color-bg)">
+    <div class="nav-brand" style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-size:22px">Desain Bendung</span><span style="font-family:var(--font-body);font-weight:400;font-size:13px;color:var(--color-neutral-600)">Weir design suite</span></div>
+    <span class="tag tag-outline" style="white-space:nowrap;flex:none">BD-01 · Bendung Tetap · data asumsi</span>
+    <button class="btn btn-ghost" style="min-height:38px;white-space:nowrap;flex:none" onClick="{{ resetDefaults }}">Reset data</button>
+    <button class="btn btn-secondary" style="min-height:38px;white-space:nowrap;flex:none" onClick="{{ exportPdf }}">Ekspor PDF</button>
+  </header>
+  <div style="flex:1;display:flex;flex-wrap:wrap;align-items:stretch">
+    <aside style="flex:1 1 220px;max-width:280px;border-right:1px solid var(--color-divider);padding:24px 14px;display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);padding:0 10px">Analisis desain · Design</span>
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+          <button onClick="{{ st.go }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;border-left:2px solid {{ st.line }}">
+            <span style="width:24px;height:24px;flex:none;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--color-accent);background:{{ st.bg }};color:{{ st.fg }}">{{ st.n }}</span>
+            <span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">{{ st.t }}</span><span style="font-size:11px;color:var(--color-neutral-600)">{{ st.en }}</span></span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);padding:0 10px">Output</span>
+        <button onClick="{{ tab3d }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.c3d }};border-left:2px solid {{ nav.l3d }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Model 3D</span><span style="font-size:11px;color:var(--color-neutral-600)">3D model</span></span></button>
+        <button onClick="{{ tabFem }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cFem }};border-left:2px solid {{ nav.lFem }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"></path><path d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Kontur FEM</span><span style="font-size:11px;color:var(--color-neutral-600)">Stress &amp; strain</span></span></button>
+        <button onClick="{{ tabCrit }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cCrit }};border-left:2px solid {{ nav.lCrit }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Zona Kritis</span><span style="font-size:11px;color:var(--color-neutral-600)">Crack &amp; overturning</span></span></button>
+        <button onClick="{{ tabGate }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cGate }};border-left:2px solid {{ nav.lGate }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 12h18"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Pintu Air</span><span style="font-size:11px;color:var(--color-neutral-600)">Gates &amp; materials</span></span></button>
+        <button onClick="{{ tabRep }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cRep }};border-left:2px solid {{ nav.lRep }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Laporan</span><span style="font-size:11px;color:var(--color-neutral-600)">Report &amp; approval</span></span></button>
+      </div>
+      <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px;margin:0 6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Asumsi</span>
+        <span style="font-size:12px;line-height:1.5">Preset menyerupai bendung tetap tipikal di sungai vulkanik Jawa. Ganti dengan data lapangan. FEM linear-elastis per meter lebar, untuk indikasi zona.</span>
+      </div>
+    </aside>
+    <main style="flex:999 1 560px;min-width:0;padding:28px clamp(16px,3vw,40px) 48px;display:flex;flex-direction:column;gap:26px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ kicker }}</span>
+          <h1 style="margin:0;font-size:38px">{{ headTitle }} <span style="font-family:var(--font-body);font-weight:400;font-size:16px;color:var(--color-neutral-600)">{{ headEn }}</span></h1>
+        </div>
+        <sc-if value="{{ isDash }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" style="min-height:40px;white-space:nowrap" onClick="{{ editInputs }}">Edit input</button></sc-if>
+      </div>
+      <sc-if value="{{ isWizard }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:36px;align-items:start">
+          <sc-if value="{{ hasGroups }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:24px">
+          <sc-for list="{{ groups }}" as="gr" hint-placeholder-count="2">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><h4 style="margin:0;font-size:19px">{{ gr.t }}</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ gr.en }}</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 10px">
+                <sc-for list="{{ gr.fields }}" as="fd" hint-placeholder-count="4">
+                  <label class="field" style="display:flex;flex-direction:column;gap:4px;grid-column:{{ fd.col }}">
+                    <span style="font-size:11.5px;line-height:1.25;color:var(--color-neutral-800)">{{ fd.l }}<br><span style="color:var(--color-neutral-600)">{{ fd.en }}</span></span>
+                    <span style="display:flex;align-items:stretch">
+                      <input class="input" style="min-height:44px;flex:1;min-width:0" value="{{ fd.value }}" onChange="{{ fd.onChange }}">
+                      <span style="display:grid;place-items:center;min-width:44px;padding:0 6px;font-size:11.5px;border:1px solid var(--color-divider);border-left:0;color:var(--color-neutral-700)">{{ fd.u }}</span>
+                    </span>
+                  </label>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div></sc-if>
+          <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
+            <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Jenis Tanah (Lane/Bligh)</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Soil class</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+              <sc-for list="{{ soilOpts }}" as="so" hint-placeholder-count="6">
+                <button onClick="{{ so.on }}" style="all:unset;cursor:pointer;min-height:44px;padding:6px 8px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--color-divider);background:{{ so.bg }};color:{{ so.fg }}">
+                  <span style="font-size:12.5px;font-weight:500;line-height:1.2">{{ so.l }}</span>
+                  <span style="font-size:10.5px;opacity:.75">C<sub>L</sub> {{ so.cl }} · C<sub>B</sub> {{ so.cb }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Daya dukung tanah · Bearing capacity (Terzaghi)</span>
+              <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1">{{ bear.qall }}</span><span style="font-size:13px;color:var(--color-neutral-700)">kPa ijin (SF 3)</span></div>
+              <span style="font-size:12px;color:var(--color-neutral-700)">N<sub>c</sub> {{ bear.Nc }} · N<sub>q</sub> {{ bear.Nq }} · N<sub>γ</sub> {{ bear.Ng }} · q<sub>ult</sub> {{ bear.qult }} kPa · D<sub>f</sub> {{ bear.Df }} m · B {{ bear.B }} m</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:11.5px;color:var(--color-neutral-700)">Periode ulang rencana · Design return period</span>
+              <div class="seg" style="display:flex">
+                <sc-for list="{{ tOpts }}" as="to" hint-placeholder-count="3">
+                  <button onClick="{{ to.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:42px;display:grid;place-items:center;font-size:14px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ to.bg }};color:{{ to.fg }}">{{ to.l }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div class="blueprint" style="padding:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Debit banjir rencana · Design flood</span><span style="font-family:var(--font-heading);font-weight:600;font-size:40px;line-height:1">{{ hid.Qd }} <span style="font-size:18px">m³/s</span></span></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:12px;color:var(--color-neutral-700);white-space:nowrap;flex:none"><span>R{{ hid.T }} = {{ hid.RT }} mm</span><span>MA hilir {{ hid.TWL }}</span></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Analisis Frekuensi Gumbel</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Frequency analysis</span></div>
+              <span style="font-size:12px;color:var(--color-neutral-700)">n = {{ hid.N }} · x̄ = {{ hid.mean }} mm · S = {{ hid.sd }} mm · Yn = {{ hid.Yn }} · Sn = {{ hid.Sn }}</span>
+              <table class="table" style="font-size:13px">
+                <thead><tr><th>T (th)</th><th>Y<sub>T</sub></th><th>K</th><th>R (mm)</th><th>Q (m³/s)</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ gumRows }}" as="gu" hint-placeholder-count="6">
+                    <tr style="font-weight:{{ gu.fw }}"><td>{{ gu.T }}</td><td>{{ gu.Yt }}</td><td>{{ gu.K }}</td><td>{{ gu.R }}</td><td>{{ gu.Q }}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Hidrograf HSS Nakayasu</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Flood hydrograph</span></div>
+              <div style="border:1px solid var(--color-divider);line-height:0">{{ svg0 }}</div>
+              <span style="font-size:12px;color:var(--color-neutral-700)">t<sub>g</sub> {{ hid.tg }} j · t<sub>r</sub> {{ hid.tr }} j · T<sub>p</sub> {{ hid.Tp }} j · T<sub>0.3</sub> {{ hid.T03 }} j · Q<sub>p</sub> {{ hid.Qp }} m³/s/mm · R<sub>eff</sub> {{ hid.Reff }} mm (Mononobe 5 jam)</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Rating Curve Hilir</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Stage–discharge · Manning</span></div>
+              <div style="border:1px solid var(--color-divider);line-height:0">{{ svg1 }}</div>
+              <span style="font-size:12px;color:var(--color-neutral-700)">Penampang trapesium b {{ rc.b }} m, 1:{{ rc.m }}, I {{ rc.I }}, n {{ rc.n }} → h = {{ rc.h }} m, v = {{ rc.v }} m/s, MA hilir {{ hid.TWL }}</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
+              <sc-for list="{{ hydKV }}" as="r" hint-placeholder-count="10">
+                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Denah Bendung</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Plan · flow ↓</span></div>
+              <div style="border:1px solid var(--color-divider);line-height:0">{{ svg2 }}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
+                <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#c9c9cc;border:1px solid #2b2b2d;display:block"></i>Mercu pelimpah</span>
+                <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#416180;display:block"></i>Pintu pembilas</span>
+                <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#5d5d60;display:block"></i>Pilar / pangkal</span>
+              </div>
+              <sc-for list="{{ hydChecks }}" as="c" hint-placeholder-count="2">
+                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:6px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
+                  <span>{{ c.k }} <span style="color:var(--color-neutral-600)">{{ c.v }}</span></span>
+                  <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">OK</span></sc-if>
+                  <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Cek</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div class="blueprint" style="padding:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Tipe kolam olak · Basin type</span><span style="font-family:var(--font-heading);font-weight:600;font-size:34px;line-height:1">{{ bas.type }}</span></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;font-size:12px;color:var(--color-neutral-700)"><span>Fr₁ = {{ bas.Fr }}</span><span>L = {{ bas.Lb }} m</span></div>
+            </div>
+            <div style="border:1px solid var(--color-divider);line-height:0">{{ svg3 }}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
+              <sc-for list="{{ basKV }}" as="r" hint-placeholder-count="10">
+                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Kontrol Rembesan</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Seepage · Lane &amp; Bligh</span></div>
+              <span style="font-size:12px;color:var(--color-neutral-700)">ΣL<sub>v</sub> {{ seep.Lv }} m · ΣL<sub>h</sub> {{ seep.Lh }} m · ΔH {{ seep.dH }} m · tanah {{ seep.soil }}</span>
+              <sc-for list="{{ seepChecks }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:7px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
+                  <span style="display:flex;flex-direction:column"><span>{{ c.k }}</span><span style="color:var(--color-neutral-600);font-size:11.5px">{{ c.v }}</span></span>
+                  <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">Aman</span></sc-if>
+                  <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Tidak aman</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div class="seg" style="display:flex">
+              <sc-for list="{{ caseOpts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}"><span style="font-size:13.5px;font-weight:500">{{ co.l }}</span><span style="font-size:10.5px;opacity:.8">{{ co.en }}</span></button>
+              </sc-for>
+            </div>
+            <div style="border:1px solid var(--color-divider);line-height:0">{{ svg4 }}</div>
+            <table class="table" style="font-size:12.5px">
+              <thead><tr><th>Gaya · Force</th><th style="text-align:right">V</th><th style="text-align:right">H</th><th style="text-align:right">M<sub>toe</sub></th></tr></thead>
+              <tbody>
+                <sc-for list="{{ st.rows }}" as="fr" hint-placeholder-count="7">
+                  <tr><td>{{ fr.n }}<br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ fr.en }}</span></td><td style="text-align:right">{{ fr.V }}</td><td style="text-align:right">{{ fr.H }}</td><td style="text-align:right">{{ fr.M }}</td></tr>
+                </sc-for>
+                <tr style="font-weight:700"><td>Σ</td><td style="text-align:right">{{ st.sumV }}</td><td style="text-align:right">{{ st.sumH }}</td><td style="text-align:right">{{ st.net }}</td></tr>
+              </tbody>
+            </table>
+            <span style="font-size:11.5px;color:var(--color-neutral-600)">kN/m', kNm/m' per meter lebar. M positif = menahan (terhadap kaki hilir).</span>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ st.checks }}" as="c" hint-placeholder-count="5">
+                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:8px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
+                  <span style="display:flex;flex-direction:column"><span>{{ c.k }} <span style="color:var(--color-neutral-600)">· {{ c.en }}</span></span><span style="font-family:var(--font-heading);font-weight:600;font-size:17px">{{ c.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11.5px;color:var(--color-neutral-600)">syarat {{ c.req }}</span></span></span>
+                  <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">Aman</span></sc-if>
+                  <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Tidak aman</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        
+          </div>
+        </div>
+        <div class="no-print" style="display:flex;justify-content:space-between;gap:10px;padding-top:18px;border-top:1px solid var(--color-divider)">
+          <button class="btn btn-secondary" style="min-height:44px;min-width:120px" onClick="{{ prev }}" disabled="{{ isFirst }}">Kembali</button>
+          <button class="btn btn-primary blueprint" style="min-height:44px;min-width:220px;font-size:15px" onClick="{{ next }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ nextLabel }}</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isTab3d }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div class="blueprint" style="position:relative;height:min(560px,70vh);min-height:360px;background:#f5f5f8;grid-column:1/-1"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <canvas ref="{{ ref3d }}" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
+              <div ref="{{ lbl3dRef }}" style="position:absolute;inset:0;pointer-events:none;overflow:hidden"></div>
+              <sc-if value="{{ loading3d }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;display:grid;place-items:center;font-size:12px;color:var(--color-neutral-600)">Memuat model 3D…</div></sc-if>
+              <sc-if value="{{ hasErr3d }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;font-size:12px;color:#7a3412">{{ err3d }}</div></sc-if>
+              <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:4px">
+                <button class="btn btn-secondary btn-icon" style="width:40px;height:40px;background:var(--color-bg)" onClick="{{ zoomIn }}">+</button>
+                <button class="btn btn-secondary btn-icon" style="width:40px;height:40px;background:var(--color-bg)" onClick="{{ zoomOut }}">−</button>
+                <button class="btn btn-secondary btn-icon" style="width:40px;height:40px;background:var(--color-bg);font-size:11px" onClick="{{ resetView }}">⟲</button>
+              </div>
+              <span style="position:absolute;left:10px;bottom:8px;font-size:10.5px;color:var(--color-neutral-600)">Seret untuk memutar · cubit / scroll untuk zoom</span>
+            </div>
+            <div class="seg" style="display:flex">
+              <sc-for list="{{ w3Opts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:grid;place-items:center;font-size:13.5px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn btn-secondary" style="min-height:44px" onClick="{{ viewWeir }}">Fokus bendung</button><button class="btn btn-secondary" style="min-height:44px" onClick="{{ viewRes }}">Seluruh waduk · {{ resL }} m</button></div>
+            <button onClick="{{ toggleZones }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--color-divider)">
+              <span style="font-size:13.5px">Tampilkan zona retak &amp; titik guling <span style="color:var(--color-neutral-600);font-size:11.5px">· crack zones</span></span>
+              <span style="width:40px;height:22px;border:1px solid var(--color-accent);position:relative;background:{{ zoneSw.bg }}"><span style="position:absolute;top:2px;left:{{ zoneSw.left }};width:16px;height:16px;background:{{ zoneSw.knob }}"></span></span>
+            </button>
+            <button onClick="{{ toggleDims }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--color-divider)">
+              <span style="font-size:13.5px">Tampilkan label dimensi <span style="color:var(--color-neutral-600);font-size:11.5px">· dimension labels</span></span>
+              <span style="width:40px;height:22px;border:1px solid var(--color-accent);position:relative;background:{{ dimSw.bg }}"><span style="position:absolute;top:2px;left:{{ dimSw.left }};width:16px;height:16px;background:{{ dimSw.knob }}"></span></span>
+            </button>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
+              <sc-for list="{{ sumKV }}" as="r" hint-placeholder-count="6">
+                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:10.5px;line-height:1.2;color:var(--color-neutral-700)">{{ r.k }}</span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.1">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;grid-column:1/-1">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Dimensi Struktur</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Structure dimensions</span></div>
+              <table class="table" style="font-size:12.5px">
+                <thead><tr><th>Struktur · Element</th><th>Dimensi · Dimension</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ dimRows }}" as="dr" hint-placeholder-count="10">
+                    <tr><td style="vertical-align:top">{{ dr.k }}<br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ dr.en }}</span></td><td style="vertical-align:top;font-variant-numeric:tabular-nums">{{ dr.v }}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
+              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#c9c9cc;border:1px solid #2b2b2d;display:block"></i>Beton / pasangan</span>
+              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#416180;display:block"></i>Pintu baja</span>
+              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#d8663a;display:block"></i>Zona tarik / guling</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTabFem }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+              <sc-for list="{{ fieldOpts }}" as="fo" hint-placeholder-count="6">
+                <button onClick="{{ fo.on }}" style="all:unset;cursor:pointer;min-height:44px;padding:4px 6px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:1px solid var(--color-divider);background:{{ fo.bg }};color:{{ fo.fg }}"><span style="font-size:14px;font-weight:600">{{ fo.l }}</span><span style="font-size:10px;opacity:.8">{{ fo.en }}</span></button>
+              </sc-for>
+            </div>
+            <div class="blueprint" style="height:min(420px,60vh);min-height:280px;background:#f5f5f8;grid-column:1/-1"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <canvas ref="{{ femRef }}" style="width:100%;height:100%;display:block"></canvas>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="height:12px;border:1px solid var(--color-divider);background:{{ fem.grad }}"></div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-neutral-700)"><span>{{ fem.lo }}</span><span>{{ fem.mid }}</span><span>{{ fem.hi }}</span></div>
+              <span style="font-size:11.5px;color:var(--color-neutral-600)">{{ fem.title }} · {{ fem.unit }}. Biru = tekan, jingga = tarik.</span>
+            </div>
+            <div class="seg" style="display:flex">
+              <sc-for list="{{ fCaseOpts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:grid;place-items:center;font-size:13.5px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
+              </sc-for>
+            </div>
+            <button onClick="{{ toggleMesh }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--color-divider)">
+              <span style="font-size:13.5px">Tampilkan mesh <span style="color:var(--color-neutral-600);font-size:11.5px">· {{ fem.nEl }} elemen CST, {{ fem.nNd }} nodal</span></span>
+              <span style="width:40px;height:22px;border:1px solid var(--color-accent);position:relative;background:{{ meshSw.bg }}"><span style="position:absolute;top:2px;left:{{ meshSw.left }};width:16px;height:16px;background:{{ meshSw.knob }}"></span></span>
+            </button>
+            <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
+              <sc-for list="{{ femKV }}" as="r" hint-placeholder-count="6">
+                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+            <span style="font-size:11.5px;line-height:1.5;color:var(--color-neutral-600)">Model: regangan bidang, E = 20 GPa, ν = 0,20, γ = 23,5 kN/m³. Beban: berat sendiri, tekanan air hulu/hilir, lumpur, uplift (Lane), gempa. Dasar ditumpu pegas k<sub>s</sub> = {{ fem.ks }} kN/m³.</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTabCrit }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div class="seg" style="display:flex">
+              <sc-for list="{{ cCaseOpts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:grid;place-items:center;font-size:13.5px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
+              </sc-for>
+            </div>
+            <div class="blueprint" style="height:min(420px,60vh);min-height:280px;background:#f5f5f8;grid-column:1/-1"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <canvas ref="{{ critRef }}" style="width:100%;height:100%;display:block"></canvas>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
+              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#c4462a;display:block"></i>σ₁ &gt; f<sub>t</sub> ijin (retak)</span>
+              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#eaa86a;display:block"></i>σ₁ &gt; 0,5 f<sub>t</sub> (waspada)</span>
+              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:2px;background:#a8321f;display:block"></i>Resultan</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ zoneCards }}" as="z" hint-placeholder-count="4">
+                <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+                    <span style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-weight:600;font-size:18px;line-height:1.15">{{ z.t }}</span><span style="font-size:11px;color:var(--color-neutral-600)">{{ z.en }}</span></span>
+                    <sc-if value="{{ z.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">Aman</span></sc-if>
+                    <sc-if value="{{ z.warn }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Waspada</span></sc-if>
+                    <sc-if value="{{ z.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#a8321f;color:#fff">Kritis</span></sc-if>
+                  </div>
+                  <span style="font-size:12.5px;line-height:1.5">{{ z.d }}</span>
+                  <span style="font-size:11.5px;color:var(--color-neutral-600)">{{ z.m }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTabGate }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <sc-for list="{{ gateCards }}" as="gc" hint-placeholder-count="2">
+              <div class="blueprint" style="padding:14px;display:flex;flex-direction:column;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px">
+                  <span style="display:flex;flex-direction:column"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">{{ gc.kick }}</span><span style="font-family:var(--font-heading);font-weight:600;font-size:24px;line-height:1.1">{{ gc.t }}</span></span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1">{{ gc.count }}</span>
+                </div>
+                <span style="font-size:12.5px;color:var(--color-neutral-700)">{{ gc.type }}</span>
+                <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
+                  <sc-for list="{{ gc.kv }}" as="r" hint-placeholder-count="6">
+                    <div style="padding:7px 9px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:1px">
+                      <span style="font-size:10.5px;color:var(--color-neutral-700)">{{ r.k }}</span>
+                      <span style="font-family:var(--font-heading);font-weight:600;font-size:17px">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Spesifikasi Material</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Materials</span></div>
+              <table class="table" style="font-size:12.5px">
+                <thead><tr><th>Komponen</th><th>Material</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ matRows }}" as="mr" hint-placeholder-count="8">
+                    <tr><td style="vertical-align:top">{{ mr.k }}<br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ mr.en }}</span></td><td style="vertical-align:top">{{ mr.v }}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTabRep }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
+            <div class="blueprint" style="padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="display:flex;flex-direction:column"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Ringkasan kontrol · Checks</span><span style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1.05">{{ rep.pass }} / {{ rep.total }} aman</span></span>
+              <span class="tag" style="background:{{ rep.stBg }};color:{{ rep.stFg }};font-size:12px;padding:5px 10px">{{ rep.status }}</span>
+            </div>
+            <sc-for list="{{ repSections }}" as="rs" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column">
+                <span style="font-family:var(--font-heading);font-weight:600;font-size:17px;padding-bottom:4px;border-bottom:1px solid var(--color-divider)">{{ rs.t }} <span style="font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--color-neutral-600)">· {{ rs.en }}</span></span>
+                <sc-for list="{{ rs.rows }}" as="c" hint-placeholder-count="3">
+                  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:6px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
+                    <span>{{ c.k }}</span>
+                    <span style="display:flex;align-items:center;gap:8px"><span style="font-variant-numeric:tabular-nums">{{ c.v }}</span>
+                      <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ false }}"><span style="width:8px;height:8px;background:#416180;display:block"></span></sc-if>
+                      <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span style="width:8px;height:8px;background:#c4462a;display:block"></span></sc-if>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+            <label class="field" style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:11.5px;color:var(--color-neutral-800)">Catatan reviewer · Reviewer note</span>
+              <textarea class="input" style="min-height:72px" value="{{ note }}" onChange="{{ setNote }}" placeholder="mis. Perpanjang lantai muka, cek ulang data hujan stasiun."></textarea>
+            </label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button class="btn btn-secondary" style="min-height:46px" onClick="{{ askRevision }}">Minta revisi</button>
+              <button class="btn btn-primary blueprint" style="min-height:46px" onClick="{{ approve }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Setujui desain</button>
+            </div>
+            <button class="btn btn-secondary" style="min-height:46px" onClick="{{ exportPdf }}">Ekspor laporan PDF · Export</button>
+          </div>
+        </sc-if>
+      
+    </main>
+  </div>
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;right:24px;bottom:24px;max-width:360px;padding:12px 16px;background:#1d2d3d;color:#f2f2f3;font-size:13px;box-shadow:var(--shadow-md);z-index:10">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { mode: 'wizard', step: 0, tab: '3d', inp: this.defaults(), sCase: 'high', fField: 's1', fCase: 'high', cCase: 'high', mesh: false, w3: 'high', zones: true, dims3d: true, review: 'pending', note: '', err3d: '', ready3d: false, toast: '' };
+
+  defaults() { return { rain: '112, 135, 98, 156, 124, 143, 118, 167, 129, 140', A: '85', L: '22', C: '0.60', Qb: '5', zb: '45.00', zi: '49.30', QP: '3.5', QD: '0.30', Hn: '25', Ic: '0.0008', br: '40', I: '0.003', n: '0.035', m: '1.5', gs: '18', c: '15', phi: '30', soil: 3, T: 100, nP: '2', tP: '1.5', nG: '2', bG: '2.0', Cd: '1.30', fb: '1.0', bc: '2.5', md: '1.0', Lu: '15', cut1: '2.0', cut2: '1.5', kh: '0.10', ft: '60' }; }
+  soils() { return [['Pasir halus', 'Fine sand', 7.0, 15], ['Pasir kasar', 'Coarse sand', 5.0, 12], ['Kerikil halus', 'Fine gravel', 4.0, 9], ['Kerikil sedang', 'Medium gravel', 3.5, 9], ['Kerikil kasar', 'Coarse gravel', 3.0, 6], ['Bongkah', 'Boulders', 2.5, 4]]; }
+  num(v, d) { const x = parseFloat(String(v).replace(',', '.')); return isFinite(x) ? x : d; }
+
+  calc(p) {
+    const key = JSON.stringify(p); if (this._ck === key) return this._cr;
+    const D = this.defaults(), n = k => this.num(p[k], parseFloat(D[k]));
+    const g = 9.81, gw = 9.81, gc = 23.5;
+    let rain = String(p.rain).split(/[;\s,]+/).map(Number).filter(v => v > 0);
+    if (rain.length < 3) rain = D.rain.split(/[,\s]+/).map(Number).filter(v => v > 0);
+    const N = rain.length, mean = rain.reduce((a, b) => a + b, 0) / N, sd = Math.sqrt(rain.reduce((a, b) => a + (b - mean) ** 2, 0) / (N - 1));
+    const tb = [[10, .4952, .9496], [15, .5128, 1.0206], [20, .5236, 1.0628], [25, .5309, 1.0914], [30, .5362, 1.1124], [50, .5485, 1.1607], [100, .56, 1.2065]];
+    const Nc = Math.min(100, Math.max(10, N)); let Yn = .4952, Sn = .9496;
+    for (let i = 0; i < tb.length - 1; i++) if (Nc >= tb[i][0] && Nc <= tb[i + 1][0]) { const t = (Nc - tb[i][0]) / (tb[i + 1][0] - tb[i][0]); Yn = tb[i][1] + t * (tb[i + 1][1] - tb[i][1]); Sn = tb[i][2] + t * (tb[i + 1][2] - tb[i][2]); }
+    const T = +p.T || 100;
+    const gum = [2, 5, 10, 25, 50, 100].map(t => { const Yt = -Math.log(-Math.log(1 - 1 / t)); const K = (Yt - Yn) / Sn; return { T: t, Yt, K, R: mean + K * sd }; });
+    const RT = (gum.find(x => x.T === T) || gum[5]).R;
+    const A = n('A'), L = n('L'), C = n('C'), Qb = n('Qb');
+    const tg = L > 15 ? 0.4 + 0.058 * L : 0.21 * Math.pow(L, 0.7), tr = 0.75 * tg, Tp = tg + 0.8 * tr, T03 = 2 * tg, Qp = A / (3.6 * (0.3 * Tp + T03));
+    const uh = t => t <= 0 ? 0 : t < Tp ? Qp * Math.pow(t / Tp, 2.4) : t < Tp + T03 ? Qp * Math.pow(0.3, (t - Tp) / T03) : t < Tp + 2.5 * T03 ? Qp * Math.pow(0.3, (t - Tp + 0.5 * T03) / (1.5 * T03)) : Qp * Math.pow(0.3, (t - Tp + 1.5 * T03) / (2 * T03));
+    const pct = [.5848, .1520, .1066, .0849, .0717], Reff = C * RT;
+    const hyd = []; for (let t = 0; t <= 36; t += 0.5) { let q = Qb; pct.forEach((r, i) => { q += r * Reff * uh(t - i); }); hyd.push([t, q]); }
+    const Qd = Math.max(...hyd.map(h => h[1]));
+    gum.forEach(x => { x.Q = Qb + (Qd - Qb) * x.R / RT; });
+    // rating curve
+    const br = n('br'), I = n('I'), mn = n('n'), m = n('m');
+    const Qh = h => { const Ar = (br + m * h) * h, P = br + 2 * h * Math.sqrt(1 + m * m); return Ar / mn * Math.pow(Ar / P, 2 / 3) * Math.sqrt(I); };
+    let lo = 0, hi = 40; for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; if (Qh(mid) < Qd) lo = mid; else hi = mid; }
+    const hd = (lo + hi) / 2, vRiver = Qd / ((br + m * hd) * hd);
+    const rc = []; for (let i = 0; i <= 30; i++) { const h = hd * 1.35 * i / 30; rc.push([Qh(h), h]); }
+    // hydraulics
+    const zb = n('zb'), zi = n('zi'), crest = zi + 0.20, P = crest - zb;
+    const B = 1.2 * br, nP = Math.max(0, Math.round(n('nP'))), tP = n('tP'), nG = Math.max(1, Math.round(n('nG'))), bG = n('bG'), Cd = n('Cd'), fb = n('fb');
+    const Bnet = B - nP * tP, bGt = nG * bG; let H1 = 1, Be = Bnet;
+    for (let i = 0; i < 40; i++) { Be = Bnet - 0.2 * bGt - 2 * (nP * 0.01 + 0.1) * H1; H1 = Math.pow(Qd / (1.705 * Cd * Be), 2 / 3); }
+    const MAh = crest + H1, zAb = MAh + fb, TWL = zb + hd, q = Qd / Be, yc = Math.cbrt(q * q / g);
+    // stilling basin
+    let floor = zb - 0.5, y1 = 0, v1 = 0, Fr = 0, y2 = 0;
+    for (let k = 0; k < 30; k++) {
+      const E0 = MAh - floor; let a = 0.005, b2 = yc;
+      for (let i = 0; i < 60; i++) { const y = (a + b2) / 2; if (y + q * q / (2 * g * y * y) > E0) a = y; else b2 = y; }
+      y1 = (a + b2) / 2; v1 = q / y1; Fr = v1 / Math.sqrt(g * y1); y2 = y1 / 2 * (Math.sqrt(1 + 8 * Fr * Fr) - 1);
+      const nf = Math.min(zb - 0.5, TWL - 1.05 * y2); if (Math.abs(nf - floor) < 0.001) break; floor = nf;
+    }
+    let type, Lb;
+    if (Fr < 2.5) { type = 'Vlugter'; Lb = 5 * (y2 - y1); } else if (Fr < 4.5) { type = 'USBR IV'; Lb = 6.1 * y2; } else if (v1 <= 18) { type = 'USBR III'; Lb = 2.7 * y2; } else { type = 'USBR II'; Lb = 4.3 * y2; }
+    Lb = Math.ceil(Lb * 2) / 2; const ns = y1 * (18 + Fr) / 18;
+    // geometry
+    const bc = n('bc'), md = n('md'), Lu = n('Lu'), cut1 = n('cut1'), cut2 = n('cut2'), t0 = 1.0;
+    const Ebase = floor - t0, Hw = crest - Ebase, Bb = bc + md * (Hw - t0), d0 = zb - Ebase;
+    const poly = [[0, 0], [Bb, 0], [Bb, t0], [bc, Hw], [0, Hw]];
+    let ar = 0, cx = 0, cy = 0; for (let i = 0; i < poly.length; i++) { const [x0, y0] = poly[i], [x1, y1b] = poly[(i + 1) % poly.length], cr = x0 * y1b - x1 * y0; ar += cr; cx += (x0 + x1) * cr; cy += (y0 + y1b) * cr; }
+    ar /= 2; cx /= 6 * ar; cy /= 6 * ar;
+    // seepage
+    const so = this.soils()[p.soil] || this.soils()[3];
+    const Lv = 2 * cut1 + d0 + 2 * cut2, Lh = Lu + Bb + Lb, Lw = Lv + Lh / 3, Lbl = Lv + Lh, dH = crest - floor;
+    // bearing
+    const phi = n('phi') * Math.PI / 180, c = n('c'), gs = n('gs'), Df = d0;
+    const Nq = Math.exp(Math.PI * Math.tan(phi)) * Math.pow(Math.tan(Math.PI / 4 + phi / 2), 2), Ncb = phi > 0 ? (Nq - 1) / Math.tan(phi) : 5.7, Ng = 2 * (Nq + 1) * Math.tan(phi);
+    const qult = c * Ncb + gs * Df * Nq + 0.5 * gs * Bb * Ng, qall = qult / 3;
+    // stability
+    const kh = n('kh'), Lxh = 2 * cut1 + Lu / 3 + d0, Lxt = Lxh + Bb / 3;
+    const W = gc * ar;
+    const stab = (hu, hd2, khv, req) => {
+      const rows = []; const add = (nm, en, V, H, arm, res) => { const M = (res ? 1 : -1) * Math.abs(V || H) * arm; rows.push({ nm, en, V, H, M }); };
+      add('Berat sendiri', 'Self weight W', W, 0, Bb - cx, true);
+      if (hu > Hw) add('Air di atas mercu', 'Water on crest', gw * (hu - Hw) * bc, 0, Bb - bc / 2, true);
+      if (hd2 > t0) add('Air di lereng hilir', 'D/S water (vert.)', gw * 0.5 * md * (hd2 - t0) ** 2, 0, md * (hd2 - t0) / 3, true);
+      add('Tekanan air hulu', 'U/S hydrostatic', 0, 0.5 * gw * hu * hu, hu / 3, false);
+      add('Tekanan lumpur', 'Silt pressure', 0, 0.5 * (1 / 3) * 6 * P * P, d0 + P / 3, false);
+      if (hd2 > 0) add('Tekanan air hilir', 'D/S hydrostatic', 0, -0.5 * gw * hd2 * hd2, hd2 / 3, true);
+      const dHc = hu - hd2, ph = gw * Math.max(0, hu - Lxh / Lw * dHc), pt = gw * Math.max(hd2, hu - Lxt / Lw * dHc);
+      const U = (ph + pt) / 2 * Bb, xu = Bb * (ph + 2 * pt) / (3 * (ph + pt || 1));
+      add('Gaya angkat', 'Uplift U', -U, 0, Bb - xu, false);
+      if (khv > 0) add('Gempa', 'Seismic kh·W', 0, khv * W, cy, false);
+      const sumV = rows.reduce((a, r) => a + r.V, 0), sumH = rows.reduce((a, r) => a + r.H, 0);
+      const Mr = rows.filter(r => r.M > 0).reduce((a, r) => a + r.M, 0), Mo = -rows.filter(r => r.M < 0).reduce((a, r) => a + r.M, 0);
+      const SFo = Mr / Mo, SFs = (Math.tan(phi) * sumV + c * Bb) / Math.max(1e-6, sumH);
+      const a2 = (Mr - Mo) / sumV, e = Bb / 2 - a2;
+      const sMax = sumV / Bb * (1 + 6 * Math.abs(e) / Bb), sMin = sumV / Bb * (1 - 6 * Math.abs(e) / Bb);
+      const sToe = e >= 0 ? sMax : sMin, sHeel = e >= 0 ? sMin : sMax;
+      return { rows, sumV, sumH, Mr, Mo, SFo, SFs, a: a2, e, sMax, sMin, sToe, sHeel, req, hu, hd: hd2, kh: khv, ph, pt, U };
+    };
+    const cases = { low: { id: 'low', hu: Hw, hd: t0 + 0.3, kh, req: 1.25 }, high: { id: 'high', hu: MAh - Ebase, hd: Math.max(0, TWL - Ebase), kh: 0, req: 1.5 } };
+    const st = { low: stab(cases.low.hu, cases.low.hd, kh, 1.25), high: stab(cases.high.hu, cases.high.hd, 0, 1.5) };
+    // basin floor uplift (normal)
+    const pxb = cases.low.hu - Lxt / Lw * (cases.low.hu - cases.low.hd), dxReq = Math.max(0, 1.5 * gw * (pxb - cases.low.hd) / gc);
+    // bays
+    const bays = []; let z = 0, pl = nP;
+    for (let i = 0; i < nG; i++) { bays.push({ k: 'gate', z, w: bG }); z += bG; if (pl > 0) { bays.push({ k: 'pier', z, w: tP }); z += tP; pl--; } }
+    const nb = pl + 1, ws = Math.max(0.5, (B - z - pl * tP) / nb);
+    for (let i = 0; i < nb; i++) { bays.push({ k: 'spill', z, w: ws }); z += ws; if (i < nb - 1) { bays.push({ k: 'pier', z, w: tP }); z += tP; } }
+    // gates
+    const sig = 160000, mkGate = (b, hg, hw) => {
+      const F = gw * b * Math.max(0, hw * hg - hg * hg / 2), pm = gw * hw, tmm = Math.max(8, Math.ceil(0.5 * Math.sqrt(0.5 * pm / sig) * 1000 + 2));
+      const Wg = 2.0 * b * hg, hoist = 1.2 * (0.4 * F + Wg);
+      return { F, pm, tmm, Wg, hoist, drive: hoist <= 60 ? 'Manual (roda gigi + stang ulir)' : 'Elektrik (motor + stang ulir ganda)', type: (b <= 3 && hg <= 4) ? 'Pintu sorong (sliding gate) baja' : 'Pintu radial (Tainter) baja' };
+    };
+    const hgS = crest - zb + 0.3, gS = mkGate(bG, hgS, MAh - zb);
+    const sillI = zb + 1.0, aI = Math.min(1.5, Math.max(0.5, crest - 0.3 - sillI)), hgI = crest - sillI + 0.3;
+    const mkIntake = (Q, bmax) => { const bt = 1.2 * Q / (0.8 * aI * Math.sqrt(2 * g * 0.2)), nI = Math.max(1, Math.ceil(bt / bmax)), bI = Math.max(0.5, Math.ceil(bt / nI * 10) / 10); return { Q, nI, bI, W: nI * bI + (nI - 1) * 0.6, gate: mkGate(bI, hgI, MAh - sillI) }; };
+    const QP = n('QP'), QD = n('QD'), Hn = n('Hn'), Ic = n('Ic'), iP = mkIntake(QP, 2.0), iD = mkIntake(QD, 1.0);
+    const Qc = 1.2 * QP, Qr = h => { const Ac = 2 * h * h; return Ac / 0.015 * Math.pow(Ac / (4 * h), 2 / 3) * Math.sqrt(Ic); };
+    let l2 = 0.05, h2 = 10; for (let k = 0; k < 60; k++) { const mm = (l2 + h2) / 2; if (Qr(mm) < Qc) l2 = mm; else h2 = mm; }
+    const hch = Math.ceil((l2 + h2) / 2 * 20) / 20, bch = Math.ceil(2 * hch * 10) / 10, fbch = Math.max(0.4, 0.2 * hch + 0.2), vch = Qc / (bch * hch);
+    const Pkw = 9.81 * 0.85 * QP * Hn, Ekwh = Pkw * 8760 * 0.6;
+    const Dreq = Math.sqrt(4 * 1.2 * QD / Math.PI), Dstd = [0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6].find(d => d >= Dreq) || Math.ceil(Dreq * 10) / 10, vp = 1.2 * QD / (Math.PI * Dstd * Dstd / 4);
+    const hnLow = 0.5, hW = MAh - zb, dHw = Math.max(0.1, hW - hd), Lres = 2 * dHw / I, dHl = Math.max(0.1, (crest - zb) - hnLow), LresLow = 2 * dHl / I;
+    const R = { rain, N, mean, sd, Yn, Sn, gum, T, RT, Reff, tg, tr, Tp, T03, Qp, hyd, Qd, hd, vRiver, rc, br, I, mn, m, zb, zi, crest, P, B, nP, tP, nG, bG, Bnet, bGt, Be, H1, MAh, zAb, TWL, q, yc, floor, y1, v1, Fr, y2, type, Lb, ns, bc, md, Lu, cut1, cut2, t0, Ebase, Hw, Bb, d0, poly, ar, cx, cy, W, so, Lv, Lh, Lw, Lbl, dH, Nq, Ncb, Ng, qult, qall, Df, cases, st, pxb, dxReq, bays, gS, hgS, aI, hgI, sillI, iP, iD, QP, QD, Hn, Ic, hch, bch, fbch, vch, Pkw, Ekwh, Dreq, Dstd, vp, hW, dHw, Lres, hnLow, dHl, LresLow, gc, gw, phi, c, ft: n('ft'), geo: { Bb, Hw, bc, md, t0 } };
+    this._ck = key; this._cr = R; this._fc = {};
+    return R;
+  }
+
+  fem(R, cid) {
+    if (this._fc && this._fc[cid]) return this._fc[cid];
+    const cs = R.cases[cid], { Bb, Hw, bc, md, t0 } = R.geo, nx = 40, ny = 16, gw = R.gw, gc = R.gc;
+    const top = x => x <= bc ? Hw : Math.max(t0, Hw - (x - bc) / md);
+    const NN = (nx + 1) * (ny + 1), X = new Float64Array(NN), Y = new Float64Array(NN);
+    for (let i = 0; i <= nx; i++) for (let j = 0; j <= ny; j++) { const id = i * (ny + 1) + j, x = Bb * i / nx; X[id] = x; Y[id] = top(x) * j / ny; }
+    const tris = [];
+    for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) { const a = i * (ny + 1) + j, b = a + ny + 1, c = b + 1, d = a + 1; if ((i + j) % 2) { tris.push([a, b, c], [a, c, d]); } else { tris.push([a, b, d], [b, c, d]); } }
+    const E = 2e7, nu = 0.2, k = E / ((1 + nu) * (1 - 2 * nu)), Dm = [k * (1 - nu), k * nu, 0, k * nu, k * (1 - nu), 0, 0, 0, k * (1 - 2 * nu) / 2];
+    const nd = 2 * NN, K = new Float64Array(nd * nd), F = new Float64Array(nd), Bs = [];
+    for (const t of tris) {
+      let [n1, n2, n3] = t; let A2 = (X[n2] - X[n1]) * (Y[n3] - Y[n1]) - (X[n3] - X[n1]) * (Y[n2] - Y[n1]);
+      if (A2 < 0) { [n2, n3] = [n3, n2]; t[1] = n2; t[2] = n3; A2 = -A2; }
+      const A = A2 / 2, b = [Y[n2] - Y[n3], Y[n3] - Y[n1], Y[n1] - Y[n2]], c = [X[n3] - X[n2], X[n1] - X[n3], X[n2] - X[n1]];
+      const Bm = [[], [], []]; for (let q = 0; q < 3; q++) { Bm[0].push(b[q] / A2, 0); Bm[1].push(0, c[q] / A2); Bm[2].push(c[q] / A2, b[q] / A2); }
+      Bs.push(Bm);
+      const DB = [[], [], []]; for (let r = 0; r < 3; r++) for (let cc = 0; cc < 6; cc++) DB[r][cc] = Dm[r * 3] * Bm[0][cc] + Dm[r * 3 + 1] * Bm[1][cc] + Dm[r * 3 + 2] * Bm[2][cc];
+      const dofs = [2 * n1, 2 * n1 + 1, 2 * n2, 2 * n2 + 1, 2 * n3, 2 * n3 + 1];
+      for (let r = 0; r < 6; r++) for (let cc = 0; cc < 6; cc++) { K[dofs[r] * nd + dofs[cc]] += A * (Bm[0][r] * DB[0][cc] + Bm[1][r] * DB[1][cc] + Bm[2][r] * DB[2][cc]); }
+      for (const nn of [n1, n2, n3]) { F[2 * nn + 1] -= gc * A / 3; F[2 * nn] += cs.kh * gc * A / 3; }
+    }
+    const P = R.P, d0 = R.d0;
+    const pUp = y => gw * Math.max(0, cs.hu - y) + (y >= d0 ? (1 / 3) * 6 * Math.max(0, Hw - y) : 0);
+    for (let j = 0; j < ny; j++) { const a = j, b = j + 1, len = Y[b] - Y[a], fa = pUp(Y[a]) * len / 2, fb = pUp(Y[b]) * len / 2; F[2 * a] += fa; F[2 * b] += fb; }
+    for (let i = 0; i < nx; i++) {
+      const a = i * (ny + 1) + ny, b = (i + 1) * (ny + 1) + ny, dx = X[b] - X[a], dy = Y[b] - Y[a], len = Math.hypot(dx, dy), nxv = -dy / len, nyv = dx / len, ym = (Y[a] + Y[b]) / 2;
+      let p = 0; if (X[b] <= bc + 1e-9) p = gw * Math.max(0, cs.hu - ym); else p = gw * Math.max(0, cs.hd - ym);
+      if (p > 0) { const fx = -p * nxv * len / 2, fy = -p * nyv * len / 2; F[2 * a] += fx; F[2 * a + 1] += fy; F[2 * b] += fx; F[2 * b + 1] += fy; }
+    }
+    const st = R.st[cid], ks = 40 * R.qult;
+    for (let i = 0; i <= nx; i++) {
+      const id = i * (ny + 1), trib = Bb / nx * ((i === 0 || i === nx) ? 0.5 : 1), x = X[id];
+      const pu = st.ph + (st.pt - st.ph) * x / Bb; F[2 * id + 1] += pu * trib;
+      K[(2 * id + 1) * nd + 2 * id + 1] += ks * trib; K[2 * id * nd + 2 * id] += 0.5 * ks * trib;
+    }
+    const hb = 2 * (ny + 2) + 2;
+    for (let kk = 0; kk < nd; kk++) { const piv = K[kk * nd + kk], lim = Math.min(nd - 1, kk + hb); for (let i = kk + 1; i <= lim; i++) { const f = K[i * nd + kk] / piv; if (!f) continue; for (let j = kk; j <= lim; j++) K[i * nd + j] -= f * K[kk * nd + j]; F[i] -= f * F[kk]; } }
+    const U = new Float64Array(nd);
+    for (let kk = nd - 1; kk >= 0; kk--) { let s = F[kk]; const lim = Math.min(nd - 1, kk + hb); for (let j = kk + 1; j <= lim; j++) s -= K[kk * nd + j] * U[j]; U[kk] = s / K[kk * nd + kk]; }
+    const out = { sx: [], sy: [], txy: [], s1: [], s3: [], vm: [], e1: [], cxs: [], cys: [] };
+    tris.forEach((t, ei) => {
+      const Bm = Bs[ei], u = [U[2 * t[0]], U[2 * t[0] + 1], U[2 * t[1]], U[2 * t[1] + 1], U[2 * t[2]], U[2 * t[2] + 1]];
+      const ex = Bm[0].reduce((a, v, q) => a + v * u[q], 0), ey = Bm[1].reduce((a, v, q) => a + v * u[q], 0), gxy = Bm[2].reduce((a, v, q) => a + v * u[q], 0);
+      const sx = Dm[0] * ex + Dm[1] * ey, sy = Dm[3] * ex + Dm[4] * ey, txy = Dm[8] * gxy, sz = nu * (sx + sy);
+      const r = Math.sqrt(((sx - sy) / 2) ** 2 + txy * txy), re = Math.sqrt(((ex - ey) / 2) ** 2 + (gxy / 2) ** 2);
+      out.sx.push(sx); out.sy.push(sy); out.txy.push(txy); out.s1.push((sx + sy) / 2 + r); out.s3.push((sx + sy) / 2 - r);
+      out.vm.push(Math.sqrt(0.5 * ((sx - sy) ** 2 + (sy - sz) ** 2 + (sz - sx) ** 2) + 3 * txy * txy)); out.e1.push(((ex + ey) / 2 + re) * 1e6);
+      out.cxs.push((X[t[0]] + X[t[1]] + X[t[2]]) / 3); out.cys.push((Y[t[0]] + Y[t[1]] + Y[t[2]]) / 3);
+    });
+    let umax = 0; for (let i = 0; i < NN; i++) umax = Math.max(umax, Math.hypot(U[2 * i], U[2 * i + 1]));
+    const base = []; for (let i = 0; i <= nx; i++) { const id = i * (ny + 1); base.push([X[id], -ks * U[2 * id + 1]]); }
+    let im = 0; out.s1.forEach((v, i) => { if (v > out.s1[im]) im = i; });
+    const crack = [], warn = []; out.s1.forEach((v, i) => { if (v > R.ft) crack.push(i); else if (v > 0.5 * R.ft) warn.push(i); });
+    const res = { X, Y, tris, ...out, umax, base, ks, iMax: im, crack, warn, NN };
+    this._fc[cid] = res; return res;
+  }
+
+  locName(R, x, y) {
+    const { Bb, Hw, bc } = R.geo;
+    if (x < 0.25 * Bb && y < 0.35 * Hw) return ['Tumit hulu', 'Upstream heel'];
+    if (x > 0.7 * Bb) return ['Kaki hilir', 'Downstream toe'];
+    if (y > 0.75 * Hw && x < bc + 0.15 * Bb) return ['Mercu / sudut lereng', 'Crest–slope junction'];
+    return ['Badan bendung', 'Weir body'];
+  }
+
+  ramp(t, stops) { t = Math.max(0, Math.min(1, t)); const k = t * (stops.length - 1), i = Math.min(stops.length - 2, Math.floor(k)), f = k - i, a = stops[i], b = stops[i + 1]; return 'rgb(' + [0, 1, 2].map(q => Math.round(a[q] + (b[q] - a[q]) * f)).join(',') + ')'; }
+  DIV() { return [[29, 45, 61], [65, 97, 128], [116, 157, 196], [214, 235, 255], [245, 245, 248], [246, 220, 192], [234, 168, 106], [216, 102, 58], [168, 50, 31]]; }
+  SEQ() { return [[245, 245, 248], [214, 235, 255], [148, 188, 227], [89, 126, 163], [44, 69, 93], [29, 45, 61]]; }
+  fieldRange(F, f) { const a = F[f]; let lo = Infinity, hi = -Infinity; a.forEach(v => { lo = Math.min(lo, v); hi = Math.max(hi, v); }); if (f === 'vm') return { lo, hi, div: false }; const mm = Math.max(Math.abs(lo), Math.abs(hi)) || 1; return { lo: -mm, hi: mm, div: true, rlo: lo, rhi: hi }; }
+
+  paint(cv, R, F, cid, field, crack) {
+    if (!cv) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1), W = cv.clientWidth || 360, H = cv.clientHeight || 250;
+    cv.width = W * dpr; cv.height = H * dpr; const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+    const cs = R.cases[cid], st = R.st[cid], { Bb, Hw, bc, md, t0 } = R.geo, d0 = R.d0, topY = Math.max(Hw, cs.hu) + 0.4, ext = 2.5;
+    const s = Math.min((W - 20) / (Bb + 2 * ext), (H - 50) / (topY + 1.6)), ox = (W - (Bb + 2 * ext) * s) / 2 + ext * s, oy = 14 + topY * s;
+    const X = x => ox + x * s, Y = y => oy - y * s;
+    c.fillStyle = '#dedee1'; c.fillRect(0, Y(0), W, H - Y(0)); c.fillRect(0, Y(d0), X(0), Y(0) - Y(d0)); c.fillRect(X(Bb), Y(t0), W - X(Bb), Y(0) - Y(t0));
+    c.strokeStyle = 'rgba(29,31,32,.18)'; c.lineWidth = 1; for (let xx = -H; xx < W; xx += 8) { c.beginPath(); c.moveTo(xx, H); c.lineTo(xx + (H - Y(0)), Y(0)); c.stroke(); }
+    c.fillStyle = 'rgba(89,128,166,.22)'; c.fillRect(0, Y(cs.hu), X(0), Y(d0) - Y(cs.hu));
+    if (cs.hu > Hw) c.fillRect(X(0), Y(cs.hu), X(bc) - X(0), Y(Hw) - Y(cs.hu));
+    if (cs.hd > t0) { const hh = Math.min(cs.hd, Hw), xs = bc + md * (Hw - hh); c.beginPath(); c.moveTo(W, Y(cs.hd)); c.lineTo(X(xs), Y(cs.hd)); c.lineTo(X(Bb), Y(t0)); c.lineTo(W, Y(t0)); c.closePath(); c.fill(); }
+    c.strokeStyle = '#416180'; c.setLineDash([4, 3]); c.beginPath(); c.moveTo(0, Y(cs.hu)); c.lineTo(X(bc), Y(cs.hu)); c.stroke(); if (cs.hd > 0) { c.beginPath(); c.moveTo(X(Bb - md * (cs.hd - t0)), Y(cs.hd)); c.lineTo(W, Y(cs.hd)); c.stroke(); } c.setLineDash([]);
+    const rg = this.fieldRange(F, field), arr = F[field];
+    F.tris.forEach((t, i) => {
+      let col;
+      if (crack) { const v = F.s1[i]; col = v > R.ft ? '#c4462a' : v > 0.5 * R.ft ? '#eaa86a' : '#e7e7ea'; }
+      else { const v = arr[i]; col = rg.div ? this.ramp(0.5 + 0.5 * v / rg.hi, this.DIV()) : this.ramp((v - rg.lo) / ((rg.hi - rg.lo) || 1), this.SEQ()); }
+      c.beginPath(); c.moveTo(X(F.X[t[0]]), Y(F.Y[t[0]])); c.lineTo(X(F.X[t[1]]), Y(F.Y[t[1]])); c.lineTo(X(F.X[t[2]]), Y(F.Y[t[2]])); c.closePath();
+      c.fillStyle = col; c.fill(); c.strokeStyle = (this.state.mesh || crack) ? 'rgba(29,31,32,.22)' : col; c.lineWidth = 0.5; c.stroke();
+    });
+    c.strokeStyle = '#1d1f20'; c.lineWidth = 1.2; c.beginPath(); R.poly.forEach((p, i) => i ? c.lineTo(X(p[0]), Y(p[1])) : c.moveTo(X(p[0]), Y(p[1]))); c.closePath(); c.stroke();
+    c.font = '10px Barlow, sans-serif'; c.fillStyle = '#2c455d';
+    c.fillText('MA hulu +' + (R.Ebase + cs.hu).toFixed(2), 4, Y(cs.hu) - 4);
+    if (cs.hd > 0) { c.textAlign = 'right'; c.fillText('MA hilir +' + (R.Ebase + cs.hd).toFixed(2), W - 4, Y(cs.hd) - 4); c.textAlign = 'left'; }
+    if (crack) {
+      const pm = Math.max(...F.base.map(b => Math.abs(b[1]))) || 1, sc = 1.1 / pm;
+      c.fillStyle = 'rgba(65,97,128,.3)'; c.strokeStyle = '#416180'; c.beginPath(); c.moveTo(X(0), Y(0)); F.base.forEach(b => c.lineTo(X(b[0]), Y(-b[1] * sc))); c.lineTo(X(Bb), Y(0)); c.closePath(); c.fill(); c.stroke();
+      const xr = Bb - st.a; c.strokeStyle = '#a8321f'; c.lineWidth = 2; c.beginPath(); c.moveTo(X(xr), Y(Hw * 0.75)); c.lineTo(X(xr), Y(0.15)); c.stroke();
+      c.fillStyle = '#a8321f'; c.beginPath(); c.moveTo(X(xr) - 5, Y(0.15) - 8); c.lineTo(X(xr) + 5, Y(0.15) - 8); c.lineTo(X(xr), Y(0.15)); c.closePath(); c.fill();
+      c.fillText('R', X(xr) + 5, Y(Hw * 0.75) + 8);
+      c.strokeStyle = '#1d1f20'; c.lineWidth = 1; c.beginPath(); c.arc(X(Bb), Y(0), 4, 0, Math.PI * 2); c.stroke();
+      c.fillStyle = '#1d1f20'; c.textAlign = 'right'; c.fillText('titik guling', X(Bb) - 6, Y(0) + 14); c.textAlign = 'left';
+      c.fillStyle = '#416180'; c.fillText('tekanan kontak dasar', X(0), Y(-1.1) + 12);
+    }
+  }
+
+  async init3D(el) {
+    try {
+      const T = this._T || (this._T = await import('https://unpkg.com/three@0.160.0/build/three.module.js'));
+      if (this._el3d !== el) return;
+      const renderer = new T.WebGLRenderer({ canvas: el, antialias: true, alpha: true, logarithmicDepthBuffer: true });
+      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      const scene = new T.Scene(), camera = new T.PerspectiveCamera(38, 1, 0.5, 60000);
+      scene.add(new T.HemisphereLight(0xffffff, 0x8a8a90, 1.7));
+      const dl = new T.DirectionalLight(0xffffff, 1.5); dl.position.set(40, 90, -50); scene.add(dl);
+      const group = new T.Group(); scene.add(group);
+      this.g3 = { T, renderer, scene, camera, group, th: 0.75, ph: 1.05, r: 90, tg: new T.Vector3(), key: '', el, lineMat: new T.LineBasicMaterial({ color: 0x2b2b2d, transparent: true, opacity: 0.35 }) };
+      this.orbit(el); this.build3D(true); this.setState({ ready3d: true, err3d: '' });
+    } catch (e) { this.setState({ err3d: 'Model 3D gagal dimuat (' + e.message + ')' }); }
+  }
+
+  orbit(el) {
+    const pts = new Map(); let pd = 0;
+    el.style.touchAction = 'none';
+    el.onpointerdown = e => { el.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); if (pts.size === 2) { const [a, b] = [...pts.values()]; pd = Math.hypot(a[0] - b[0], a[1] - b[1]); } };
+    el.onpointermove = e => {
+      const g = this.g3; if (!g || !pts.has(e.pointerId)) return; const pr = pts.get(e.pointerId);
+      if (pts.size === 1) { g.th += (e.clientX - pr[0]) * 0.008; g.ph = Math.min(1.5, Math.max(0.15, g.ph - (e.clientY - pr[1]) * 0.006)); }
+      pts.set(e.pointerId, [e.clientX, e.clientY]);
+      if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]); if (pd) g.r = Math.min(9000, Math.max(15, g.r * pd / d)); pd = d; }
+      this.draw3D();
+    };
+    el.onpointerup = el.onpointercancel = e => { pts.delete(e.pointerId); pd = 0; };
+    el.onwheel = e => { e.preventDefault(); const g = this.g3; if (!g) return; g.r = Math.min(9000, Math.max(15, g.r * (1 + e.deltaY * 0.001))); this.draw3D(); };
+  }
+
+  draw3D() {
+    const g = this.g3; if (!g) return; const el = g.el, w = el.clientWidth || 360, h = el.clientHeight || 330;
+    if (w !== g.w || h !== g.h) { g.renderer.setSize(w, h, false); g.camera.aspect = w / h; g.camera.updateProjectionMatrix(); g.w = w; g.h = h; }
+    g.camera.position.set(g.tg.x + g.r * Math.sin(g.ph) * Math.cos(g.th), g.tg.y + g.r * Math.cos(g.ph), g.tg.z + g.r * Math.sin(g.ph) * Math.sin(g.th));
+    g.camera.lookAt(g.tg); if (g.dimGroup) g.dimGroup.visible = !!this.state.dims3d; g.renderer.render(g.scene, g.camera); this.posLabels();
+  }
+
+  build3D(reset) {
+    const g = this.g3; if (!g) return; const s = this.state, R = this.calc(s.inp), T = g.T;
+    const key = JSON.stringify(s.inp) + s.w3 + s.zones; if (g.key === key) { this.draw3D(); return; } g.key = key;
+    while (g.group.children.length) { const ch = g.group.children.pop(); ch.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
+    const M = (cl, o = {}) => new T.MeshStandardMaterial({ color: cl, roughness: 0.85, metalness: 0, side: T.DoubleSide, ...o });
+    const mC = M(0xcfcfd2), mP = M(0xa9a9ad), mS = M(0x416180, { metalness: 0.4, roughness: 0.5 }), mG = M(0xd9d9dc), mB = M(0xe4e4e7), mW = M(0x5980a6, { transparent: true, opacity: 0.42, depthWrite: false, roughness: 0.2 }), mZ = M(0xd8663a, { transparent: true, opacity: 0.6, depthWrite: false }), mZ2 = M(0xc4462a, { transparent: true, opacity: 0.75, depthWrite: false }), mL = M(0xc4462a, { transparent: true, opacity: 0.22, depthWrite: false }), mLs = M(0xa8321f);
+    const add = (geo, mat, x, y, z, edge) => { const m = new T.Mesh(geo, mat); m.position.set(x, y, z); if (edge) m.add(new T.LineSegments(new T.EdgesGeometry(geo, 25), g.lineMat)); g.group.add(m); return m; };
+    const box = (x0, x1, y0, y1, z0, z1, mat, edge = true) => add(new T.BoxGeometry(Math.max(0.01, x1 - x0), Math.max(0.01, y1 - y0), Math.max(0.01, z1 - z0)), mat, (x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2, edge);
+    const mk = (pos, idx, mat) => { const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); geo.setIndex(idx); geo.computeVertexNormals(); return add(geo, mat, 0, 0, 0, false); };
+    const strip = (x0, x1, z0, z1, yf, mat, nx = 60) => { const pos = [], idx = []; for (let i = 0; i <= nx; i++) { const x = x0 + (x1 - x0) * i / nx; pos.push(x, yf(x), z0, x, yf(x), z1); if (i < nx) { const a = 2 * i; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } } return mk(pos, idx, mat); };
+    const wall = (x0, x1, z, yb, yt, mat, nx = 60) => { const pos = [], idx = []; for (let i = 0; i <= nx; i++) { const x = x0 + (x1 - x0) * i / nx; pos.push(x, yb(x), z, x, yt(x), z); if (i < nx) { const a = 2 * i; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } } return mk(pos, idx, mat); };
+    const { Bb, bc } = R.geo, B = R.B, yE = R.Ebase - R.zb, yC = R.crest - R.zb, yAb = R.zAb - R.zb, yF = R.floor - R.zb, yM = R.MAh - R.zb, yT = R.TWL - R.zb, Lb = R.Lb, Lu = R.Lu, high = s.w3 === 'high', I = R.I;
+    const bed = x => x < 0 ? -x * I : 0, Lr = R.Lres, sc = Math.max(1, Lr / 300), xEnd = -Lr - Math.max(80, Lr * 0.08), xEndW = Bb + Lb + 3;
+    const spl = R.bays.filter(b => b.k === 'spill'), mid = spl[Math.floor(spl.length / 2)], zm = mid ? mid.z + mid.w / 2 : B / 2;
+    R.bays.forEach(b => {
+      if (b.k === 'spill') { const sh = new T.Shape(); R.poly.forEach((p, i) => i ? sh.lineTo(p[0], p[1] + yE) : sh.moveTo(p[0], p[1] + yE)); sh.closePath(); add(new T.ExtrudeGeometry(sh, { depth: b.w, bevelEnabled: false }), mC, 0, 0, b.z, true); }
+      else if (b.k === 'gate') { box(0, Bb, yE, 0, b.z, b.z + b.w, mC); const gy = high ? yM + 0.3 : 0; box(0.5, 0.75, gy, gy + R.hgS, b.z + 0.05, b.z + b.w - 0.05, mS); box(0.3, 1.0, yAb, yAb + 1.2, b.z + b.w * 0.3, b.z + b.w * 0.7, mS); }
+      else box(-2.5, Bb + 1.5, yE, yAb, b.z, b.z + b.w, mP);
+    });
+    const ySill = R.sillI - R.zb, yLin = ySill + R.hgI, wP = Math.max(R.iP.W, R.bch), xP1 = -3, xP0 = xP1 - wP, wD = R.iD.W, xD1 = -3, xD0 = xD1 - wD, yChF = ySill - 0.3;
+    const gates = (x0, w, it, z0, z1) => { const sx = x0 + (w - it.W) / 2; for (let i = 0; i < it.nI; i++) { const gx = sx + i * (it.bI + 0.6); box(gx, gx + it.bI, ySill, yLin, z0, z1, mS); if (i < it.nI - 1) box(gx + it.bI, gx + it.bI + 0.6, ySill, yLin, z0 - 0.3, z1 + 0.3, mP); } };
+    const wallSplit = (z0, z1, xa, xb) => { box(-Lu, xa, yE, yAb, z0, z1, mP); box(xb, xEndW, yE, yAb, z0, z1, mP); box(xa, xb, yE, ySill, z0, z1, mP); box(xa, xb, yLin, yAb, z0, z1, mP); };
+    wallSplit(-1, 0, xP0, xP1); gates(xP0, wP, R.iP, -0.6, -0.45);
+    wallSplit(B, B + 1, xD0, xD1); gates(xD0, wD, R.iD, B + 0.45, B + 0.6);
+    box(0.2, 1.8, yAb - 0.7, yAb, -1, B + 1, mC);
+    box(-Lu, 0, -0.6, 0, 0, B, mC);
+    box(Bb, Bb + Lb, yF - 1, yF, 0, B, mC);
+    box(Bb + Lb - 1, Bb + Lb, yF, yF + R.ns, 0, B, mC);
+    if (R.type === 'USBR III' || R.type === 'USBR II') { const w = Math.max(0.4, R.y1), n = Math.min(40, Math.floor(B / (2.5 * w))); for (let i = 0; i < n; i++) { const z = (i + 0.5) * B / n; box(Bb + 0.2, Bb + 0.2 + 2 * w, yF, yF + w, z - w / 2, z + w / 2, mC); if (R.type === 'USBR III') box(Bb + 0.8 * R.y2, Bb + 0.8 * R.y2 + w, yF, yF + 0.2 * R.y2 + 0.3, z - w / 2, z + w / 2, mC); } }
+    // left bank + PLTA headrace channel
+    box(-Lu, xP0 - 0.3, -2, yAb, -40, -1, mG, false); box(xP1 + 0.3, 120, -2, yAb, -40, -1, mG, false);
+    box(xP0 - 0.3, xP1 + 0.3, -2, yChF, -40, -1, mC, false);
+    box(xP0 - 0.3, xP0, yChF, yAb, -40, -1, mC); box(xP1, xP1 + 0.3, yChF, yAb, -40, -1, mC);
+    box(xP0, xP1, yChF, yChF + R.hch, -40, -1, mW, false);
+    // right bank + PDAM chamber & pipe
+    box(-Lu, 120, -2, yAb, B + 1, B + 40, mG, false);
+    box(xD0 - 0.5, xD1 + 0.5, yAb, yAb + 2.5, B + 1.2, B + 4.2, mC);
+    { const D = R.Dstd, pm = add(new T.CylinderGeometry(D / 2, D / 2, 36, 20), mS, (xD0 + xD1) / 2, yAb + 0.3 + D / 2, B + 22.2, false); pm.rotation.x = Math.PI / 2; }
+    // reservoir terrain
+    strip(xEnd, -Lu, -1, B + 1, bed, mB);
+    strip(xEnd, -Lu, -40, -1, x => bed(x) + yAb, mG); strip(xEnd, -Lu, B + 1, B + 40, x => bed(x) + yAb, mG);
+    wall(xEnd, -Lu, -1, bed, x => bed(x) + yAb, mG); wall(xEnd, -Lu, B + 1, bed, x => bed(x) + yAb, mG);
+    box(Bb + Lb, 120, -2, 0, 0, B, mB, false);
+    // water
+    const hn = high ? R.hd : R.hnLow, hW0 = high ? yM : yC, Lw = high ? R.Lres : R.LresLow;
+    const wl = x => { const d = -x; return bed(x) + hn + (d >= Lw ? 0 : (hW0 - hn) * Math.pow(1 - d / Lw, 2)); };
+    strip(xEnd, 0, 0, B, wl, mW, 200);
+    if (high) box(0, bc, yC, yM - 0.4, 0, B, mW, false);
+    box(Bb, 120, yF, high ? yT : yF + 0.4, 0, B, mW, false);
+    // reservoir boundary
+    const yb0 = bed(-Lr), yTop = yb0 + yAb;
+    box(-Lr - 0.4 * sc, -Lr + 0.4 * sc, yb0 - 0.5, yTop + 4 * sc, -40, B + 40, mL, false);
+    box(-Lr - 0.6 * sc, -Lr + 0.6 * sc, yTop, yTop + 5 * sc, -6 - sc, -6, mLs); box(-Lr - 0.6 * sc, -Lr + 0.6 * sc, yTop, yTop + 5 * sc, B + 6, B + 6 + sc, mLs);
+    box(-Lr - 0.2 * sc, -Lr + 0.2 * sc, yTop + 4.6 * sc, yTop + 5 * sc, -6 - sc, B + 6 + sc, mLs);
+    if (s.zones) {
+      const z0 = spl[0] ? spl[0].z : 0, z1 = spl.length ? spl[spl.length - 1].z + spl[spl.length - 1].w : B;
+      ['low', 'high'].forEach(cid => { const F = this.fem(R, cid), ids = F.crack.concat(F.warn); const grp = {}; ids.forEach(i => { const nm = this.locName(R, F.cxs[i], F.cys[i])[0]; const gg = grp[nm] || (grp[nm] = { x0: 1e9, x1: -1e9, y0: 1e9, y1: -1e9, c: false }); gg.x0 = Math.min(gg.x0, F.cxs[i]); gg.x1 = Math.max(gg.x1, F.cxs[i]); gg.y0 = Math.min(gg.y0, F.cys[i]); gg.y1 = Math.max(gg.y1, F.cys[i]); if (F.crack.includes(i)) gg.c = true; }); Object.values(grp).forEach(gg => box(gg.x0 - 0.3, gg.x1 + 0.3, yE + gg.y0 - 0.3, yE + gg.y1 + 0.3, z0 - 0.05, z1 + 0.05, gg.c ? mZ2 : mZ, false)); });
+      box(Bb - 0.2, Bb + 0.2, yE - 0.1, yE + 0.35, z0 - 0.1, z1 + 0.1, mZ2, false);
+    }
+    // dimensions drawn on the model
+    g.dimGroup = new T.Group(); g.group.add(g.dimGroup);
+    const dpos = [], A = [], V3 = (x, y, z) => new T.Vector3(x, y, z), f = (v, d = 2) => Number(v).toFixed(d);
+    const dim = (a, b, off, t) => { const p1 = a.clone().add(off), p2 = b.clone().add(off), ol = off.length() || 1, tl = Math.max(0.35, a.distanceTo(b) * 0.012), tk = off.clone().multiplyScalar(tl / ol), dir = p2.clone().sub(p1).normalize().multiplyScalar(tl);
+      const push = (u, v) => dpos.push(u.x, u.y, u.z, v.x, v.y, v.z);
+      push(a, p1.clone().add(tk)); push(b, p2.clone().add(tk)); push(p1, p2);
+      push(p1.clone().sub(dir).sub(tk), p1.clone().add(dir).add(tk)); push(p2.clone().sub(dir).sub(tk), p2.clone().add(dir).add(tk));
+      A.push({ k: 'dim', p: p1.clone().add(p2).multiplyScalar(0.5), t }); };
+    dim(V3(-3, yAb + 0.2, 0), V3(-3, yAb + 0.2, B), V3(0, 2.4, 0), 'B ' + f(B) + ' m');
+    R.bays.filter(b => b.k !== 'pier').forEach(b => dim(V3(Bb + 1.5, yAb, b.z), V3(Bb + 1.5, yAb, b.z + b.w), V3(0, 1.2, 0), f(b.w)));
+    dim(V3(-Lu, yAb, B + 1), V3(0, yAb, B + 1), V3(0, 0.3, 5), 'Lantai muka ' + f(Lu, 1) + ' m');
+    dim(V3(0, yAb, B + 1), V3(Bb, yAb, B + 1), V3(0, 0.3, 5), 'Tubuh ' + f(Bb) + ' m');
+    dim(V3(Bb, yAb, B + 1), V3(Bb + Lb, yAb, B + 1), V3(0, 0.3, 5), 'Kolam olak ' + f(Lb, 1) + ' m');
+    dim(V3(0, 0, zm), V3(0, yC, zm), V3(-2.5, 0, 0), 'P ' + f(R.P) + ' m');
+    dim(V3(bc, yC, zm), V3(bc, yM, zm), V3(2.5, 0, 0), 'H₁ ' + f(R.H1) + ' m');
+    dim(V3(Bb + Lb, yF, zm), V3(Bb + Lb, 0, zm), V3(2.5, 0, 0), 'd ' + f(R.zb - R.floor) + ' m');
+    dim(V3(xEndW, yE, -1), V3(xEndW, yAb, -1), V3(2, 0, 0), 'Tinggi pangkal ' + f(R.zAb - R.Ebase) + ' m');
+    dim(V3(xP0, yAb, -24), V3(xP1, yAb, -24), V3(0, 1.2, 0), 'b ' + f(R.bch) + ' m');
+    { const yR = yTop + 3 * sc; dim(V3(-Lr, yR, -1), V3(0, yR, -1), V3(0, 0, -14 * sc), 'Panjang genangan L = 2h/I = ' + f(Lr, 0) + ' m'); }
+    const lg = new T.BufferGeometry(); lg.setAttribute('position', new T.Float32BufferAttribute(dpos, 3));
+    const ls = new T.LineSegments(lg, new T.LineBasicMaterial({ color: 0x1d2d3d, depthTest: false, transparent: true })); ls.renderOrder = 10; g.dimGroup.add(ls);
+    const call = (p, t) => A.push({ k: 'call', p, t });
+    call(V3(bc / 2, yC, zm), 'Mercu +' + f(R.crest));
+    { const pier = R.bays.find(b => b.k === 'pier'), gate = R.bays.find(b => b.k === 'gate');
+      if (pier) call(V3(Bb + 1.5, yAb, pier.z + pier.w / 2), 'Pilar ' + R.nP + ' × ' + f(R.tP) + ' m');
+      if (gate) call(V3(0.6, (high ? yM + 0.3 : 0) + R.hgS, gate.z + gate.w / 2), 'Pintu pembilas ' + R.nG + ' × ' + f(R.bG) + ' × ' + f(R.hgS) + ' m'); }
+    call(V3(Bb + Lb / 2, yF, B * 0.3), 'Kolam olak ' + R.type);
+    call(V3(Bb + Lb - 0.5, yF + R.ns, B * 0.75), 'Ambang ujung ' + f(R.ns) + ' m');
+    call(V3(xEndW - 2, yAb, B + 0.5), 'Pangkal +' + f(R.zAb));
+    call(V3((xP0 + xP1) / 2, yAb, -8), 'Intake PLTA ' + R.iP.nI + ' × ' + f(R.iP.bI) + ' × ' + f(R.hgI) + ' m');
+    call(V3((xP0 + xP1) / 2, yChF + R.hch, -34), 'Saluran PLTA ' + f(R.bch) + ' × ' + f(R.hch + R.fbch) + ' m · ' + f(R.Pkw, 0) + ' kW');
+    call(V3((xD0 + xD1) / 2, yAb + 2.5, B + 2.7), 'Intake PDAM ' + R.iD.nI + ' × ' + f(R.iD.bI) + ' m · pipa Ø' + Math.round(R.Dstd * 1000) + ' mm');
+    call(V3(-Lr, yTop + 5 * sc, B / 2), 'Batas genangan waduk · MA +' + f(R.zb + wl(-Lr)));
+    g.anchors = A; g.lblHost = null;
+    if (reset || !g.init) { g.tg.set(Bb / 2 + 2, yE * 0.3, B / 2); g.r = Math.max(B, 50) * 1.7; g.init = true; }
+    this.draw3D();
+  }
+
+  setView(v) {
+    const g = this.g3; if (!g) return; const R = this.calc(this.state.inp);
+    if (v === 'res') { const x0 = -R.Lres - Math.max(80, R.Lres * 0.08), x1 = R.geo.Bb + R.Lb + 20, span = x1 - x0, asp = (g.w || 600) / (g.h || 400), t = Math.tan(g.camera.fov * Math.PI / 360); g.tg.set((x0 + x1) / 2, 0, R.B / 2); g.th = Math.PI / 2; g.ph = 0.9; g.r = Math.min(9000, (span / 2) / (t * Math.min(asp, 1.6)) * 1.4 + 60); }
+    else { g.tg.set(R.geo.Bb / 2 + 2, (R.Ebase - R.zb) * 0.3, R.B / 2); g.r = Math.max(R.B, 50) * 1.7; g.th = 0.75; g.ph = 1.05; }
+    this.draw3D();
+  }
+
+  posLabels() {
+    const g = this.g3, host = this._lblEl; if (!g || !host || !g.anchors) return;
+    host.style.display = this.state.dims3d ? '' : 'none'; if (!this.state.dims3d) return;
+    if (g.lblHost !== host) { host.innerHTML = ''; g.lblEls = g.anchors.map(a => { const d = document.createElement('div');
+      if (a.k === 'dim') { d.style.cssText = 'position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font:600 10.5px/1.2 Barlow,sans-serif;color:#1d2d3d;background:rgba(242,242,243,.85);padding:0 3px'; d.textContent = a.t; }
+      else { d.style.cssText = 'position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);white-space:nowrap'; d.innerHTML = '<span style="font:500 10.5px/1.25 Barlow,sans-serif;color:#1d2d3d;background:rgba(242,242,243,.92);border:1px solid rgba(29,31,32,.35);padding:2px 6px"></span><span style="width:1px;height:12px;background:#1d2d3d"></span><span style="width:5px;height:5px;background:#1d2d3d"></span>'; d.firstChild.textContent = a.t; }
+      host.appendChild(d); return d; }); g.lblHost = host; }
+    const w = g.w || host.clientWidth, h = g.h || host.clientHeight;
+    const placed = [], hit = rc => placed.some(q => rc.x0 < q.x1 && rc.x1 > q.x0 && rc.y0 < q.y1 && rc.y1 > q.y0);
+    const order = g.anchors.map((a, i) => i).sort((i, j) => (g.anchors[i].k === 'dim' ? 0 : 1) - (g.anchors[j].k === 'dim' ? 0 : 1));
+    order.forEach(i => { const a = g.anchors[i], v = a.p.clone().project(g.camera), el = g.lblEls[i], x = (v.x + 1) / 2 * w, y = (1 - v.y) / 2 * h;
+      if (!(v.z < 1 && x > 0 && x < w && y > 0 && y < h)) { el.style.display = 'none'; return; }
+      el.style.display = a.k === 'dim' ? 'block' : 'flex'; el.style.left = x.toFixed(1) + 'px';
+      const ew = el.offsetWidth, eh = a.k === 'dim' ? el.offsetHeight : el.firstChild.offsetHeight;
+      if (a.k === 'dim') { const rc = { x0: x - ew / 2 - 2, x1: x + ew / 2 + 2, y0: y - eh / 2 - 1, y1: y + eh / 2 + 1 }; if (hit(rc) || rc.x0 < 0 || rc.x1 > w) { el.style.display = 'none'; return; } placed.push(rc); el.style.top = y.toFixed(1) + 'px'; return; }
+      let ok = false, lead = 12;
+      for (let k = 0; k < 6; k++) { lead = 12 + k * 18; const top = y + 2.5 - 5 - lead - eh, rc = { x0: x - ew / 2 - 2, x1: x + ew / 2 + 2, y0: top - 1, y1: top + eh + 1 }; if (rc.x0 < 0 || rc.x1 > w || rc.y0 < 0) break; if (!hit(rc)) { placed.push(rc); ok = true; break; } }
+      if (!ok) { el.style.display = 'none'; return; }
+      el.children[1].style.height = lead + 'px'; el.style.top = (y + 2.5).toFixed(1) + 'px'; });
+  }
+
+  ref3d = el => { if (el === this._el3d) return; if (this.g3) { this.g3.renderer.dispose(); this.g3 = null; } this._el3d = el; if (el) { this.setState({ ready3d: false }); this.init3D(el); } };
+  femRef = el => { this._femEl = el; if (el) requestAnimationFrame(() => this.drawFem()); };
+  critRef = el => { this._critEl = el; if (el) requestAnimationFrame(() => this.drawCrit()); };
+  scrollRef = el => { this._scEl = el; };
+  lbl3dRef = el => { this._lblEl = el; if (this.g3) this.g3.lblHost = null; };
+  drawFem() { if (!this._femEl) return; const R = this.calc(this.state.inp); this.paint(this._femEl, R, this.fem(R, this.state.fCase), this.state.fCase, this.state.fField, false); }
+  drawCrit() { if (!this._critEl) return; const R = this.calc(this.state.inp); this.paint(this._critEl, R, this.fem(R, this.state.cCase), this.state.cCase, 's1', true); }
+  componentDidUpdate(pp, ps) {
+    if (this.g3) this.build3D(); this.drawFem(); this.drawCrit();
+    if (this._scEl && (ps.step !== this.state.step || ps.tab !== this.state.tab || ps.mode !== this.state.mode)) this._scEl.scrollTop = 0;
+  }
+  componentWillUnmount() { if (this.g3) this.g3.renderer.dispose(); clearTimeout(this._tt); }
+  goTab(t) { this.setState({ mode: 'dash', tab: t }); window.scrollTo(0, 0); }
+  svgT() { return ["<svg style=\"display:block;width:100%;height:auto\" viewBox=\"0 0 340 150\">\n                <line x1=\"34\" y1=\"130\" x2=\"332\" y2=\"130\" stroke=\"#98989b\" stroke-width=\"1\"></line>\n                <line x1=\"34\" y1=\"12\" x2=\"34\" y2=\"130\" stroke=\"#98989b\" stroke-width=\"1\"></line>\n                <line x1=\"34\" y1=\"{{ hid.peakY }}\" x2=\"332\" y2=\"{{ hid.peakY }}\" stroke=\"#94bce3\" stroke-dasharray=\"3 3\"></line>\n                <path d=\"{{ hid.path }}\" fill=\"none\" stroke=\"#416180\" stroke-width=\"2\"></path>\n                <text x=\"30\" y=\"{{ hid.peakY }}\" text-anchor=\"end\" font-size=\"9\" fill=\"#5d5d60\" dominant-baseline=\"middle\">{{ hid.Qd0 }}</text>\n                <text x=\"332\" y=\"143\" text-anchor=\"end\" font-size=\"9\" fill=\"#5d5d60\">36 jam</text>\n                <text x=\"36\" y=\"143\" font-size=\"9\" fill=\"#5d5d60\">0</text>\n                <text x=\"40\" y=\"20\" font-size=\"9\" fill=\"#5d5d60\">Q (m³/s)</text>\n              </svg>","<svg style=\"display:block;width:100%;height:auto\" viewBox=\"0 0 340 150\">\n                <line x1=\"34\" y1=\"130\" x2=\"332\" y2=\"130\" stroke=\"#98989b\"></line>\n                <line x1=\"34\" y1=\"12\" x2=\"34\" y2=\"130\" stroke=\"#98989b\"></line>\n                <path d=\"{{ rc.path }}\" fill=\"none\" stroke=\"#416180\" stroke-width=\"2\"></path>\n                <line x1=\"34\" y1=\"{{ rc.py }}\" x2=\"{{ rc.px }}\" y2=\"{{ rc.py }}\" stroke=\"#94bce3\" stroke-dasharray=\"3 3\"></line>\n                <line x1=\"{{ rc.px }}\" y1=\"{{ rc.py }}\" x2=\"{{ rc.px }}\" y2=\"130\" stroke=\"#94bce3\" stroke-dasharray=\"3 3\"></line>\n                <rect x=\"{{ rc.px4 }}\" y=\"{{ rc.py4 }}\" width=\"8\" height=\"8\" fill=\"#1d2d3d\"></rect>\n                <text x=\"30\" y=\"{{ rc.py }}\" text-anchor=\"end\" font-size=\"9\" fill=\"#5d5d60\" dominant-baseline=\"middle\">{{ rc.h }}</text>\n                <text x=\"{{ rc.px }}\" y=\"143\" text-anchor=\"middle\" font-size=\"9\" fill=\"#5d5d60\">{{ rc.Q }}</text>\n                <text x=\"40\" y=\"20\" font-size=\"9\" fill=\"#5d5d60\">h (m)</text>\n                <text x=\"332\" y=\"124\" text-anchor=\"end\" font-size=\"9\" fill=\"#5d5d60\">Q (m³/s)</text>\n              </svg>","<svg style=\"display:block;width:100%;height:auto\" viewBox=\"0 0 340 186\">\n                <rect x=\"0\" y=\"0\" width=\"340\" height=\"44\" fill=\"#d6ebff\"></rect>\n                <sc-for list=\"{{ planRects }}\" as=\"pr\" hint-placeholder-count=\"6\">\n                  <rect x=\"{{ pr.x }}\" y=\"{{ pr.y }}\" width=\"{{ pr.w }}\" height=\"{{ pr.h }}\" fill=\"{{ pr.fill }}\" stroke=\"#2b2b2d\" stroke-width=\"0.6\"></rect>\n                </sc-for>\n                <text x=\"8\" y=\"14\" font-size=\"9\" fill=\"#2c455d\">HULU · U/S</text>\n                <text x=\"8\" y=\"142\" font-size=\"9\" fill=\"#5d5d60\">HILIR · D/S</text>\n                <sc-for list=\"{{ planDims }}\" as=\"dm\" hint-placeholder-count=\"4\"><path d=\"{{ dm.d }}\" stroke=\"#1d2d3d\" stroke-width=\"0.7\" fill=\"none\"></path><text x=\"{{ dm.tx }}\" y=\"{{ dm.ty }}\" font-size=\"7.5\" fill=\"#1d2d3d\" text-anchor=\"{{ dm.an }}\" stroke=\"#f2f2f3\" stroke-width=\"2.5\" paint-order=\"stroke\">{{ dm.t }}</text></sc-for>\n              </svg>","<svg style=\"display:block;width:100%;height:auto\" viewBox=\"0 0 340 198\">\n              <path d=\"{{ prof.ground }}\" fill=\"#e7e7ea\" stroke=\"none\"></path>\n              <path d=\"{{ prof.wUp }}\" fill=\"rgba(89,128,166,.22)\" stroke=\"none\"></path>\n              <path d=\"{{ prof.wDn }}\" fill=\"rgba(89,128,166,.22)\" stroke=\"none\"></path>\n              <path d=\"{{ prof.body }}\" fill=\"#c9c9cc\" stroke=\"#1d1f20\" stroke-width=\"1\"></path>\n              <line x1=\"{{ prof.y2x1 }}\" y1=\"{{ prof.y2y }}\" x2=\"{{ prof.y2x2 }}\" y2=\"{{ prof.y2y }}\" stroke=\"#416180\" stroke-dasharray=\"3 2\"></line>\n              <text x=\"4\" y=\"{{ prof.mahY }}\" font-size=\"8.5\" fill=\"#2c455d\">MAB {{ prof.mah }}</text>\n              <text x=\"336\" y=\"{{ prof.twY }}\" text-anchor=\"end\" font-size=\"8.5\" fill=\"#2c455d\">TWL {{ prof.tw }}</text>\n              <text x=\"{{ prof.crX }}\" y=\"{{ prof.crY }}\" font-size=\"8.5\" fill=\"#1d1f20\">Mercu {{ prof.cr }}</text>\n              <text x=\"{{ prof.flX }}\" y=\"{{ prof.flY }}\" font-size=\"8.5\" fill=\"#1d1f20\">Lantai {{ prof.fl }}</text>\n              <sc-for list=\"{{ prof.dims }}\" as=\"dm\" hint-placeholder-count=\"4\"><path d=\"{{ dm.d }}\" stroke=\"#1d2d3d\" stroke-width=\"0.7\" fill=\"none\"></path><text x=\"{{ dm.tx }}\" y=\"{{ dm.ty }}\" font-size=\"7.5\" fill=\"#1d2d3d\" text-anchor=\"{{ dm.an }}\" stroke=\"#f2f2f3\" stroke-width=\"2.5\" paint-order=\"stroke\">{{ dm.t }}</text></sc-for>\n            </svg>","<svg style=\"display:block;width:100%;height:auto\" viewBox=\"0 0 340 190\">\n              <rect x=\"0\" y=\"{{ sd.baseY }}\" width=\"340\" height=\"60\" fill=\"#e7e7ea\"></rect>\n              <path d=\"{{ sd.wUp }}\" fill=\"rgba(89,128,166,.25)\"></path>\n              <path d=\"{{ sd.wDn }}\" fill=\"rgba(89,128,166,.25)\"></path>\n              <path d=\"{{ sd.body }}\" fill=\"#c9c9cc\" stroke=\"#1d1f20\"></path>\n              <path d=\"{{ sd.press }}\" fill=\"rgba(65,97,128,.35)\" stroke=\"#416180\"></path>\n              <line x1=\"{{ sd.rx }}\" y1=\"{{ sd.ry1 }}\" x2=\"{{ sd.rx }}\" y2=\"{{ sd.ry2 }}\" stroke=\"#a8321f\" stroke-width=\"2\"></line>\n              <path d=\"{{ sd.arrow }}\" fill=\"#a8321f\"></path>\n              <text x=\"{{ sd.rxt }}\" y=\"{{ sd.ryt }}\" font-size=\"9\" fill=\"#a8321f\" stroke=\"#f2f2f3\" stroke-width=\"3\" paint-order=\"stroke\">R (ΣV {{ st.sumV }} kN)</text>\n              <text x=\"{{ sd.toeX }}\" y=\"{{ sd.toeY }}\" font-size=\"8.5\" fill=\"#1d1f20\" stroke=\"#f2f2f3\" stroke-width=\"3\" paint-order=\"stroke\">titik guling</text>\n              <text x=\"6\" y=\"164\" font-size=\"8.5\" fill=\"#416180\">σ heel {{ st.sh }} kPa</text>\n              <text x=\"334\" y=\"164\" font-size=\"8.5\" fill=\"#416180\" text-anchor=\"end\">σ toe {{ st.stoe }} kPa</text>\n              <sc-for list=\"{{ sd.dims }}\" as=\"dm\" hint-placeholder-count=\"4\"><path d=\"{{ dm.d }}\" stroke=\"#1d2d3d\" stroke-width=\"0.7\" fill=\"none\"></path><text x=\"{{ dm.tx }}\" y=\"{{ dm.ty }}\" font-size=\"7.5\" fill=\"#1d2d3d\" text-anchor=\"{{ dm.an }}\" stroke=\"#f2f2f3\" stroke-width=\"2.5\" paint-order=\"stroke\">{{ dm.t }}</text></sc-for>\n            </svg>"]; }
+  fillTpl(t, ctx) {
+    const get = (path, c) => path.split('.').reduce((o, k) => o == null ? undefined : o[k], c);
+    const esc = v => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    t = t.replace(/<sc-for list="\{\{\s*([\w.]+)\s*\}\}" as="(\w+)"[^>]*>([\s\S]*?)<\/sc-for>/g, (m, l, as, body) => (get(l, ctx) || []).map(it => this.fillTpl(body, { ...ctx, [as]: it })).join(''));
+    return t.replace(/\{\{\s*([\w.$]+)\s*\}\}/g, (m, q) => esc(get(q, ctx)));
+  }
+  flash(t) { clearTimeout(this._tt); this.setState({ toast: t }); this._tt = setTimeout(() => this.setState({ toast: '' }), 2600); }
+
+  renderVals() {
+    const s = this.state, p = s.inp, R = this.calc(p);
+    const f = (v, d = 2) => (isFinite(v) ? Number(v).toFixed(d) : '–'), el = v => '+' + f(v, 2), fi = v => isFinite(v) ? Math.round(v).toLocaleString('id-ID') : '–';
+    const set = k => e => { const v = e.target.value; this.setState(st => ({ inp: { ...st.inp, [k]: v } })); };
+    const fld = (k, l, en, u, wide) => ({ k, l, en, u, col: wide ? 'span 2' : 'auto', value: p[k], onChange: set(k) });
+    const on = (a, b) => a === b ? { bg: '#5980a6', fg: '#f2f2f3' } : { bg: 'transparent', fg: '#1d1f20' };
+    const chk = (k, v, ok, extra = {}) => ({ k, v, ok: !!ok, bad: !ok, ...extra });
+    const stepsMeta = [['Data Awal', 'Preliminary data'], ['Hidrologi', 'Hydrology'], ['Hidrolika', 'Hydraulics'], ['Kolam Olak', 'Stilling basin'], ['Stabilitas', 'Stability']];
+    const groupsByStep = [
+      [{ t: 'Curah Hujan & DAS', en: 'Rainfall & catchment', fields: [fld('rain', 'Curah hujan maks. harian tahunan (pisahkan koma)', 'Annual max daily rainfall series', 'mm', true), fld('A', 'Luas DAS', 'Catchment area', 'km²'), fld('L', 'Panjang sungai', 'River length', 'km'), fld('C', 'Koef. limpasan', 'Runoff coefficient', '–'), fld('Qb', 'Aliran dasar', 'Baseflow', 'm³/s')] },
+       { t: 'Topografi & Sungai', en: 'Topography & river', fields: [fld('zb', 'Elevasi dasar sungai', 'Riverbed elevation', 'm'), fld('zi', 'Elevasi MA intake', 'Intake water level', 'm'), fld('br', 'Lebar sungai rata-rata', 'Mean river width', 'm'), fld('I', 'Kemiringan dasar', 'Bed slope', '–'), fld('n', 'Koef. Manning', 'Manning n', '–'), fld('m', 'Kemiringan talud', 'Bank slope 1:m', '–')] },
+       { t: 'Kebutuhan Intake', en: 'PLTA & PDAM demand', fields: [fld('QP', 'Debit PLTA', 'Hydropower discharge', 'm³/s'), fld('QD', 'Debit PDAM', 'Water supply discharge', 'm³/s'), fld('Hn', 'Tinggi jatuh bersih PLTA', 'Net head', 'm'), fld('Ic', 'Kemiringan saluran PLTA', 'Headrace slope', '–')] },
+       { t: 'Sifat Tanah Dasar', en: 'Soil properties', fields: [fld('gs', 'Berat isi tanah', 'Unit weight', 'kN/m³'), fld('c', 'Kohesi', 'Cohesion', 'kPa'), fld('phi', 'Sudut geser dalam', 'Friction angle', '°')] }],
+      [],
+      [{ t: 'Parameter Hidrolika', en: 'Hydraulic parameters', fields: [fld('nP', 'Jumlah pilar', 'Number of piers', 'bh'), fld('tP', 'Lebar pilar', 'Pier width', 'm'), fld('nG', 'Jumlah pintu pembilas', 'Scour gates', 'bh'), fld('bG', 'Lebar per pintu', 'Gate width', 'm'), fld('Cd', 'Koef. debit C₀C₁C₂', 'Discharge coeff.', '–'), fld('fb', 'Tinggi jagaan', 'Freeboard', 'm')] }],
+      [{ t: 'Geometri Tubuh & Lantai', en: 'Body & apron geometry', fields: [fld('bc', 'Lebar mercu', 'Crest width', 'm'), fld('md', 'Kemiringan hilir 1:m', 'D/S slope', '–'), fld('Lu', 'Panjang lantai muka', 'U/S apron length', 'm'), fld('cut1', 'Kedalaman koperan hulu', 'U/S cutoff depth', 'm'), fld('cut2', 'Kedalaman koperan hilir', 'D/S cutoff depth', 'm')] }],
+      [{ t: 'Beban & Material', en: 'Loads & material', fields: [fld('kh', 'Koefisien gempa kh', 'Seismic coefficient', 'g'), fld('ft', 'Tegangan tarik ijin', 'Allowable tension', 'kPa')] }]
+    ];
+    const isW = s.mode === 'wizard', isD = !isW;
+    const tabMeta = { '3d': ['Model 3D', '3D model'], fem: ['Kontur FEM', 'Stress & strain'], crit: ['Zona Kritis', 'Crack & overturning'], gate: ['Pintu Air', 'Gates & materials'], rep: ['Laporan', 'Report & approval'] };
+    const steps = stepsMeta.map((m, i) => { const done = isD || i <= s.step, act = isW && i === s.step; return { n: i + 1, t: m[0], en: m[1], go: () => { this.setState({ mode: 'wizard', step: i }); window.scrollTo(0, 0); }, bg: done ? '#5980a6' : 'transparent', fg: done ? '#f2f2f3' : '#416180', line: act ? '#5980a6' : 'transparent' }; });
+    // hydro charts
+    const qmax = Math.max(...R.hyd.map(h => h[1])) * 1.1, cy = v => 130 - v / qmax * 115;
+    const hpath = R.hyd.map((h, i) => (i ? 'L' : 'M') + (34 + h[0] / 36 * 296).toFixed(1) + ' ' + cy(h[1]).toFixed(1)).join(' ');
+    const rqmax = Math.max(...R.rc.map(r => r[0])) * 1.05, rhmax = R.hd * 1.35 * 1.05;
+    const rx = v => 34 + v / rqmax * 296, ry = v => 130 - v / rhmax * 115;
+    const rpath = R.rc.map((r, i) => (i ? 'L' : 'M') + rx(r[0]).toFixed(1) + ' ' + ry(r[1]).toFixed(1)).join(' ');
+    // plan
+    const ps = 300 / (R.B + 2), px0 = 20 + ps;
+    const planRects = [{ x: 20, y: 22, w: ps, h: 120, fill: '#5d5d60' }, { x: px0 + R.B * ps, y: 22, w: ps, h: 120, fill: '#5d5d60' }];
+    R.bays.forEach(b => { const x = px0 + b.z * ps, w = b.w * ps; if (b.k === 'pier') planRects.push({ x, y: 36, w, h: 70, fill: '#5d5d60' }); else if (b.k === 'gate') { planRects.push({ x, y: 44, w, h: 46, fill: '#e7e7ea' }); planRects.push({ x, y: 52, w, h: 4, fill: '#416180' }); } else planRects.push({ x, y: 44, w, h: 46, fill: '#c9c9cc' }); });
+    planRects.push({ x: px0, y: 90, w: R.B * ps, h: 30, fill: '#e7e7ea' }, { x: px0, y: 116, w: R.B * ps, h: 4, fill: '#98989b' });
+    const hdim = (x1, x2, y, t) => ({ d: 'M' + x1.toFixed(1) + ' ' + y + ' L' + x2.toFixed(1) + ' ' + y + ' M' + x1.toFixed(1) + ' ' + (y - 3) + ' L' + x1.toFixed(1) + ' ' + (y + 3) + ' M' + x2.toFixed(1) + ' ' + (y - 3) + ' L' + x2.toFixed(1) + ' ' + (y + 3), tx: ((x1 + x2) / 2).toFixed(1), ty: (y - 2.5).toFixed(1), an: 'middle', t });
+    const vdim = (x, y1, y2, t, left) => ({ d: 'M' + x.toFixed(1) + ' ' + y1.toFixed(1) + ' L' + x.toFixed(1) + ' ' + y2.toFixed(1) + ' M' + (x - 3).toFixed(1) + ' ' + y1.toFixed(1) + ' L' + (x + 3).toFixed(1) + ' ' + y1.toFixed(1) + ' M' + (x - 3).toFixed(1) + ' ' + y2.toFixed(1) + ' L' + (x + 3).toFixed(1) + ' ' + y2.toFixed(1), tx: (left ? x - 4 : x + 4).toFixed(1), ty: ((y1 + y2) / 2 + 3).toFixed(1), an: left ? 'end' : 'start', t });
+    const planDims = R.bays.map((b, i) => hdim(px0 + b.z * ps, px0 + (b.z + b.w) * ps, b.k === 'spill' ? 154 : (i % 2 ? 164 : 154), f(b.w, b.k === 'spill' ? 2 : 1)));
+    planDims.push(hdim(px0, px0 + R.B * ps, 178, 'B = ' + f(R.B, 2) + ' m'));
+    // profile
+    const xa = -R.Lu - 2, xb = R.Bb + R.Lb + 4, ya = R.Ebase - Math.max(R.cut1, R.cut2) - 0.4, yb = R.MAh + 0.8;
+    const sx2 = 332 / (xb - xa), sy2 = 150 / (yb - ya), sc2 = Math.min(sx2, sy2 * 2.2);
+    const PX = x => 4 + (x - xa) * sx2, PY = y => 155 - (y - ya) * sy2;
+    const pp = a => 'M' + a.map(q => PX(q[0]).toFixed(1) + ' ' + PY(q[1]).toFixed(1)).join(' L') + ' Z';
+    const Bb = R.Bb, Lb = R.Lb, zb = R.zb, fl = R.floor, Eb = R.Ebase;
+    const prof = {
+      body: pp([[-R.Lu, zb], [0, zb], [0, R.crest], [R.bc, R.crest], [Bb, fl], [Bb + Lb - 1, fl], [Bb + Lb - 1, fl + R.ns], [Bb + Lb, fl + R.ns], [Bb + Lb, Eb - R.cut2], [Bb + Lb - 0.6, Eb - R.cut2], [Bb + Lb - 0.6, Eb], [0, Eb], [0, zb - 0.6], [-R.Lu + 0.6, zb - 0.6], [-R.Lu + 0.6, zb - 0.6 - R.cut1], [-R.Lu, zb - 0.6 - R.cut1]]),
+      ground: pp([[xa, zb], [-R.Lu, zb], [-R.Lu, ya], [xa, ya]]) + ' ' + pp([[Bb + Lb, Math.max(zb, fl + R.ns)], [xb, zb], [xb, ya], [Bb + Lb, ya]]) + ' ' + pp([[-R.Lu, ya], [Bb + Lb, ya], [Bb + Lb, Eb - R.cut2], [-R.Lu, Eb - R.cut2]]),
+      wUp: pp([[xa, R.MAh], [R.bc, R.MAh], [R.bc, R.crest], [0, R.crest], [0, zb], [xa, zb]]),
+      wDn: pp([[Bb - (R.TWL - fl) * R.md, R.TWL], [xb, R.TWL], [xb, zb], [Bb + Lb, zb], [Bb + Lb, fl + R.ns], [Bb, fl]]),
+      y2x1: PX(Bb + 0.5).toFixed(1), y2x2: PX(Bb + Lb).toFixed(1), y2y: PY(fl + R.y2).toFixed(1),
+      mah: f(R.MAh), mahY: (PY(R.MAh) - 3).toFixed(1), tw: f(R.TWL), twY: (PY(R.TWL) - 3).toFixed(1),
+      cr: f(R.crest), crX: (PX(R.bc) + 8).toFixed(1), crY: (PY(R.crest) + 10).toFixed(1), fl: f(fl), flX: PX(Bb + 1).toFixed(1), flY: (PY(fl) + 11).toFixed(1)
+    };
+    prof.dims = [
+      hdim(PX(-R.Lu), PX(0), 172, 'Lantai muka ' + f(R.Lu, 1)), hdim(PX(0), PX(Bb), 172, 'Tubuh ' + f(Bb)), hdim(PX(Bb), PX(Bb + Lb), 172, 'Kolam olak ' + f(Lb, 1)),
+      hdim(PX(-R.Lu), PX(Bb + Lb), 190, 'Panjang total ' + f(R.Lu + Bb + Lb, 1) + ' m'),
+      hdim(PX(0), PX(R.bc), PY(R.MAh) - 5, 'b ' + f(R.bc)),
+      vdim(PX(0) - 4, PY(zb), PY(R.crest), 'P ' + f(R.P), true),
+      vdim(PX(R.bc) + 5, PY(R.crest), PY(R.MAh), 'H₁ ' + f(R.H1), false),
+      vdim(PX(Bb + Lb * 0.55), PY(fl), PY(fl + R.y2), 'y₂ ' + f(R.y2), false),
+      vdim(PX(-R.Lu + 0.6) + 2, PY(zb - 0.6), PY(zb - 0.6 - R.cut1), f(R.cut1), false),
+      vdim(PX(Bb + Lb) + 3, PY(Eb), PY(Eb - R.cut2), f(R.cut2), false)
+    ];
+    // stability diagram
+    const stc = R.st[s.sCase], cs = R.cases[s.sCase];
+    const dxa = -2.5, dxb = Bb + 3, dya = -2.4, dyb = Math.max(R.Hw, cs.hu) + 0.5, ds = Math.min(332 / (dxb - dxa), 150 / (dyb - dya));
+    const DX = x => 4 + (x - dxa) * ds, DY = y => 8 + (dyb - y) * ds, dp = a => 'M' + a.map(q => DX(q[0]).toFixed(1) + ' ' + DY(q[1]).toFixed(1)).join(' L') + ' Z';
+    const smx = Math.max(Math.abs(stc.sHeel), Math.abs(stc.sToe)) || 1, psc = 2.0 / smx, xr = Bb - stc.a;
+    const sd = {
+      baseY: DY(0).toFixed(1), body: dp(R.poly), wUp: dp([[dxa, cs.hu], [cs.hu > R.Hw ? R.bc : 0, cs.hu], [0, R.Hw], [0, R.d0], [dxa, R.d0]]),
+      wDn: cs.hd > R.t0 ? dp([[Bb - R.md * (Math.min(cs.hd, R.Hw) - R.t0), cs.hd], [dxb, cs.hd], [dxb, R.t0], [Bb, R.t0]]) : 'M0 0',
+      press: dp([[0, 0], [Bb, 0], [Bb, -stc.sToe * psc], [0, -stc.sHeel * psc]]),
+      rx: DX(xr).toFixed(1), rxt: (DX(xr) + 6).toFixed(1), ryt: (DY(R.Hw * 0.8) + 4).toFixed(1), ry1: DY(R.Hw * 0.8).toFixed(1), ry2: (DY(0) - 7).toFixed(1),
+      arrow: 'M' + (DX(xr) - 4).toFixed(1) + ' ' + (DY(0) - 8).toFixed(1) + ' L' + (DX(xr) + 4).toFixed(1) + ' ' + (DY(0) - 8).toFixed(1) + ' L' + DX(xr).toFixed(1) + ' ' + DY(0).toFixed(1) + ' Z',
+      toeX: (DX(Bb) + 4).toFixed(1), toeY: (DY(0) + 12).toFixed(1)
+    };
+    sd.dims = [hdim(DX(0), DX(Bb), 182, 'B dasar ' + f(Bb) + ' m'), hdim(DX(0), DX(R.bc), DY(R.Hw) - 5, 'b ' + f(R.bc)), vdim(DX(Bb) + 10, DY(0), DY(R.Hw), 'H ' + f(R.Hw), false)];
+    const stView = {
+      rows: stc.rows.map(r => ({ n: r.nm, en: r.en, V: r.V ? f(r.V, 1) : '–', H: r.H ? f(r.H, 1) : '–', M: f(r.M, 1) })),
+      sumV: f(stc.sumV, 1), sumH: f(stc.sumH, 1), net: f(stc.Mr - stc.Mo, 1), sh: f(stc.sHeel, 1), stoe: f(stc.sToe, 1),
+      checks: [
+        { k: 'Guling', en: 'Overturning', v: 'SF ' + f(stc.SFo), req: '≥ ' + f(stc.req), ok: stc.SFo >= stc.req, bad: stc.SFo < stc.req },
+        { k: 'Geser', en: 'Sliding', v: 'SF ' + f(stc.SFs), req: '≥ ' + f(stc.req), ok: stc.SFs >= stc.req, bad: stc.SFs < stc.req },
+        { k: 'Eksentrisitas', en: 'Eccentricity', v: 'e ' + f(Math.abs(stc.e)) + ' m', req: '≤ B/6 = ' + f(Bb / 6), ok: Math.abs(stc.e) <= Bb / 6, bad: Math.abs(stc.e) > Bb / 6 },
+        { k: 'Tegangan maks.', en: 'Max bearing', v: f(stc.sMax, 1) + ' kPa', req: '≤ ' + f(R.qall, 0), ok: stc.sMax <= R.qall, bad: stc.sMax > R.qall },
+        { k: 'Tegangan min.', en: 'Min bearing', v: f(stc.sMin, 1) + ' kPa', req: '≥ 0', ok: stc.sMin >= 0, bad: stc.sMin < 0 }
+      ]
+    };
+    // dashboard
+    let fem = {}, femKV = [], zoneCards = [], rep = {}, repSections = [];
+    const FL = R.cases, Fl = isD ? this.fem(R, 'low') : null, Fh = isD ? this.fem(R, 'high') : null;
+    if (isD) {
+      const F = s.fCase === 'low' ? Fl : Fh, rg = this.fieldRange(F, s.fField);
+      const meta = { s1: ['σ₁ tegangan utama maks.', 'kPa'], s3: ['σ₃ tegangan utama min.', 'kPa'], sy: ['σy tegangan vertikal', 'kPa'], txy: ['τxy tegangan geser', 'kPa'], vm: ['σvm von Mises', 'kPa'], e1: ['ε₁ regangan utama', 'µε'] }[s.fField];
+      const stops = rg.div ? this.DIV() : this.SEQ();
+      fem = { grad: 'linear-gradient(90deg,' + stops.map(c => 'rgb(' + c.join(',') + ')').join(',') + ')', lo: f(rg.lo, 1), hi: f(rg.hi, 1), mid: rg.div ? '0' : f((rg.lo + rg.hi) / 2, 1), title: meta[0], unit: meta[1], nEl: F.tris.length, nNd: F.NN, ks: fi(F.ks) };
+      const mx = a => Math.max(...a), mnn = a => Math.min(...a);
+      femKV = [
+        { k: 'σ₁ maks. (tarik)', en: 'Max tension', v: f(mx(F.s1), 1), u: 'kPa' }, { k: 'σ₃ min. (tekan)', en: 'Max compression', v: f(mnn(F.s3), 1), u: 'kPa' },
+        { k: 'τ maks.', en: 'Max shear', v: f(mx(F.txy.map(Math.abs)), 1), u: 'kPa' }, { k: 'ε₁ maks.', en: 'Max strain', v: f(mx(F.e1), 1), u: 'µε' },
+        { k: 'Tekanan kontak maks.', en: 'Max contact pressure', v: f(mx(F.base.map(b => b[1])), 1), u: 'kPa' }, { k: 'Perpindahan maks.', en: 'Max displacement', v: f(F.umax * 1000, 2), u: 'mm' }
+      ];
+      const zc = cid => { const F2 = cid === 'low' ? Fl : Fh, i = F2.iMax, v = F2.s1[i], ln = this.locName(R, F2.cxs[i], F2.cys[i]); return { v, ln, nc: F2.crack.length, nw: F2.warn.length }; };
+      const Z = zc(s.cCase), stx = R.st[s.cCase];
+      const lvl = (ok, warn) => ({ ok: ok && !warn, warn: !ok ? false : !!warn, bad: !ok });
+      zoneCards = [
+        { t: 'Potensi retak · ' + Z.ln[0], en: 'Crack potential · ' + Z.ln[1], d: 'σ₁ maks. ' + f(Z.v, 1) + ' kPa terhadap f_t ijin ' + f(R.ft, 0) + ' kPa. ' + Z.nc + ' elemen melampaui f_t, ' + Z.nw + ' elemen > 0,5 f_t.', m: Z.nc ? 'Saran: tambah berat di tumit / perpanjang lantai muka untuk menurunkan uplift, atau tulangan di zona tarik.' : 'Tidak ada elemen melampaui tegangan tarik ijin.', ...lvl(Z.nc === 0, Z.nw > 0) },
+        { t: 'Guling terhadap kaki hilir', en: 'Overturning about toe', d: 'SF = ΣM_tahan / ΣM_guling = ' + fi(stx.Mr) + ' / ' + fi(stx.Mo) + ' = ' + f(stx.SFo) + ' (syarat ≥ ' + f(stx.req) + '). Resultan jatuh ' + f(stx.a) + ' m dari kaki.', m: 'Zona inti B/3: ' + f(Bb / 3) + '–' + f(2 * Bb / 3) + ' m dari kaki.', ...lvl(stx.SFo >= stx.req, stx.SFo < stx.req * 1.2) },
+        { t: 'Tumit hulu (tarik dasar)', en: 'Heel base tension', d: 'σ heel = ' + f(stx.sHeel, 1) + ' kPa; e = ' + f(Math.abs(stx.e)) + ' m (B/6 = ' + f(Bb / 6) + ' m).', m: stx.sHeel < 0 ? 'Dasar tumit terangkat: celah memicu retak & uplift penuh.' : 'Seluruh dasar dalam kondisi tekan.', ...lvl(stx.sHeel >= 0, Math.abs(stx.e) > Bb / 8) },
+        { t: 'Lantai kolam olak (uplift)', en: 'Basin floor uplift', d: 'Tebal perlu d = 1,5·(Px − Wx)/γ = ' + f(R.dxReq) + ' m; tebal rencana ' + f(R.t0) + ' m.', m: 'Px dihitung dengan metode Lane pada awal kolam olak.', ...lvl(R.t0 >= R.dxReq, R.t0 < R.dxReq * 1.2) },
+        { t: 'Kaki hilir (daya dukung)', en: 'Toe bearing', d: 'σ toe = ' + f(stx.sToe, 1) + ' kPa terhadap σ ijin ' + f(R.qall, 0) + ' kPa.', m: 'Rasio ' + f(stx.sToe / R.qall * 100, 0) + '%.', ...lvl(stx.sToe <= R.qall, stx.sToe > 0.8 * R.qall) }
+      ];
+      const S = (k, v, ok) => ({ k, v, ok: !!ok, bad: !ok });
+      repSections = [
+        { t: 'Hidrologi', en: 'Hydrology', rows: [S('Q' + R.T + ' (Nakayasu)', f(R.Qd, 1) + ' m³/s', true), S('R' + R.T + ' Gumbel', f(R.RT, 1) + ' mm', true), S('MA hilir (rating curve)', el(R.TWL), true)] },
+        { t: 'Hidrolika & kolam olak', en: 'Hydraulics & basin', rows: [S('B / Be', f(R.B, 1) + ' / ' + f(R.Be, 1) + ' m', true), S('H₁ · mercu', f(R.H1) + ' m · ' + el(R.crest), true), S('Kolam ' + R.type + ', L', f(R.Lb, 1) + ' m', true), S('Panjang genangan waduk', f(R.Lres, 0) + ' m', true), S('Lane C_w', f(R.Lw / R.dH) + ' ≥ ' + f(R.so[2], 1), R.Lw / R.dH >= R.so[2]), S('Bligh C', f(R.Lbl / R.dH) + ' ≥ ' + f(R.so[3], 1), R.Lbl / R.dH >= R.so[3])] },
+        ...['low', 'high'].map(cid => { const x = R.st[cid]; return { t: cid === 'low' ? 'Stabilitas Q rendah + gempa' : 'Stabilitas Q banjir', en: 'Stability', rows: [S('Guling SF', f(x.SFo) + ' ≥ ' + f(x.req), x.SFo >= x.req), S('Geser SF', f(x.SFs) + ' ≥ ' + f(x.req), x.SFs >= x.req), S('e ≤ B/6', f(Math.abs(x.e)) + ' ≤ ' + f(Bb / 6), Math.abs(x.e) <= Bb / 6), S('σ maks ≤ σ ijin', f(x.sMax, 0) + ' ≤ ' + f(R.qall, 0), x.sMax <= R.qall), S('σ min ≥ 0', f(x.sMin, 0), x.sMin >= 0)] }; }),
+        { t: 'Intake PLTA & PDAM', en: 'Intakes', rows: [S('Daya PLTA', f(R.Pkw, 0) + ' kW', true), S('v saluran 0,6–2,0 m/s', f(R.vch, 2), R.vch >= 0.6 && R.vch <= 2), S('v pipa PDAM 0,6–3,0 m/s', f(R.vp, 2), R.vp >= 0.6 && R.vp <= 3)] },
+        { t: 'FEM & struktur', en: 'FEM & structure', rows: [S('Elemen retak Q rendah', String(Fl.crack.length), Fl.crack.length === 0), S('Elemen retak Q banjir', String(Fh.crack.length), Fh.crack.length === 0), S('Tebal lantai kolam', f(R.t0) + ' ≥ ' + f(R.dxReq) + ' m', R.t0 >= R.dxReq)] }
+      ];
+      const all = repSections.flatMap(x => x.rows), pass = all.filter(x => x.ok).length;
+      const stMap = { pending: ['Menunggu review', '#eef6ff', '#2c455d'], approved: ['Disetujui', '#416180', '#ffffff'], revision: ['Perlu revisi', '#f6dcc0', '#7a3412'] }[s.review];
+      rep = { pass, total: all.length, status: stMap[0], stBg: stMap[1], stFg: stMap[2] };
+    }
+    const sw = v => v ? { bg: '#5980a6', knob: '#f2f2f3', left: '20px' } : { bg: 'transparent', knob: '#98989b', left: '2px' };
+    const nv = k => isD && s.tab === k ? '#416180' : '#1d1f20', nl = k => isD && s.tab === k ? '#5980a6' : 'transparent';
+    const gS = R.gS, gP = R.iP.gate, gD = R.iD.gate;
+    const head = isW ? stepsMeta[s.step] : tabMeta[s.tab];
+    const V = {
+      lbl3dRef: this.lbl3dRef, isWizard: isW, isDash: isD, hasGroups: isW && groupsByStep[s.step].length > 0, kicker: isW ? 'Langkah ' + (s.step + 1) + ' / 5 · Analisis desain' : 'Output · hasil desain', headTitle: head[0], headEn: head[1],
+      isStep0: isW && s.step === 0, isStep1: isW && s.step === 1, isStep2: isW && s.step === 2, isStep3: isW && s.step === 3, isStep4: isW && s.step === 4,
+      isTab3d: isD && s.tab === '3d', isTabFem: isD && s.tab === 'fem', isTabCrit: isD && s.tab === 'crit', isTabGate: isD && s.tab === 'gate', isTabRep: isD && s.tab === 'rep',
+      steps, groups: isW ? groupsByStep[s.step] : [], isFirst: s.step === 0, nextLabel: s.step === 4 ? 'Hitung & lihat hasil' : 'Lanjut · ' + stepsMeta[s.step + 1][0],
+      prev: () => this.setState({ step: Math.max(0, s.step - 1) }),
+      next: () => { s.step < 4 ? this.setState({ step: s.step + 1 }) : this.setState({ mode: 'dash', tab: '3d' }); window.scrollTo(0, 0); },
+      editInputs: () => { this.setState({ mode: 'wizard', step: 0 }); window.scrollTo(0, 0); },
+      resetDefaults: () => { this.setState({ inp: this.defaults() }); this.flash('Data dikembalikan ke preset asumsi.'); },
+      scrollRef: this.scrollRef, ref3d: this.ref3d, femRef: this.femRef, critRef: this.critRef,
+      soilOpts: this.soils().map((so, i) => ({ l: so[0], cl: f(so[2], 1), cb: so[3], on: () => this.setState(st => ({ inp: { ...st.inp, soil: i } })), ...on(i, p.soil) })),
+      bear: { qall: f(R.qall, 0), qult: f(R.qult, 0), Nc: f(R.Ncb, 1), Nq: f(R.Nq, 1), Ng: f(R.Ng, 1), Df: f(R.Df), B: f(Bb) },
+      tOpts: [25, 50, 100].map(T => ({ l: 'Q' + T, on: () => this.setState(st => ({ inp: { ...st.inp, T } })), ...on(T, R.T) })),
+      hid: { Qd: f(R.Qd, 1), Qd0: f(R.Qd, 0), T: R.T, RT: f(R.RT, 1), TWL: el(R.TWL), N: R.N, mean: f(R.mean, 1), sd: f(R.sd, 1), Yn: f(R.Yn, 4), Sn: f(R.Sn, 4), path: hpath, peakY: cy(R.Qd).toFixed(1), tg: f(R.tg), tr: f(R.tr), Tp: f(R.Tp), T03: f(R.T03), Qp: f(R.Qp, 3), Reff: f(R.Reff, 1) },
+      gumRows: R.gum.map(x => ({ T: x.T, Yt: f(x.Yt, 3), K: f(x.K, 3), R: f(x.R, 1), Q: f(x.Q, 1), fw: x.T === R.T ? 700 : 400 })),
+      rc: { path: rpath, px: rx(R.Qd).toFixed(1), py: ry(R.hd).toFixed(1), px4: (rx(R.Qd) - 4).toFixed(1), py4: (ry(R.hd) - 4).toFixed(1), h: f(R.hd), Q: f(R.Qd, 0), b: f(R.br, 1), m: f(R.m, 1), I: R.I, n: R.mn, v: f(R.vRiver) },
+      hyd: { B: f(R.B, 1) },
+      hydKV: [
+        { k: 'Lebar total bendung', en: 'Total width B', v: f(R.B, 2), u: 'm' }, { k: 'Lebar efektif', en: 'Effective width Be', v: f(R.Be, 2), u: 'm' },
+        { k: 'Tinggi energi', en: 'Head H₁', v: f(R.H1, 2), u: 'm' }, { k: 'Elevasi mercu', en: 'Crest level', v: el(R.crest), u: 'm' },
+        { k: 'Tinggi bendung', en: 'Weir height P', v: f(R.P, 2), u: 'm' }, { k: 'MA banjir hulu', en: 'U/S flood level', v: el(R.MAh), u: 'm' },
+        { k: 'Elevasi pangkal', en: 'Abutment top', v: el(R.zAb), u: 'm' }, { k: 'Debit per meter', en: 'Unit discharge q', v: f(R.q, 2), u: 'm²/s' },
+        { k: 'Pilar', en: 'Piers', v: R.nP + ' × ' + f(R.tP, 1), u: 'm' }, { k: 'Pintu pembilas', en: 'Scour gates', v: R.nG + ' × ' + f(R.bG, 1), u: 'm' }, { k: 'Panjang genangan', en: 'Backwater L = 2h/I', v: f(R.Lres, 0), u: 'm' }, { k: 'Kenaikan MA di bendung', en: 'Surcharge h', v: f(R.dHw, 2), u: 'm' }
+      ],
+      hydChecks: [
+        chk('Lebar pembilas / B', f(R.bGt / R.B * 100, 1) + '% (KP-02: 1/10–1/6 B)', R.bGt / R.B >= 0.1 && R.bGt / R.B <= 1 / 6 + 0.001),
+        chk('B ≤ 1,2 × lebar sungai', f(R.B, 1) + ' ≤ ' + f(1.2 * R.br, 1) + ' m', true),
+        chk('Muka air hilir < mercu', el(R.TWL) + ' vs ' + el(R.crest), R.TWL < R.crest)
+      ],
+      planRects, planDims,
+      bas: { type: R.type, Fr: f(R.Fr), Lb: f(R.Lb, 1) },
+      prof,
+      basKV: [
+        { k: 'Kedalaman kritis', en: 'Critical depth yc', v: f(R.yc), u: 'm' }, { k: 'Kedalaman awal loncat', en: 'Depth y₁', v: f(R.y1), u: 'm' },
+        { k: 'Kecepatan awal', en: 'Velocity v₁', v: f(R.v1), u: 'm/s' }, { k: 'Bilangan Froude', en: 'Froude Fr₁', v: f(R.Fr), u: '' },
+        { k: 'Kedalaman konjugasi', en: 'Sequent depth y₂', v: f(R.y2), u: 'm' }, { k: 'Panjang kolam', en: 'Basin length L', v: f(R.Lb, 1), u: 'm' },
+        { k: 'Elevasi lantai kolam', en: 'Floor level', v: el(R.floor), u: 'm' }, { k: 'Tinggi ambang ujung', en: 'End sill', v: f(R.ns), u: 'm' },
+        { k: 'Lebar dasar tubuh', en: 'Base width', v: f(R.Bb), u: 'm' }, { k: 'Tebal lantai perlu', en: 'Req. floor thick.', v: f(R.dxReq), u: 'm' }
+      ],
+      seep: { Lv: f(R.Lv), Lh: f(R.Lh), dH: f(R.dH), soil: R.so[0] },
+      seepChecks: [
+        chk('Lane: L_w = ΣLv + ⅓ΣLh', f(R.Lw) + ' m ≥ ' + f(R.so[2], 1) + ' × ' + f(R.dH) + ' = ' + f(R.so[2] * R.dH) + ' m', R.Lw >= R.so[2] * R.dH),
+        chk('Bligh: L = ΣLv + ΣLh', f(R.Lbl) + ' m ≥ ' + R.so[3] + ' × ' + f(R.dH) + ' = ' + f(R.so[3] * R.dH) + ' m', R.Lbl >= R.so[3] * R.dH),
+        chk('Tebal lantai kolam (uplift)', f(R.t0) + ' m ≥ ' + f(R.dxReq) + ' m', R.t0 >= R.dxReq)
+      ],
+      caseOpts: [{ id: 'low', l: 'Q rendah', en: 'Low flow + seismic' }, { id: 'high', l: 'Q banjir', en: 'Flood Q' + R.T }].map(o => ({ ...o, on: () => this.setState({ sCase: o.id }), ...on(o.id, s.sCase) })),
+      sd, st: stView,
+      w3Opts: [{ id: 'low', l: 'MA normal' }, { id: 'high', l: 'MA banjir Q' + R.T }].map(o => ({ ...o, on: () => this.setState({ w3: o.id }), ...on(o.id, s.w3) })),
+      toggleZones: () => this.setState({ zones: !s.zones }), zoneSw: sw(s.zones),
+      toggleDims: () => this.setState({ dims3d: !s.dims3d }), dimSw: sw(s.dims3d), viewWeir: () => this.setView('weir'), viewRes: () => this.setView('res'), resL: f(R.Lres, 0),
+      dimRows: [
+        { k: 'Lebar bendung', en: 'Weir width', v: 'B ' + f(R.B) + ' m · Bnet ' + f(R.Bnet) + ' m · Be ' + f(R.Be) + ' m' },
+        { k: 'Mercu pelimpah', en: 'Spillway crest', v: 'Elevasi ' + el(R.crest) + ' · lebar ' + f(R.bc) + ' m · tinggi P ' + f(R.P) + ' m · H₁ ' + f(R.H1) + ' m' },
+        { k: 'Tubuh bendung', en: 'Weir body', v: 'Tinggi ' + f(R.Hw) + ' m · lebar dasar ' + f(R.Bb) + ' m · lereng hilir 1:' + f(R.md, 1) + ' · dasar ' + el(R.Ebase) },
+        { k: 'Pilar', en: 'Piers', v: R.nP + ' bh · tebal ' + f(R.tP) + ' m · panjang ' + f(R.Bb + 4, 1) + ' m · puncak ' + el(R.zAb) },
+        { k: 'Pintu pembilas', en: 'Scour gates', v: R.nG + ' bh · ' + f(R.bG) + ' × ' + f(R.hgS) + ' m · ambang ' + el(R.zb) },
+        { k: 'Intake PLTA', en: 'Hydropower intake', v: R.iP.nI + ' bh · ' + f(R.iP.bI) + ' × ' + f(R.hgI) + ' m · ambang ' + el(R.sillI) },
+        { k: 'Saluran pembawa PLTA', en: 'Headrace channel', v: 'b ' + f(R.bch) + ' m · h ' + f(R.hch) + ' m · jagaan ' + f(R.fbch) + ' m · I ' + R.Ic },
+        { k: 'Intake PDAM', en: 'Water supply intake', v: R.iD.nI + ' bh · ' + f(R.iD.bI) + ' × ' + f(R.hgI) + ' m · pipa Ø ' + Math.round(R.Dstd * 1000) + ' mm' },
+        { k: 'Batas genangan waduk', en: 'Reservoir limit', v: 'L = 2h/I = ' + f(R.Lres, 0) + ' m dari bendung · h ' + f(R.dHw) + ' m' },
+        { k: 'Lantai muka', en: 'Upstream apron', v: 'Panjang ' + f(R.Lu, 1) + ' m · tebal 0.60 m · koperan ' + f(R.cut1) + ' m' },
+        { k: 'Kolam olak', en: 'Stilling basin', v: R.type + ' · ' + f(R.Lb, 1) + ' × ' + f(R.B, 1) + ' m · lantai ' + el(R.floor) + ' · tebal ' + f(R.t0) + ' m' },
+        { k: 'Ambang ujung', en: 'End sill', v: 'Tinggi ' + f(R.ns) + ' m · lebar 1.00 m' },
+        { k: 'Koperan hilir', en: 'D/S cutoff', v: 'Dalam ' + f(R.cut2) + ' m · tebal 0.60 m' },
+        { k: 'Tembok pangkal', en: 'Abutment walls', v: 'Puncak ' + el(R.zAb) + ' · tinggi ' + f(R.zAb - R.Ebase) + ' m · tebal 1.00 m · panjang ' + f(R.Lu + R.Bb + R.Lb + 3, 1) + ' m' },
+        { k: 'Jembatan pelayanan', en: 'Service bridge', v: 'Lebar 1.60 m · bentang ' + f(R.B + 2, 1) + ' m' }
+      ],
+      loading3d: !s.ready3d && !s.err3d, hasErr3d: !!s.err3d, err3d: s.err3d,
+      zoomIn: () => { if (this.g3) { this.g3.r = Math.max(15, this.g3.r * 0.8); this.draw3D(); } },
+      zoomOut: () => { if (this.g3) { this.g3.r = Math.min(9000, this.g3.r * 1.25); this.draw3D(); } },
+      resetView: () => { if (this.g3) { this.g3.th = 0.75; this.g3.ph = 1.05; this.g3.init = false; this.g3.key = ''; this.build3D(true); } },
+      sumKV: [{ k: 'Lebar B', v: f(R.B, 1) + ' m' }, { k: 'Mercu', v: el(R.crest) }, { k: 'H₁', v: f(R.H1) + ' m' }, { k: 'Pangkal', v: el(R.zAb) }, { k: 'Kolam', v: R.type }, { k: 'L kolam', v: f(R.Lb, 1) + ' m' }],
+      fieldOpts: [['s1', 'σ₁', 'Principal max'], ['s3', 'σ₃', 'Principal min'], ['sy', 'σy', 'Vertical'], ['txy', 'τxy', 'Shear'], ['vm', 'σvm', 'von Mises'], ['e1', 'ε₁', 'Strain']].map(o => ({ l: o[1], en: o[2], on: () => this.setState({ fField: o[0] }), ...on(o[0], s.fField) })),
+      fem, femKV,
+      fCaseOpts: [{ id: 'low', l: 'Q rendah + gempa' }, { id: 'high', l: 'Q banjir' }].map(o => ({ ...o, on: () => this.setState({ fCase: o.id }), ...on(o.id, s.fCase) })),
+      cCaseOpts: [{ id: 'low', l: 'Q rendah + gempa' }, { id: 'high', l: 'Q banjir' }].map(o => ({ ...o, on: () => this.setState({ cCase: o.id }), ...on(o.id, s.cCase) })),
+      toggleMesh: () => this.setState({ mesh: !s.mesh }), meshSw: sw(s.mesh),
+      zoneCards,
+      gateCards: [
+        { kick: 'Pintu pembilas · Scour sluice', t: f(R.bG, 2) + ' × ' + f(R.hgS, 2) + ' m', count: R.nG + ' unit', type: gS.type + ' · ' + gS.drive, kv: [{ k: 'Gaya hidrostatis', v: f(gS.F, 1), u: 'kN' }, { k: 'Tekanan maks.', v: f(gS.pm, 1), u: 'kPa' }, { k: 'Tebal pelat kulit', v: gS.tmm, u: 'mm' }, { k: 'Berat daun pintu', v: f(gS.Wg, 1), u: 'kN' }, { k: 'Gaya angkat', v: f(gS.hoist, 1), u: 'kN' }, { k: 'Elevasi ambang', v: el(R.zb), u: 'm' }] },
+        { kick: 'Intake PLTA · Hydropower intake', t: f(R.iP.bI, 2) + ' × ' + f(R.hgI, 2) + ' m', count: R.iP.nI + ' unit', type: gP.type + ' · ' + gP.drive + ' · saringan sampah di muka pintu', kv: [{ k: 'Debit rencana (1,2 Q)', v: f(1.2 * R.QP, 2), u: 'm³/s' }, { k: 'Bukaan a', v: f(R.aI, 2), u: 'm' }, { k: 'Gaya hidrostatis', v: f(gP.F, 1), u: 'kN' }, { k: 'Tebal pelat kulit', v: gP.tmm, u: 'mm' }, { k: 'Gaya angkat', v: f(gP.hoist, 1), u: 'kN' }, { k: 'Elevasi ambang', v: el(R.sillI), u: 'm' }] },
+        { kick: 'Saluran pembawa PLTA · Headrace', t: f(R.bch, 2) + ' × ' + f(R.hch + R.fbch, 2) + ' m', count: f(R.Pkw, 0) + ' kW', type: 'Saluran persegi beton bertulang, n 0,015, I ' + R.Ic + ' · P = 9,81·η·Q·Hn (η 0,85)', kv: [{ k: 'Lebar dasar b', v: f(R.bch, 2), u: 'm' }, { k: 'Kedalaman air h', v: f(R.hch, 2), u: 'm' }, { k: 'Tinggi jagaan', v: f(R.fbch, 2), u: 'm' }, { k: 'Kecepatan', v: f(R.vch, 2), u: 'm/s' }, { k: 'Tinggi jatuh Hn', v: f(R.Hn, 1), u: 'm' }, { k: 'Energi tahunan (CF 0,6)', v: f(R.Ekwh / 1e6, 2), u: 'GWh' }] },
+        { kick: 'Intake PDAM · Water supply', t: R.iD.nI + ' × ' + f(R.iD.bI, 2) + ' × ' + f(R.hgI, 2) + ' m', count: 'Ø ' + Math.round(R.Dstd * 1000) + ' mm', type: gD.type + ' · ' + gD.drive + ' · pipa transmisi baja / HDPE', kv: [{ k: 'Debit rencana (1,2 Q)', v: f(1.2 * R.QD, 2), u: 'm³/s' }, { k: 'Ø pipa perlu (v 1 m/s)', v: Math.round(R.Dreq * 1000), u: 'mm' }, { k: 'Ø pipa standar', v: Math.round(R.Dstd * 1000), u: 'mm' }, { k: 'Kecepatan pipa', v: f(R.vp, 2), u: 'm/s' }, { k: 'Gaya angkat pintu', v: f(gD.hoist, 1), u: 'kN' }, { k: 'Elevasi ambang', v: el(R.sillI), u: 'm' }] }
+      ],
+      matRows: [
+        { k: 'Daun pintu', en: 'Gate leaf / skin plate', v: 'Baja SS400 / ASTM A36, tebal ' + gS.tmm + ' mm (pembilas), ' + gP.tmm + ' mm (intake PLTA), ' + gD.tmm + ' mm (intake PDAM)' },
+        { k: 'Rangka penguat', en: 'Girders & stiffeners', v: 'Profil WF / kanal baja SS400, las penuh' },
+        { k: 'Rel, sponeng & ambang', en: 'Guides & sill frame', v: 'Baja tahan karat SUS304, tertanam di beton' },
+        { k: 'Seal kedap air', en: 'Water seal', v: 'Karet neoprene / EPDM profil J & bar, Shore A 60' },
+        { k: 'Stang ulir', en: 'Spindle', v: 'Baja S45C / AISI 1045, ulir trapesium' },
+        { k: 'Pelindung korosi', en: 'Coating', v: 'Sandblast Sa 2½ + epoksi coal-tar 2 lapis, 250 µm' },
+        { k: 'Mercu & lantai olak', en: 'Crest & basin', v: 'Beton fc\u2032 20 MPa + lapis aus fc\u2032 30 MPa / batu candi' },
+        { k: 'Tubuh bendung', en: 'Weir body', v: 'Beton siklop fc\u2032 15 MPa atau pasangan batu kali 1PC:3PP' },
+        { k: 'Saringan sampah', en: 'Trashrack', v: 'Batang pipih baja SS400 50×10 mm, jarak 50 mm, galvanis' },
+        { k: 'Saluran pembawa PLTA', en: 'Headrace channel', v: 'Beton bertulang fc′ 25 MPa, tebal dinding 0,25 m' },
+        { k: 'Pipa PDAM', en: 'Water supply pipe', v: 'Baja SNI / HDPE PN10 Ø ' + Math.round(R.Dstd * 1000) + ' mm' }
+      ],
+      rep, repSections, note: s.note, setNote: e => this.setState({ note: e.target.value }),
+      approve: () => { this.setState({ review: 'approved' }); this.flash('Desain disetujui · tercatat untuk BBWS.'); },
+      askRevision: () => { this.setState({ review: 'revision' }); this.flash('Permintaan revisi dikirim ke tim perencana.'); },
+      exportPdf: () => { this.flash('Menyiapkan laporan PDF…'); setTimeout(() => window.print(), 400); },
+      hasToast: !!s.toast, toast: s.toast,
+      tab3d: () => this.goTab('3d'), tabFem: () => this.goTab('fem'), tabCrit: () => this.goTab('crit'), tabGate: () => this.goTab('gate'), tabRep: () => this.goTab('rep'),
+      nav: { c3d: nv('3d'), l3d: nl('3d'), cFem: nv('fem'), lFem: nl('fem'), cCrit: nv('crit'), lCrit: nl('crit'), cGate: nv('gate'), lGate: nl('gate'), cRep: nv('rep'), lRep: nl('rep') }
+    };
+    this.svgT().forEach((t, k) => { V['svg' + k] = React.createElement('div', { style: { width: '100%' }, dangerouslySetInnerHTML: { __html: this.fillTpl(t, V) } }); });
+    return V;
+  }
+}
+</script>
+</body>
+</html>
