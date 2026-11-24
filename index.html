@@ -10,414 +10,658 @@
 <helmet>
 <link rel="stylesheet" href="_ds/industry-7845c97f-e1e6-4c1a-96a9-0a930f5dba06/styles.css">
 <script src="_ds/industry-7845c97f-e1e6-4c1a-96a9-0a930f5dba06/_ds_bundle.js"></script>
-<style>body{margin:0;background:#f2f2f3}a{color:#416180}a:hover{color:#2c455d}.input{font-variant-numeric:tabular-nums}@media print{aside,header,.no-print{display:none!important}}</style>
+<style>
+  :root {
+    --ui-surface: #ffffff;
+    --ui-surface-subtle: #f7f8fa;
+    --ui-border: rgba(29, 31, 32, 0.14);
+    --ui-border-strong: rgba(29, 31, 32, 0.24);
+    --ui-accent: #2c455d;
+    --ui-accent-soft: #eef4fa;
+    --ui-ok-bg: #e6f4ea;
+    --ui-ok-fg: #137333;
+    --ui-warn-bg: #fef3e2;
+    --ui-warn-fg: #9a5b00;
+    --ui-bad-bg: #fce8e6;
+    --ui-bad-fg: #a50e0e;
+  }
+  body {
+    margin: 0;
+    background: #f2f2f3;
+    color: #1d1f20;
+    font-variant-numeric: tabular-nums;
+  }
+  a { color: #416180; }
+  a:hover { color: #2c455d; }
+  .input {
+    font-variant-numeric: tabular-nums;
+    background: #ffffff;
+    border-color: var(--ui-border-strong);
+    border-radius: 4px;
+  }
+  .ui-card {
+    background: var(--ui-surface);
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(29, 31, 32, 0.04);
+  }
+  .ui-card-muted {
+    background: var(--ui-surface-subtle);
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .ui-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ui-border);
+  }
+  .ui-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .ui-pill-ok { background: var(--ui-ok-bg); color: var(--ui-ok-fg); }
+  .ui-pill-warn { background: var(--ui-warn-bg); color: var(--ui-warn-fg); }
+  .ui-pill-bad { background: var(--ui-bad-bg); color: var(--ui-bad-fg); }
+  .ui-seg {
+    display: flex;
+    background: var(--ui-surface-subtle);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 6px;
+    padding: 3px;
+    gap: 3px;
+  }
+  .ui-seg-btn {
+    all: unset;
+    cursor: pointer;
+    flex: 1;
+    min-height: 38px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4px 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .ui-nav-item {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border-left: 3px solid transparent;
+    transition: background 0.15s ease;
+  }
+  .ui-nav-item:hover {
+    background: rgba(65, 97, 128, 0.07);
+  }
+  .ui-switch {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 6px 12px;
+    background: var(--ui-surface);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 6px;
+  }
+  @media print {
+    aside, header, .no-print { display: none !important; }
+    main { padding: 0 !important; }
+    .ui-card, .ui-card-muted, .blueprint { box-shadow: none !important; break-inside: avoid; }
+  }
+</style>
 </helmet>
 <div style="min-height:100vh;display:flex;flex-direction:column;background:var(--color-bg)">
-  <header class="nav" style="flex-wrap:wrap;row-gap:8px;padding:12px 24px;border-bottom:1px solid var(--color-divider);position:sticky;top:0;z-index:5;background:var(--color-bg)">
-    <div class="nav-brand" style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-size:22px">Desain Bendung</span><span style="font-family:var(--font-body);font-weight:400;font-size:13px;color:var(--color-neutral-600)">Weir design suite</span></div>
-    <span class="tag tag-outline" style="white-space:nowrap;flex:none">BD-01 · Bendung Tetap · data asumsi</span>
+  <header class="nav" style="flex-wrap:wrap;gap:10px;padding:12px 24px;border-bottom:1px solid var(--ui-border-strong);position:sticky;top:0;z-index:10;background:rgba(242,242,243,0.96);backdrop-filter:blur(6px)">
+    <div class="nav-brand" style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-right:auto">
+      <span style="font-size:22px;font-weight:700;letter-spacing:-0.01em">Desain Bendung</span>
+      <span style="font-family:var(--font-body);font-weight:400;font-size:12.5px;color:var(--color-neutral-600)">Weir design suite</span>
+    </div>
+    <span class="tag tag-outline" style="white-space:nowrap;flex:none;background:#ffffff">BD-01 · Bendung Tetap · Asumsi</span>
     <button class="btn btn-ghost" style="min-height:38px;white-space:nowrap;flex:none" onClick="{{ resetDefaults }}">Reset data</button>
     <button class="btn btn-secondary" style="min-height:38px;white-space:nowrap;flex:none" onClick="{{ exportPdf }}">Ekspor PDF</button>
   </header>
+
   <div style="flex:1;display:flex;flex-wrap:wrap;align-items:stretch">
-    <aside style="flex:1 1 220px;max-width:280px;border-right:1px solid var(--color-divider);padding:24px 14px;display:flex;flex-direction:column;gap:22px">
+    <aside style="flex:1 1 240px;max-width:290px;background:#f7f8fa;border-right:1px solid var(--ui-border);padding:20px 14px;display:flex;flex-direction:column;gap:22px">
       <div style="display:flex;flex-direction:column;gap:4px">
-        <span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);padding:0 10px">Analisis desain · Design</span>
+        <span style="font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);padding:0 10px;margin-bottom:4px">Analisis desain · Design</span>
         <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
-          <button onClick="{{ st.go }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;border-left:2px solid {{ st.line }}">
-            <span style="width:24px;height:24px;flex:none;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--color-accent);background:{{ st.bg }};color:{{ st.fg }}">{{ st.n }}</span>
-            <span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">{{ st.t }}</span><span style="font-size:11px;color:var(--color-neutral-600)">{{ st.en }}</span></span>
+          <button onClick="{{ st.go }}" class="ui-nav-item" style="border-left-color:{{ st.line }};background:{{ st.rowBg }}">
+            <span style="width:24px;height:24px;flex:none;display:grid;place-items:center;font-size:12px;font-weight:700;border-radius:4px;border:1px solid var(--color-accent);background:{{ st.bg }};color:{{ st.fg }}">{{ st.n }}</span>
+            <span style="display:flex;flex-direction:column;line-height:1.2">
+              <span style="font-size:13.5px;font-weight:600;color:#1d1f20">{{ st.t }}</span>
+              <span style="font-size:11px;color:var(--color-neutral-600)">{{ st.en }}</span>
+            </span>
           </button>
         </sc-for>
       </div>
+
       <div style="display:flex;flex-direction:column;gap:4px">
-        <span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);padding:0 10px">Output</span>
-        <button onClick="{{ tab3d }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.c3d }};border-left:2px solid {{ nav.l3d }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Model 3D</span><span style="font-size:11px;color:var(--color-neutral-600)">3D model</span></span></button>
-        <button onClick="{{ tabFem }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cFem }};border-left:2px solid {{ nav.lFem }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"></path><path d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Kontur FEM</span><span style="font-size:11px;color:var(--color-neutral-600)">Stress &amp; strain</span></span></button>
-        <button onClick="{{ tabCrit }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cCrit }};border-left:2px solid {{ nav.lCrit }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Zona Kritis</span><span style="font-size:11px;color:var(--color-neutral-600)">Crack &amp; overturning</span></span></button>
-        <button onClick="{{ tabGate }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cGate }};border-left:2px solid {{ nav.lGate }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 12h18"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Pintu Air</span><span style="font-size:11px;color:var(--color-neutral-600)">Gates &amp; materials</span></span></button>
-        <button onClick="{{ tabRep }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;color:{{ nav.cRep }};border-left:2px solid {{ nav.lRep }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg><span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-size:14px;font-weight:500">Laporan</span><span style="font-size:11px;color:var(--color-neutral-600)">Report &amp; approval</span></span></button>
+        <span style="font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);padding:0 10px;margin-bottom:4px">Output</span>
+        <button onClick="{{ tab3d }}" class="ui-nav-item" style="color:{{ nav.c3d }};border-left-color:{{ nav.l3d }};background:{{ nav.bg3d }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg><span style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:13.5px;font-weight:600">Model 3D</span><span style="font-size:11px;color:var(--color-neutral-600)">3D model</span></span></button>
+        <button onClick="{{ tabFem }}" class="ui-nav-item" style="color:{{ nav.cFem }};border-left-color:{{ nav.lFem }};background:{{ nav.bgFem }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"></path><path d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"></path></svg><span style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:13.5px;font-weight:600">Kontur FEM</span><span style="font-size:11px;color:var(--color-neutral-600)">Stress &amp; strain</span></span></button>
+        <button onClick="{{ tabCrit }}" class="ui-nav-item" style="color:{{ nav.cCrit }};border-left-color:{{ nav.lCrit }};background:{{ nav.bgCrit }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg><span style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:13.5px;font-weight:600">Zona Kritis</span><span style="font-size:11px;color:var(--color-neutral-600)">Crack &amp; overturning</span></span></button>
+        <button onClick="{{ tabGate }}" class="ui-nav-item" style="color:{{ nav.cGate }};border-left-color:{{ nav.lGate }};background:{{ nav.bgGate }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 12h18"></path></svg><span style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:13.5px;font-weight:600">Pintu Air</span><span style="font-size:11px;color:var(--color-neutral-600)">Gates &amp; materials</span></span></button>
+        <button onClick="{{ tabRep }}" class="ui-nav-item" style="color:{{ nav.cRep }};border-left-color:{{ nav.lRep }};background:{{ nav.bgRep }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg><span style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:13.5px;font-weight:600">Laporan</span><span style="font-size:11px;color:var(--color-neutral-600)">Report &amp; approval</span></span></button>
       </div>
-      <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px;margin:0 6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-        <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Asumsi</span>
-        <span style="font-size:12px;line-height:1.5">Preset menyerupai bendung tetap tipikal di sungai vulkanik Jawa. Ganti dengan data lapangan. FEM linear-elastis per meter lebar, untuk indikasi zona.</span>
+
+      <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px;margin:0 4px;border-radius:4px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Catatan Asumsi</span>
+        <span style="font-size:12px;line-height:1.55;color:#2b2b2d">Preset menyerupai bendung tetap tipikal di sungai vulkanik Jawa. Ganti dengan data lapangan. FEM linear-elastis per meter lebar, untuk indikasi zona.</span>
       </div>
     </aside>
-    <main style="flex:999 1 560px;min-width:0;padding:28px clamp(16px,3vw,40px) 48px;display:flex;flex-direction:column;gap:26px">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+
+    <main style="flex:999 1 560px;min-width:0;padding:24px clamp(16px,3vw,36px) 48px;display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--ui-border)">
         <div style="display:flex;flex-direction:column;gap:4px">
-          <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ kicker }}</span>
-          <h1 style="margin:0;font-size:38px">{{ headTitle }} <span style="font-family:var(--font-body);font-weight:400;font-size:16px;color:var(--color-neutral-600)">{{ headEn }}</span></h1>
+          <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ kicker }}</span>
+          <h1 style="margin:0;font-size:34px;line-height:1.1">{{ headTitle }} <span style="font-family:var(--font-body);font-weight:400;font-size:15px;color:var(--color-neutral-600)">{{ headEn }}</span></h1>
         </div>
-        <sc-if value="{{ isDash }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" style="min-height:40px;white-space:nowrap" onClick="{{ editInputs }}">Edit input</button></sc-if>
+        <sc-if value="{{ isDash }}" hint-placeholder-val="{{ false }}">
+          <button class="btn btn-secondary" style="min-height:40px;white-space:nowrap;border-radius:5px" onClick="{{ editInputs }}">Edit input</button>
+        </sc-if>
       </div>
+
       <sc-if value="{{ isWizard }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:36px;align-items:start">
-          <sc-if value="{{ hasGroups }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:24px">
-          <sc-for list="{{ groups }}" as="gr" hint-placeholder-count="2">
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><h4 style="margin:0;font-size:19px">{{ gr.t }}</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ gr.en }}</span></div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 10px">
-                <sc-for list="{{ gr.fields }}" as="fd" hint-placeholder-count="4">
-                  <label class="field" style="display:flex;flex-direction:column;gap:4px;grid-column:{{ fd.col }}">
-                    <span style="font-size:11.5px;line-height:1.25;color:var(--color-neutral-800)">{{ fd.l }}<br><span style="color:var(--color-neutral-600)">{{ fd.en }}</span></span>
-                    <span style="display:flex;align-items:stretch">
-                      <input class="input" style="min-height:44px;flex:1;min-width:0" value="{{ fd.value }}" onChange="{{ fd.onChange }}">
-                      <span style="display:grid;place-items:center;min-width:44px;padding:0 6px;font-size:11.5px;border:1px solid var(--color-divider);border-left:0;color:var(--color-neutral-700)">{{ fd.u }}</span>
-                    </span>
-                  </label>
-                </sc-for>
-              </div>
-            </div>
-          </sc-for>
-        </div></sc-if>
-          <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
-            <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Jenis Tanah (Lane/Bligh)</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Soil class</span></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-              <sc-for list="{{ soilOpts }}" as="so" hint-placeholder-count="6">
-                <button onClick="{{ so.on }}" style="all:unset;cursor:pointer;min-height:44px;padding:6px 8px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--color-divider);background:{{ so.bg }};color:{{ so.fg }}">
-                  <span style="font-size:12.5px;font-weight:500;line-height:1.2">{{ so.l }}</span>
-                  <span style="font-size:10.5px;opacity:.75">C<sub>L</sub> {{ so.cl }} · C<sub>B</sub> {{ so.cb }}</span>
-                </button>
-              </sc-for>
-            </div>
-            <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Daya dukung tanah · Bearing capacity (Terzaghi)</span>
-              <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1">{{ bear.qall }}</span><span style="font-size:13px;color:var(--color-neutral-700)">kPa ijin (SF 3)</span></div>
-              <span style="font-size:12px;color:var(--color-neutral-700)">N<sub>c</sub> {{ bear.Nc }} · N<sub>q</sub> {{ bear.Nq }} · N<sub>γ</sub> {{ bear.Ng }} · q<sub>ult</sub> {{ bear.qult }} kPa · D<sub>f</sub> {{ bear.Df }} m · B {{ bear.B }} m</span>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <span style="font-size:11.5px;color:var(--color-neutral-700)">Periode ulang rencana · Design return period</span>
-              <div class="seg" style="display:flex">
-                <sc-for list="{{ tOpts }}" as="to" hint-placeholder-count="3">
-                  <button onClick="{{ to.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:42px;display:grid;place-items:center;font-size:14px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ to.bg }};color:{{ to.fg }}">{{ to.l }}</button>
-                </sc-for>
-              </div>
-            </div>
-            <div class="blueprint" style="padding:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Debit banjir rencana · Design flood</span><span style="font-family:var(--font-heading);font-weight:600;font-size:40px;line-height:1">{{ hid.Qd }} <span style="font-size:18px">m³/s</span></span></div>
-              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:12px;color:var(--color-neutral-700);white-space:nowrap;flex:none"><span>R{{ hid.T }} = {{ hid.RT }} mm</span><span>MA hilir {{ hid.TWL }}</span></div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Analisis Frekuensi Gumbel</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Frequency analysis</span></div>
-              <span style="font-size:12px;color:var(--color-neutral-700)">n = {{ hid.N }} · x̄ = {{ hid.mean }} mm · S = {{ hid.sd }} mm · Yn = {{ hid.Yn }} · Sn = {{ hid.Sn }}</span>
-              <table class="table" style="font-size:13px">
-                <thead><tr><th>T (th)</th><th>Y<sub>T</sub></th><th>K</th><th>R (mm)</th><th>Q (m³/s)</th></tr></thead>
-                <tbody>
-                  <sc-for list="{{ gumRows }}" as="gu" hint-placeholder-count="6">
-                    <tr style="font-weight:{{ gu.fw }}"><td>{{ gu.T }}</td><td>{{ gu.Yt }}</td><td>{{ gu.K }}</td><td>{{ gu.R }}</td><td>{{ gu.Q }}</td></tr>
-                  </sc-for>
-                </tbody>
-              </table>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Hidrograf HSS Nakayasu</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Flood hydrograph</span></div>
-              <div style="border:1px solid var(--color-divider);line-height:0">{{ svg0 }}</div>
-              <span style="font-size:12px;color:var(--color-neutral-700)">t<sub>g</sub> {{ hid.tg }} j · t<sub>r</sub> {{ hid.tr }} j · T<sub>p</sub> {{ hid.Tp }} j · T<sub>0.3</sub> {{ hid.T03 }} j · Q<sub>p</sub> {{ hid.Qp }} m³/s/mm · R<sub>eff</sub> {{ hid.Reff }} mm (Mononobe 5 jam)</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Rating Curve Hilir</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Stage–discharge · Manning</span></div>
-              <div style="border:1px solid var(--color-divider);line-height:0">{{ svg1 }}</div>
-              <span style="font-size:12px;color:var(--color-neutral-700)">Penampang trapesium b {{ rc.b }} m, 1:{{ rc.m }}, I {{ rc.I }}, n {{ rc.n }} → h = {{ rc.h }} m, v = {{ rc.v }} m/s, MA hilir {{ hid.TWL }}</span>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
-              <sc-for list="{{ hydKV }}" as="r" hint-placeholder-count="10">
-                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
-                  <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
-                  <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
-                </div>
-              </sc-for>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Denah Bendung</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Plan · flow ↓</span></div>
-              <div style="border:1px solid var(--color-divider);line-height:0">{{ svg2 }}</div>
-              <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
-                <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#c9c9cc;border:1px solid #2b2b2d;display:block"></i>Mercu pelimpah</span>
-                <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#416180;display:block"></i>Pintu pembilas</span>
-                <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#5d5d60;display:block"></i>Pilar / pangkal</span>
-              </div>
-              <sc-for list="{{ hydChecks }}" as="c" hint-placeholder-count="2">
-                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:6px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
-                  <span>{{ c.k }} <span style="color:var(--color-neutral-600)">{{ c.v }}</span></span>
-                  <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">OK</span></sc-if>
-                  <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Cek</span></sc-if>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div class="blueprint" style="padding:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Tipe kolam olak · Basin type</span><span style="font-family:var(--font-heading);font-weight:600;font-size:34px;line-height:1">{{ bas.type }}</span></div>
-              <div style="display:flex;flex-direction:column;align-items:flex-end;font-size:12px;color:var(--color-neutral-700)"><span>Fr₁ = {{ bas.Fr }}</span><span>L = {{ bas.Lb }} m</span></div>
-            </div>
-            <div style="border:1px solid var(--color-divider);line-height:0">{{ svg3 }}</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
-              <sc-for list="{{ basKV }}" as="r" hint-placeholder-count="10">
-                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
-                  <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
-                  <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
-                </div>
-              </sc-for>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Kontrol Rembesan</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Seepage · Lane &amp; Bligh</span></div>
-              <span style="font-size:12px;color:var(--color-neutral-700)">ΣL<sub>v</sub> {{ seep.Lv }} m · ΣL<sub>h</sub> {{ seep.Lh }} m · ΔH {{ seep.dH }} m · tanah {{ seep.soil }}</span>
-              <sc-for list="{{ seepChecks }}" as="c" hint-placeholder-count="3">
-                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:7px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
-                  <span style="display:flex;flex-direction:column"><span>{{ c.k }}</span><span style="color:var(--color-neutral-600);font-size:11.5px">{{ c.v }}</span></span>
-                  <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">Aman</span></sc-if>
-                  <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Tidak aman</span></sc-if>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div class="seg" style="display:flex">
-              <sc-for list="{{ caseOpts }}" as="co" hint-placeholder-count="2">
-                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}"><span style="font-size:13.5px;font-weight:500">{{ co.l }}</span><span style="font-size:10.5px;opacity:.8">{{ co.en }}</span></button>
-              </sc-for>
-            </div>
-            <div style="border:1px solid var(--color-divider);line-height:0">{{ svg4 }}</div>
-            <table class="table" style="font-size:12.5px">
-              <thead><tr><th>Gaya · Force</th><th style="text-align:right">V</th><th style="text-align:right">H</th><th style="text-align:right">M<sub>toe</sub></th></tr></thead>
-              <tbody>
-                <sc-for list="{{ st.rows }}" as="fr" hint-placeholder-count="7">
-                  <tr><td>{{ fr.n }}<br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ fr.en }}</span></td><td style="text-align:right">{{ fr.V }}</td><td style="text-align:right">{{ fr.H }}</td><td style="text-align:right">{{ fr.M }}</td></tr>
-                </sc-for>
-                <tr style="font-weight:700"><td>Σ</td><td style="text-align:right">{{ st.sumV }}</td><td style="text-align:right">{{ st.sumH }}</td><td style="text-align:right">{{ st.net }}</td></tr>
-              </tbody>
-            </table>
-            <span style="font-size:11.5px;color:var(--color-neutral-600)">kN/m', kNm/m' per meter lebar. M positif = menahan (terhadap kaki hilir).</span>
-            <div style="display:flex;flex-direction:column">
-              <sc-for list="{{ st.checks }}" as="c" hint-placeholder-count="5">
-                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:8px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
-                  <span style="display:flex;flex-direction:column"><span>{{ c.k }} <span style="color:var(--color-neutral-600)">· {{ c.en }}</span></span><span style="font-family:var(--font-heading);font-weight:600;font-size:17px">{{ c.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11.5px;color:var(--color-neutral-600)">syarat {{ c.req }}</span></span></span>
-                  <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">Aman</span></sc-if>
-                  <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Tidak aman</span></sc-if>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-if>
-
-        
-          </div>
-        </div>
-        <div class="no-print" style="display:flex;justify-content:space-between;gap:10px;padding-top:18px;border-top:1px solid var(--color-divider)">
-          <button class="btn btn-secondary" style="min-height:44px;min-width:120px" onClick="{{ prev }}" disabled="{{ isFirst }}">Kembali</button>
-          <button class="btn btn-primary blueprint" style="min-height:44px;min-width:220px;font-size:15px" onClick="{{ next }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ nextLabel }}</button>
-        </div>
-      </sc-if>
-      <sc-if value="{{ isTab3d }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div class="blueprint" style="position:relative;height:min(560px,70vh);min-height:360px;background:#f5f5f8;grid-column:1/-1"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <canvas ref="{{ ref3d }}" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
-              <div ref="{{ lbl3dRef }}" style="position:absolute;inset:0;pointer-events:none;overflow:hidden"></div>
-              <sc-if value="{{ loading3d }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;display:grid;place-items:center;font-size:12px;color:var(--color-neutral-600)">Memuat model 3D…</div></sc-if>
-              <sc-if value="{{ hasErr3d }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;font-size:12px;color:#7a3412">{{ err3d }}</div></sc-if>
-              <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:4px">
-                <button class="btn btn-secondary btn-icon" style="width:40px;height:40px;background:var(--color-bg)" onClick="{{ zoomIn }}">+</button>
-                <button class="btn btn-secondary btn-icon" style="width:40px;height:40px;background:var(--color-bg)" onClick="{{ zoomOut }}">−</button>
-                <button class="btn btn-secondary btn-icon" style="width:40px;height:40px;background:var(--color-bg);font-size:11px" onClick="{{ resetView }}">⟲</button>
-              </div>
-              <span style="position:absolute;left:10px;bottom:8px;font-size:10.5px;color:var(--color-neutral-600)">Seret untuk memutar · cubit / scroll untuk zoom</span>
-            </div>
-            <div class="seg" style="display:flex">
-              <sc-for list="{{ w3Opts }}" as="co" hint-placeholder-count="2">
-                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:grid;place-items:center;font-size:13.5px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
-              </sc-for>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn btn-secondary" style="min-height:44px" onClick="{{ viewWeir }}">Fokus bendung</button><button class="btn btn-secondary" style="min-height:44px" onClick="{{ viewRes }}">Seluruh waduk · {{ resL }} m</button></div>
-            <button onClick="{{ toggleZones }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--color-divider)">
-              <span style="font-size:13.5px">Tampilkan zona retak &amp; titik guling <span style="color:var(--color-neutral-600);font-size:11.5px">· crack zones</span></span>
-              <span style="width:40px;height:22px;border:1px solid var(--color-accent);position:relative;background:{{ zoneSw.bg }}"><span style="position:absolute;top:2px;left:{{ zoneSw.left }};width:16px;height:16px;background:{{ zoneSw.knob }}"></span></span>
-            </button>
-            <button onClick="{{ toggleDims }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--color-divider)">
-              <span style="font-size:13.5px">Tampilkan label dimensi <span style="color:var(--color-neutral-600);font-size:11.5px">· dimension labels</span></span>
-              <span style="width:40px;height:22px;border:1px solid var(--color-accent);position:relative;background:{{ dimSw.bg }}"><span style="position:absolute;top:2px;left:{{ dimSw.left }};width:16px;height:16px;background:{{ dimSw.knob }}"></span></span>
-            </button>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
-              <sc-for list="{{ sumKV }}" as="r" hint-placeholder-count="6">
-                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
-                  <span style="font-size:10.5px;line-height:1.2;color:var(--color-neutral-700)">{{ r.k }}</span>
-                  <span style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.1">{{ r.v }}</span>
-                </div>
-              </sc-for>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px;grid-column:1/-1">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Dimensi Struktur</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Structure dimensions</span></div>
-              <table class="table" style="font-size:12.5px">
-                <thead><tr><th>Struktur · Element</th><th>Dimensi · Dimension</th></tr></thead>
-                <tbody>
-                  <sc-for list="{{ dimRows }}" as="dr" hint-placeholder-count="10">
-                    <tr><td style="vertical-align:top">{{ dr.k }}<br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ dr.en }}</span></td><td style="vertical-align:top;font-variant-numeric:tabular-nums">{{ dr.v }}</td></tr>
-                  </sc-for>
-                </tbody>
-              </table>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
-              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#c9c9cc;border:1px solid #2b2b2d;display:block"></i>Beton / pasangan</span>
-              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#416180;display:block"></i>Pintu baja</span>
-              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#d8663a;display:block"></i>Zona tarik / guling</span>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ isTabFem }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
-              <sc-for list="{{ fieldOpts }}" as="fo" hint-placeholder-count="6">
-                <button onClick="{{ fo.on }}" style="all:unset;cursor:pointer;min-height:44px;padding:4px 6px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:1px solid var(--color-divider);background:{{ fo.bg }};color:{{ fo.fg }}"><span style="font-size:14px;font-weight:600">{{ fo.l }}</span><span style="font-size:10px;opacity:.8">{{ fo.en }}</span></button>
-              </sc-for>
-            </div>
-            <div class="blueprint" style="height:min(420px,60vh);min-height:280px;background:#f5f5f8;grid-column:1/-1"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <canvas ref="{{ femRef }}" style="width:100%;height:100%;display:block"></canvas>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:4px">
-              <div style="height:12px;border:1px solid var(--color-divider);background:{{ fem.grad }}"></div>
-              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-neutral-700)"><span>{{ fem.lo }}</span><span>{{ fem.mid }}</span><span>{{ fem.hi }}</span></div>
-              <span style="font-size:11.5px;color:var(--color-neutral-600)">{{ fem.title }} · {{ fem.unit }}. Biru = tekan, jingga = tarik.</span>
-            </div>
-            <div class="seg" style="display:flex">
-              <sc-for list="{{ fCaseOpts }}" as="co" hint-placeholder-count="2">
-                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:grid;place-items:center;font-size:13.5px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
-              </sc-for>
-            </div>
-            <button onClick="{{ toggleMesh }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--color-divider)">
-              <span style="font-size:13.5px">Tampilkan mesh <span style="color:var(--color-neutral-600);font-size:11.5px">· {{ fem.nEl }} elemen CST, {{ fem.nNd }} nodal</span></span>
-              <span style="width:40px;height:22px;border:1px solid var(--color-accent);position:relative;background:{{ meshSw.bg }}"><span style="position:absolute;top:2px;left:{{ meshSw.left }};width:16px;height:16px;background:{{ meshSw.knob }}"></span></span>
-            </button>
-            <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
-              <sc-for list="{{ femKV }}" as="r" hint-placeholder-count="6">
-                <div style="padding:8px 10px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px">
-                  <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
-                  <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
-                </div>
-              </sc-for>
-            </div>
-            <span style="font-size:11.5px;line-height:1.5;color:var(--color-neutral-600)">Model: regangan bidang, E = 20 GPa, ν = 0,20, γ = 23,5 kN/m³. Beban: berat sendiri, tekanan air hulu/hilir, lumpur, uplift (Lane), gempa. Dasar ditumpu pegas k<sub>s</sub> = {{ fem.ks }} kN/m³.</span>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ isTabCrit }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div class="seg" style="display:flex">
-              <sc-for list="{{ cCaseOpts }}" as="co" hint-placeholder-count="2">
-                <button onClick="{{ co.on }}" style="all:unset;cursor:pointer;flex:1;text-align:center;min-height:44px;display:grid;place-items:center;font-size:13.5px;font-weight:500;border-right:1px solid var(--color-divider);background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
-              </sc-for>
-            </div>
-            <div class="blueprint" style="height:min(420px,60vh);min-height:280px;background:#f5f5f8;grid-column:1/-1"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <canvas ref="{{ critRef }}" style="width:100%;height:100%;display:block"></canvas>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
-              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#c4462a;display:block"></i>σ₁ &gt; f<sub>t</sub> ijin (retak)</span>
-              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;background:#eaa86a;display:block"></i>σ₁ &gt; 0,5 f<sub>t</sub> (waspada)</span>
-              <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:2px;background:#a8321f;display:block"></i>Resultan</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <sc-for list="{{ zoneCards }}" as="z" hint-placeholder-count="4">
-                <div class="blueprint" style="padding:12px;display:flex;flex-direction:column;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-                  <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
-                    <span style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-weight:600;font-size:18px;line-height:1.15">{{ z.t }}</span><span style="font-size:11px;color:var(--color-neutral-600)">{{ z.en }}</span></span>
-                    <sc-if value="{{ z.ok }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent">Aman</span></sc-if>
-                    <sc-if value="{{ z.warn }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#f6dcc0;color:#7a3412">Waspada</span></sc-if>
-                    <sc-if value="{{ z.bad }}" hint-placeholder-val="{{ false }}"><span class="tag" style="background:#a8321f;color:#fff">Kritis</span></sc-if>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,410px),1fr));gap:24px;align-items:start">
+          <sc-if value="{{ hasGroups }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <sc-for list="{{ groups }}" as="gr" hint-placeholder-count="2">
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:12px">
+                  <div class="ui-section-head">
+                    <h4 style="margin:0;font-size:18px">{{ gr.t }}</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ gr.en }}</span>
                   </div>
-                  <span style="font-size:12.5px;line-height:1.5">{{ z.d }}</span>
-                  <span style="font-size:11.5px;color:var(--color-neutral-600)">{{ z.m }}</span>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px">
+                    <sc-for list="{{ gr.fields }}" as="fd" hint-placeholder-count="4">
+                      <label class="field" style="display:flex;flex-direction:column;gap:5px;grid-column:{{ fd.col }}">
+                        <span style="font-size:11.5px;line-height:1.3;color:var(--color-neutral-800)">
+                          <strong style="font-weight:600">{{ fd.l }}</strong>
+                          <span style="display:block;font-size:10.5px;color:var(--color-neutral-600)">{{ fd.en }}</span>
+                        </span>
+                        <span style="display:flex;align-items:stretch">
+                          <input class="input" style="min-height:42px;flex:1;min-width:0;border-radius:4px 0 0 4px" value="{{ fd.value }}" onChange="{{ fd.onChange }}">
+                          <span style="display:grid;place-items:center;min-width:46px;padding:0 8px;font-size:11.5px;font-weight:500;background:#f7f8fa;border:1px solid var(--ui-border-strong);border-left:0;border-radius:0 4px 4px 0;color:var(--color-neutral-700)">{{ fd.u }}</span>
+                        </span>
+                      </label>
+                    </sc-for>
+                  </div>
                 </div>
               </sc-for>
             </div>
-          </div>
-        </sc-if>
+          </sc-if>
 
-        <sc-if value="{{ isTabGate }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <sc-for list="{{ gateCards }}" as="gc" hint-placeholder-count="2">
-              <div class="blueprint" style="padding:14px;display:flex;flex-direction:column;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-                <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px">
-                  <span style="display:flex;flex-direction:column"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">{{ gc.kick }}</span><span style="font-family:var(--font-heading);font-weight:600;font-size:24px;line-height:1.1">{{ gc.t }}</span></span>
-                  <span style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1">{{ gc.count }}</span>
+          <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+            <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+              <div class="ui-card" style="display:flex;flex-direction:column;gap:14px">
+                <div class="ui-section-head">
+                  <h4 style="margin:0;font-size:18px">Jenis Tanah (Lane/Bligh)</h4>
+                  <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Soil class</span>
                 </div>
-                <span style="font-size:12.5px;color:var(--color-neutral-700)">{{ gc.type }}</span>
-                <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)">
-                  <sc-for list="{{ gc.kv }}" as="r" hint-placeholder-count="6">
-                    <div style="padding:7px 9px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:1px">
-                      <span style="font-size:10.5px;color:var(--color-neutral-700)">{{ r.k }}</span>
-                      <span style="font-family:var(--font-heading);font-weight:600;font-size:17px">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px">
+                  <sc-for list="{{ soilOpts }}" as="so" hint-placeholder-count="6">
+                    <button onClick="{{ so.on }}" style="all:unset;cursor:pointer;min-height:48px;padding:8px 10px;border-radius:5px;display:flex;flex-direction:column;justify-content:center;gap:2px;border:1px solid var(--ui-border-strong);background:{{ so.bg }};color:{{ so.fg }}">
+                      <span style="font-size:12.5px;font-weight:600;line-height:1.2">{{ so.l }}</span>
+                      <span style="font-size:10.5px;opacity:.82">C<sub>L</sub> {{ so.cl }} · C<sub>B</sub> {{ so.cb }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div class="blueprint" style="padding:14px;display:flex;flex-direction:column;gap:6px;border-radius:4px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Daya dukung tanah · Bearing capacity (Terzaghi)</span>
+                  <div style="display:flex;align-items:baseline;gap:8px">
+                    <span style="font-family:var(--font-heading);font-weight:700;font-size:32px;line-height:1">{{ bear.qall }}</span>
+                    <span style="font-size:13px;color:var(--color-neutral-700)">kPa ijin (SF 3)</span>
+                  </div>
+                  <span style="font-size:12px;color:var(--color-neutral-700)">N<sub>c</sub> {{ bear.Nc }} · N<sub>q</sub> {{ bear.Nq }} · N<sub>γ</sub> {{ bear.Ng }} · q<sub>ult</sub> {{ bear.qult }} kPa · D<sub>f</sub> {{ bear.Df }} m · B {{ bear.B }} m</span>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-700)">Periode ulang rencana · Design return period</span>
+                  <div class="ui-seg">
+                    <sc-for list="{{ tOpts }}" as="to" hint-placeholder-count="3">
+                      <button onClick="{{ to.on }}" class="ui-seg-btn" style="font-size:13.5px;font-weight:600;background:{{ to.bg }};color:{{ to.fg }}">{{ to.l }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div class="blueprint" style="padding:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;border-radius:4px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Debit banjir rencana · Design flood</span>
+                    <span style="font-family:var(--font-heading);font-weight:700;font-size:38px;line-height:1">{{ hid.Qd }} <span style="font-size:17px;font-weight:500">m³/s</span></span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:12px;color:var(--color-neutral-700);white-space:nowrap;flex:none">
+                    <span>R{{ hid.T }} = {{ hid.RT }} mm</span>
+                    <span>MA hilir {{ hid.TWL }}</span>
+                  </div>
+                </div>
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:10px">
+                  <div class="ui-section-head">
+                    <h4 style="margin:0;font-size:18px">Analisis Frekuensi Gumbel</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Frequency analysis</span>
+                  </div>
+                  <span style="font-size:12px;color:var(--color-neutral-700)">n = {{ hid.N }} · x̄ = {{ hid.mean }} mm · S = {{ hid.sd }} mm · Yn = {{ hid.Yn }} · Sn = {{ hid.Sn }}</span>
+                  <table class="table" style="font-size:13px">
+                    <thead><tr><th>T (th)</th><th>Y<sub>T</sub></th><th>K</th><th>R (mm)</th><th>Q (m³/s)</th></tr></thead>
+                    <tbody>
+                      <sc-for list="{{ gumRows }}" as="gu" hint-placeholder-count="6">
+                        <tr style="font-weight:{{ gu.fw }}"><td>{{ gu.T }}</td><td>{{ gu.Yt }}</td><td>{{ gu.K }}</td><td>{{ gu.R }}</td><td>{{ gu.Q }}</td></tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:10px">
+                  <div class="ui-section-head">
+                    <h4 style="margin:0;font-size:18px">Hidrograf HSS Nakayasu</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Flood hydrograph</span>
+                  </div>
+                  <div style="border:1px solid var(--ui-border);border-radius:4px;overflow:hidden;background:#ffffff;line-height:0">{{ svg0 }}</div>
+                  <span style="font-size:12px;color:var(--color-neutral-700)">t<sub>g</sub> {{ hid.tg }} j · t<sub>r</sub> {{ hid.tr }} j · T<sub>p</sub> {{ hid.Tp }} j · T<sub>0.3</sub> {{ hid.T03 }} j · Q<sub>p</sub> {{ hid.Qp }} m³/s/mm · R<sub>eff</sub> {{ hid.Reff }} mm (Mononobe 5 jam)</span>
+                </div>
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:10px">
+                  <div class="ui-section-head">
+                    <h4 style="margin:0;font-size:18px">Rating Curve Hilir</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Stage–discharge · Manning</span>
+                  </div>
+                  <div style="border:1px solid var(--ui-border);border-radius:4px;overflow:hidden;background:#ffffff;line-height:0">{{ svg1 }}</div>
+                  <span style="font-size:12px;color:var(--color-neutral-700)">Penampang trapesium b {{ rc.b }} m, 1:{{ rc.m }}, I {{ rc.I }}, n {{ rc.n }} → h = {{ rc.h }} m, v = {{ rc.v }} m/s, MA hilir {{ hid.TWL }}</span>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+                <div class="ui-card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
+                  <sc-for list="{{ hydKV }}" as="r" hint-placeholder-count="10">
+                    <div class="ui-card-muted" style="padding:10px;display:flex;flex-direction:column;gap:3px">
+                      <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
+                      <span style="font-family:var(--font-heading);font-weight:700;font-size:18px;line-height:1.15">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11.5px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:10px">
+                  <div class="ui-section-head">
+                    <h4 style="margin:0;font-size:18px">Denah Bendung</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Plan · flow ↓</span>
+                  </div>
+                  <div style="border:1px solid var(--ui-border);border-radius:4px;overflow:hidden;background:#ffffff;line-height:0">{{ svg2 }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700)">
+                    <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;border-radius:2px;background:#c9c9cc;border:1px solid #2b2b2d;display:block"></i>Mercu pelimpah</span>
+                    <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;border-radius:2px;background:#416180;display:block"></i>Pintu pembilas</span>
+                    <span style="display:flex;align-items:center;gap:5px"><i style="width:10px;height:10px;border-radius:2px;background:#5d5d60;display:block"></i>Pilar / pangkal</span>
+                  </div>
+                  <sc-for list="{{ hydChecks }}" as="c" hint-placeholder-count="2">
+                    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:8px 0;border-bottom:1px solid var(--ui-border)">
+                      <span><strong style="font-weight:600">{{ c.k }}</strong> <span style="color:var(--color-neutral-600)">{{ c.v }}</span></span>
+                      <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="ui-pill ui-pill-ok">OK</span></sc-if>
+                      <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-warn">Cek</span></sc-if>
                     </div>
                   </sc-for>
                 </div>
               </div>
-            </sc-for>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between"><h4 style="margin:0;font-size:19px">Spesifikasi Material</h4><span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Materials</span></div>
-              <table class="table" style="font-size:12.5px">
-                <thead><tr><th>Komponen</th><th>Material</th></tr></thead>
-                <tbody>
-                  <sc-for list="{{ matRows }}" as="mr" hint-placeholder-count="8">
-                    <tr><td style="vertical-align:top">{{ mr.k }}<br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ mr.en }}</span></td><td style="vertical-align:top">{{ mr.v }}</td></tr>
+            </sc-if>
+
+            <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+                <div class="blueprint" style="padding:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;border-radius:4px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Tipe kolam olak · Basin type</span>
+                    <span style="font-family:var(--font-heading);font-weight:700;font-size:32px;line-height:1">{{ bas.type }}</span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;font-size:12px;color:var(--color-neutral-700)">
+                    <span>Fr₁ = {{ bas.Fr }}</span>
+                    <span>L = {{ bas.Lb }} m</span>
+                  </div>
+                </div>
+                <div class="ui-card" style="padding:10px;line-height:0">{{ svg3 }}</div>
+                <div class="ui-card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
+                  <sc-for list="{{ basKV }}" as="r" hint-placeholder-count="10">
+                    <div class="ui-card-muted" style="padding:10px;display:flex;flex-direction:column;gap:3px">
+                      <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
+                      <span style="font-family:var(--font-heading);font-weight:700;font-size:18px;line-height:1.15">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11.5px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+                    </div>
                   </sc-for>
-                </tbody>
-              </table>
+                </div>
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:10px">
+                  <div class="ui-section-head">
+                    <h4 style="margin:0;font-size:18px">Kontrol Rembesan</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Seepage · Lane &amp; Bligh</span>
+                  </div>
+                  <span style="font-size:12px;color:var(--color-neutral-700)">ΣL<sub>v</sub> {{ seep.Lv }} m · ΣL<sub>h</sub> {{ seep.Lh }} m · ΔH {{ seep.dH }} m · tanah {{ seep.soil }}</span>
+                  <sc-for list="{{ seepChecks }}" as="c" hint-placeholder-count="3">
+                    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:8px 0;border-bottom:1px solid var(--ui-border)">
+                      <span style="display:flex;flex-direction:column;gap:2px"><strong style="font-weight:600">{{ c.k }}</strong><span style="color:var(--color-neutral-600);font-size:11.5px">{{ c.v }}</span></span>
+                      <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="ui-pill ui-pill-ok">Aman</span></sc-if>
+                      <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-bad">Tidak aman</span></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+                <div class="ui-seg">
+                  <sc-for list="{{ caseOpts }}" as="co" hint-placeholder-count="2">
+                    <button onClick="{{ co.on }}" class="ui-seg-btn" style="background:{{ co.bg }};color:{{ co.fg }}">
+                      <span style="font-size:13.5px;font-weight:600">{{ co.l }}</span>
+                      <span style="font-size:10.5px;opacity:.82">{{ co.en }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div class="ui-card" style="padding:10px;line-height:0">{{ svg4 }}</div>
+                <div class="ui-card" style="display:flex;flex-direction:column;gap:8px">
+                  <table class="table" style="font-size:12.5px">
+                    <thead><tr><th>Gaya · Force</th><th style="text-align:right">V</th><th style="text-align:right">H</th><th style="text-align:right">M<sub>toe</sub></th></tr></thead>
+                    <tbody>
+                      <sc-for list="{{ st.rows }}" as="fr" hint-placeholder-count="7">
+                        <tr><td><strong style="font-weight:600">{{ fr.n }}</strong><br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ fr.en }}</span></td><td style="text-align:right">{{ fr.V }}</td><td style="text-align:right">{{ fr.H }}</td><td style="text-align:right">{{ fr.M }}</td></tr>
+                      </sc-for>
+                      <tr style="font-weight:700;background:#f7f8fa"><td>Σ</td><td style="text-align:right">{{ st.sumV }}</td><td style="text-align:right">{{ st.sumH }}</td><td style="text-align:right">{{ st.net }}</td></tr>
+                    </tbody>
+                  </table>
+                  <span style="font-size:11.5px;color:var(--color-neutral-600)">kN/m', kNm/m' per meter lebar. M positif = menahan (terhadap kaki hilir).</span>
+                </div>
+                <div class="ui-card" style="display:flex;flex-direction:column">
+                  <div class="ui-section-head" style="margin-bottom:4px">
+                    <h4 style="margin:0;font-size:17px">Kontrol Stabilitas</h4>
+                    <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Safety checks</span>
+                  </div>
+                  <sc-for list="{{ st.checks }}" as="c" hint-placeholder-count="5">
+                    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:9px 0;border-bottom:1px solid var(--ui-border)">
+                      <span style="display:flex;flex-direction:column;gap:2px">
+                        <span><strong style="font-weight:600">{{ c.k }}</strong> <span style="color:var(--color-neutral-600)">· {{ c.en }}</span></span>
+                        <span style="font-family:var(--font-heading);font-weight:700;font-size:16.5px">{{ c.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11.5px;color:var(--color-neutral-600)">syarat {{ c.req }}</span></span>
+                      </span>
+                      <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><span class="ui-pill ui-pill-ok">Aman</span></sc-if>
+                      <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-bad">Tidak aman</span></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div class="ui-card no-print" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:14px 18px">
+          <button class="btn btn-secondary" style="min-height:42px;min-width:120px;border-radius:5px" onClick="{{ prev }}" disabled="{{ isFirst }}">Kembali</button>
+          <button class="btn btn-primary blueprint" style="min-height:42px;min-width:220px;font-size:14.5px;border-radius:5px" onClick="{{ next }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ nextLabel }}</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTab3d }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+          <div class="blueprint" style="position:relative;height:min(540px,68vh);min-height:360px;background:#f5f5f8;grid-column:1/-1;border-radius:6px;overflow:hidden"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <canvas ref="{{ ref3d }}" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
+            <div ref="{{ lbl3dRef }}" style="position:absolute;inset:0;pointer-events:none;overflow:hidden"></div>
+            <sc-if value="{{ loading3d }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;display:grid;place-items:center;font-size:12px;color:var(--color-neutral-600)">Memuat model 3D…</div></sc-if>
+            <sc-if value="{{ hasErr3d }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;font-size:12px;color:var(--ui-bad-fg)">{{ err3d }}</div></sc-if>
+            <div style="position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:5px">
+              <button class="btn btn-secondary btn-icon" style="width:38px;height:38px;background:#ffffff;border-radius:5px" onClick="{{ zoomIn }}">+</button>
+              <button class="btn btn-secondary btn-icon" style="width:38px;height:38px;background:#ffffff;border-radius:5px" onClick="{{ zoomOut }}">−</button>
+              <button class="btn btn-secondary btn-icon" style="width:38px;height:38px;background:#ffffff;border-radius:5px;font-size:12px" onClick="{{ resetView }}">⟲</button>
+            </div>
+            <span style="position:absolute;left:12px;bottom:10px;background:rgba(255,255,255,0.88);padding:3px 8px;border-radius:4px;font-size:11px;color:var(--color-neutral-700)">Seret untuk memutar · cubit / scroll untuk zoom</span>
+          </div>
+
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:12px">
+            <div class="ui-seg">
+              <sc-for list="{{ w3Opts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" class="ui-seg-btn" style="font-size:13px;font-weight:600;background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button class="btn btn-secondary" style="min-height:42px;border-radius:5px" onClick="{{ viewWeir }}">Fokus bendung</button>
+              <button class="btn btn-secondary" style="min-height:42px;border-radius:5px" onClick="{{ viewRes }}">Seluruh waduk · {{ resL }} m</button>
+            </div>
+            <button onClick="{{ toggleZones }}" class="ui-switch">
+              <span style="font-size:13px;font-weight:500">Tampilkan zona retak &amp; titik guling <span style="color:var(--color-neutral-600);font-size:11.5px">· crack zones</span></span>
+              <span style="width:40px;height:22px;border-radius:999px;border:1px solid var(--color-accent);position:relative;flex:none;background:{{ zoneSw.bg }}"><span style="position:absolute;top:2px;left:{{ zoneSw.left }};width:16px;height:16px;border-radius:50%;background:{{ zoneSw.knob }};transition:left .15s ease"></span></span>
+            </button>
+            <button onClick="{{ toggleDims }}" class="ui-switch">
+              <span style="font-size:13px;font-weight:500">Tampilkan label dimensi <span style="color:var(--color-neutral-600);font-size:11.5px">· dimension labels</span></span>
+              <span style="width:40px;height:22px;border-radius:999px;border:1px solid var(--color-accent);position:relative;flex:none;background:{{ dimSw.bg }}"><span style="position:absolute;top:2px;left:{{ dimSw.left }};width:16px;height:16px;border-radius:50%;background:{{ dimSw.knob }};transition:left .15s ease"></span></span>
+            </button>
+          </div>
+
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:12px">
+            <div class="ui-section-head">
+              <h4 style="margin:0;font-size:18px">Ringkasan &amp; Legenda</h4>
+              <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Summary &amp; legend</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+              <sc-for list="{{ sumKV }}" as="r" hint-placeholder-count="6">
+                <div class="ui-card-muted" style="padding:9px;display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:10.5px;color:var(--color-neutral-700)">{{ r.k }}</span>
+                  <span style="font-family:var(--font-heading);font-weight:700;font-size:16px;line-height:1.15">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--color-neutral-700);padding-top:4px">
+              <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:2px;background:#c9c9cc;border:1px solid #2b2b2d;display:block"></i>Beton / pasangan</span>
+              <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:2px;background:#416180;display:block"></i>Pintu baja</span>
+              <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:2px;background:#d8663a;display:block"></i>Zona tarik / guling</span>
             </div>
           </div>
-        </sc-if>
 
-        <sc-if value="{{ isTabRep }}" hint-placeholder-val="{{ false }}">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px 28px;align-items:start">
-            <div class="blueprint" style="padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <span style="display:flex;flex-direction:column"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Ringkasan kontrol · Checks</span><span style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1.05">{{ rep.pass }} / {{ rep.total }} aman</span></span>
-              <span class="tag" style="background:{{ rep.stBg }};color:{{ rep.stFg }};font-size:12px;padding:5px 10px">{{ rep.status }}</span>
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:10px;grid-column:1/-1">
+            <div class="ui-section-head">
+              <h4 style="margin:0;font-size:18px">Dimensi Struktur</h4>
+              <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Structure dimensions</span>
             </div>
-            <sc-for list="{{ repSections }}" as="rs" hint-placeholder-count="4">
-              <div style="display:flex;flex-direction:column">
-                <span style="font-family:var(--font-heading);font-weight:600;font-size:17px;padding-bottom:4px;border-bottom:1px solid var(--color-divider)">{{ rs.t }} <span style="font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--color-neutral-600)">· {{ rs.en }}</span></span>
-                <sc-for list="{{ rs.rows }}" as="c" hint-placeholder-count="3">
-                  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:6px 0;border-bottom:1px solid color-mix(in srgb,#1d1f20 8%,transparent)">
-                    <span>{{ c.k }}</span>
-                    <span style="display:flex;align-items:center;gap:8px"><span style="font-variant-numeric:tabular-nums">{{ c.v }}</span>
-                      <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ false }}"><span style="width:8px;height:8px;background:#416180;display:block"></span></sc-if>
-                      <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span style="width:8px;height:8px;background:#c4462a;display:block"></span></sc-if>
-                    </span>
+            <table class="table" style="font-size:12.5px">
+              <thead><tr><th>Struktur · Element</th><th>Dimensi · Dimension</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ dimRows }}" as="dr" hint-placeholder-count="10">
+                  <tr>
+                    <td style="vertical-align:top"><strong style="font-weight:600">{{ dr.k }}</strong><br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ dr.en }}</span></td>
+                    <td style="vertical-align:top;font-variant-numeric:tabular-nums">{{ dr.v }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabFem }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+          <div class="ui-card" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;grid-column:1/-1">
+            <sc-for list="{{ fieldOpts }}" as="fo" hint-placeholder-count="6">
+              <button onClick="{{ fo.on }}" style="all:unset;cursor:pointer;min-height:46px;padding:6px 8px;border-radius:5px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:1px solid var(--ui-border-strong);background:{{ fo.bg }};color:{{ fo.fg }}">
+                <span style="font-size:14px;font-weight:700">{{ fo.l }}</span>
+                <span style="font-size:10.5px;opacity:.82">{{ fo.en }}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div class="blueprint" style="height:min(420px,60vh);min-height:280px;background:#f5f5f8;grid-column:1/-1;border-radius:6px;overflow:hidden"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <canvas ref="{{ femRef }}" style="width:100%;height:100%;display:block"></canvas>
+          </div>
+
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:8px">
+            <div style="height:14px;border-radius:3px;border:1px solid var(--ui-border-strong);background:{{ fem.grad }}"></div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:600;color:var(--color-neutral-700)">
+              <span>{{ fem.lo }}</span><span>{{ fem.mid }}</span><span>{{ fem.hi }}</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-neutral-600)">{{ fem.title }} · {{ fem.unit }}. Biru = tekan, jingga = tarik.</span>
+          </div>
+
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:10px">
+            <div class="ui-seg">
+              <sc-for list="{{ fCaseOpts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" class="ui-seg-btn" style="font-size:13px;font-weight:600;background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
+              </sc-for>
+            </div>
+            <button onClick="{{ toggleMesh }}" class="ui-switch">
+              <span style="font-size:13px;font-weight:500">Tampilkan mesh <span style="color:var(--color-neutral-600);font-size:11.5px">· {{ fem.nEl }} elemen CST, {{ fem.nNd }} nodal</span></span>
+              <span style="width:40px;height:22px;border-radius:999px;border:1px solid var(--color-accent);position:relative;flex:none;background:{{ meshSw.bg }}"><span style="position:absolute;top:2px;left:{{ meshSw.left }};width:16px;height:16px;border-radius:50%;background:{{ meshSw.knob }};transition:left .15s ease"></span></span>
+            </button>
+          </div>
+
+          <div class="ui-card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;grid-column:1/-1">
+            <sc-for list="{{ femKV }}" as="r" hint-placeholder-count="6">
+              <div class="ui-card-muted" style="padding:10px;display:flex;flex-direction:column;gap:3px">
+                <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ r.k }} <span style="color:var(--color-neutral-500)">· {{ r.en }}</span></span>
+                <span style="font-family:var(--font-heading);font-weight:700;font-size:18px;line-height:1.15">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11.5px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
+              </div>
+            </sc-for>
+            <span style="font-size:11.5px;line-height:1.55;color:var(--color-neutral-600);grid-column:1/-1">Model: regangan bidang, E = 20 GPa, ν = 0,20, γ = 23,5 kN/m³. Beban: berat sendiri, tekanan air hulu/hilir, lumpur, uplift (Lane), gempa. Dasar ditumpu pegas k<sub>s</sub> = {{ fem.ks }} kN/m³.</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabCrit }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:10px;grid-column:1/-1">
+            <div class="ui-seg">
+              <sc-for list="{{ cCaseOpts }}" as="co" hint-placeholder-count="2">
+                <button onClick="{{ co.on }}" class="ui-seg-btn" style="font-size:13px;font-weight:600;background:{{ co.bg }};color:{{ co.fg }}">{{ co.l }}</button>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:var(--color-neutral-700)">
+              <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:2px;background:#c4462a;display:block"></i>σ₁ &gt; f<sub>t</sub> ijin (retak)</span>
+              <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:2px;background:#eaa86a;display:block"></i>σ₁ &gt; 0,5 f<sub>t</sub> (waspada)</span>
+              <span style="display:flex;align-items:center;gap:6px"><i style="width:12px;height:3px;background:#a8321f;display:block"></i>Resultan</span>
+            </div>
+          </div>
+
+          <div class="blueprint" style="height:min(420px,60vh);min-height:280px;background:#f5f5f8;grid-column:1/-1;border-radius:6px;overflow:hidden"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <canvas ref="{{ critRef }}" style="width:100%;height:100%;display:block"></canvas>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;grid-column:1/-1">
+            <sc-for list="{{ zoneCards }}" as="z" hint-placeholder-count="4">
+              <div class="ui-card" style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+                  <span style="display:flex;flex-direction:column;gap:2px">
+                    <span style="font-family:var(--font-heading);font-weight:700;font-size:17px;line-height:1.2">{{ z.t }}</span>
+                    <span style="font-size:11px;color:var(--color-neutral-600)">{{ z.en }}</span>
+                  </span>
+                  <sc-if value="{{ z.ok }}" hint-placeholder-val="{{ true }}"><span class="ui-pill ui-pill-ok">Aman</span></sc-if>
+                  <sc-if value="{{ z.warn }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-warn">Waspada</span></sc-if>
+                  <sc-if value="{{ z.bad }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-bad">Kritis</span></sc-if>
+                </div>
+                <span style="font-size:12.5px;line-height:1.5;color:#2b2b2d">{{ z.d }}</span>
+                <span style="font-size:11.5px;line-height:1.45;color:var(--color-neutral-600);padding-top:6px;border-top:1px solid var(--ui-border)">{{ z.m }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabGate }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+          <sc-for list="{{ gateCards }}" as="gc" hint-placeholder-count="2">
+            <div class="ui-card" style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--ui-border)">
+                <span style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700)">{{ gc.kick }}</span>
+                  <span style="font-family:var(--font-heading);font-weight:700;font-size:22px;line-height:1.15">{{ gc.t }}</span>
+                </span>
+                <span style="font-family:var(--font-heading);font-weight:700;font-size:26px;line-height:1;color:var(--ui-accent)">{{ gc.count }}</span>
+              </div>
+              <span style="font-size:12.5px;line-height:1.45;color:var(--color-neutral-700)">{{ gc.type }}</span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <sc-for list="{{ gc.kv }}" as="r" hint-placeholder-count="6">
+                  <div class="ui-card-muted" style="padding:9px;display:flex;flex-direction:column;gap:2px">
+                    <span style="font-size:10.5px;color:var(--color-neutral-700)">{{ r.k }}</span>
+                    <span style="font-family:var(--font-heading);font-weight:700;font-size:16.5px">{{ r.v }} <span style="font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--color-neutral-600)">{{ r.u }}</span></span>
                   </div>
                 </sc-for>
               </div>
-            </sc-for>
-            <label class="field" style="display:flex;flex-direction:column;gap:4px">
-              <span style="font-size:11.5px;color:var(--color-neutral-800)">Catatan reviewer · Reviewer note</span>
-              <textarea class="input" style="min-height:72px" value="{{ note }}" onChange="{{ setNote }}" placeholder="mis. Perpanjang lantai muka, cek ulang data hujan stasiun."></textarea>
-            </label>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <button class="btn btn-secondary" style="min-height:46px" onClick="{{ askRevision }}">Minta revisi</button>
-              <button class="btn btn-primary blueprint" style="min-height:46px" onClick="{{ approve }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Setujui desain</button>
             </div>
-            <button class="btn btn-secondary" style="min-height:46px" onClick="{{ exportPdf }}">Ekspor laporan PDF · Export</button>
+          </sc-for>
+
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:10px;grid-column:1/-1">
+            <div class="ui-section-head">
+              <h4 style="margin:0;font-size:18px">Spesifikasi Material</h4>
+              <span style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">Materials</span>
+            </div>
+            <table class="table" style="font-size:12.5px">
+              <thead><tr><th>Komponen</th><th>Material</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ matRows }}" as="mr" hint-placeholder-count="8">
+                  <tr>
+                    <td style="vertical-align:top"><strong style="font-weight:600">{{ mr.k }}</strong><br><span style="font-size:10.5px;color:var(--color-neutral-600)">{{ mr.en }}</span></td>
+                    <td style="vertical-align:top">{{ mr.v }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
           </div>
-        </sc-if>
-      
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabRep }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:18px;align-items:start">
+          <div class="blueprint" style="padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;grid-column:1/-1;border-radius:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <span style="display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Ringkasan kontrol · Checks</span>
+              <span style="font-family:var(--font-heading);font-weight:700;font-size:30px;line-height:1.05">{{ rep.pass }} / {{ rep.total }} aman</span>
+            </span>
+            <span class="ui-pill" style="background:{{ rep.stBg }};color:{{ rep.stFg }};font-size:12.5px;padding:6px 12px">{{ rep.status }}</span>
+          </div>
+
+          <sc-for list="{{ repSections }}" as="rs" hint-placeholder-count="4">
+            <div class="ui-card" style="display:flex;flex-direction:column;gap:6px">
+              <div class="ui-section-head">
+                <span style="font-family:var(--font-heading);font-weight:700;font-size:17px">{{ rs.t }}</span>
+                <span style="font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--color-neutral-600)">{{ rs.en }}</span>
+              </div>
+              <sc-for list="{{ rs.rows }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--ui-border)">
+                  <span>{{ c.k }}</span>
+                  <span style="display:flex;align-items:center;gap:8px">
+                    <span style="font-variant-numeric:tabular-nums;font-weight:600">{{ c.v }}</span>
+                    <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-ok" style="padding:2px 7px;font-size:10.5px">OK</span></sc-if>
+                    <sc-if value="{{ c.bad }}" hint-placeholder-val="{{ false }}"><span class="ui-pill ui-pill-bad" style="padding:2px 7px;font-size:10.5px">Cek</span></sc-if>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+
+          <div class="ui-card" style="display:flex;flex-direction:column;gap:12px;grid-column:1/-1">
+            <label class="field" style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:12px;font-weight:600;color:var(--color-neutral-800)">Catatan reviewer · Reviewer note</span>
+              <textarea class="input" style="min-height:80px;padding:10px" value="{{ note }}" onChange="{{ setNote }}" placeholder="mis. Perpanjang lantai muka, cek ulang data hujan stasiun."></textarea>
+            </label>
+            <div class="no-print" style="display:flex;flex-wrap:wrap;gap:10px">
+              <button class="btn btn-secondary" style="flex:1 1 160px;min-height:44px;border-radius:5px" onClick="{{ askRevision }}">Minta revisi</button>
+              <button class="btn btn-primary blueprint" style="flex:1 1 180px;min-height:44px;border-radius:5px" onClick="{{ approve }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Setujui desain</button>
+              <button class="btn btn-secondary" style="flex:1 1 180px;min-height:44px;border-radius:5px" onClick="{{ exportPdf }}">Ekspor laporan PDF · Export</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
     </main>
   </div>
+
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;right:24px;bottom:24px;max-width:360px;padding:12px 16px;background:#1d2d3d;color:#f2f2f3;font-size:13px;box-shadow:var(--shadow-md);z-index:10">{{ toast }}</div>
+    <div style="position:fixed;right:24px;bottom:24px;max-width:360px;padding:12px 16px;border-radius:6px;background:#1d2d3d;color:#f2f2f3;font-size:13px;font-weight:500;box-shadow:var(--shadow-md);z-index:20">{{ toast }}</div>
   </sc-if>
 </div>
 </x-dc>
@@ -449,19 +693,16 @@ class Component extends DCLogic {
     const hyd = []; for (let t = 0; t <= 36; t += 0.5) { let q = Qb; pct.forEach((r, i) => { q += r * Reff * uh(t - i); }); hyd.push([t, q]); }
     const Qd = Math.max(...hyd.map(h => h[1]));
     gum.forEach(x => { x.Q = Qb + (Qd - Qb) * x.R / RT; });
-    // rating curve
     const br = n('br'), I = n('I'), mn = n('n'), m = n('m');
     const Qh = h => { const Ar = (br + m * h) * h, P = br + 2 * h * Math.sqrt(1 + m * m); return Ar / mn * Math.pow(Ar / P, 2 / 3) * Math.sqrt(I); };
     let lo = 0, hi = 40; for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; if (Qh(mid) < Qd) lo = mid; else hi = mid; }
     const hd = (lo + hi) / 2, vRiver = Qd / ((br + m * hd) * hd);
     const rc = []; for (let i = 0; i <= 30; i++) { const h = hd * 1.35 * i / 30; rc.push([Qh(h), h]); }
-    // hydraulics
     const zb = n('zb'), zi = n('zi'), crest = zi + 0.20, P = crest - zb;
     const B = 1.2 * br, nP = Math.max(0, Math.round(n('nP'))), tP = n('tP'), nG = Math.max(1, Math.round(n('nG'))), bG = n('bG'), Cd = n('Cd'), fb = n('fb');
     const Bnet = B - nP * tP, bGt = nG * bG; let H1 = 1, Be = Bnet;
     for (let i = 0; i < 40; i++) { Be = Bnet - 0.2 * bGt - 2 * (nP * 0.01 + 0.1) * H1; H1 = Math.pow(Qd / (1.705 * Cd * Be), 2 / 3); }
     const MAh = crest + H1, zAb = MAh + fb, TWL = zb + hd, q = Qd / Be, yc = Math.cbrt(q * q / g);
-    // stilling basin
     let floor = zb - 0.5, y1 = 0, v1 = 0, Fr = 0, y2 = 0;
     for (let k = 0; k < 30; k++) {
       const E0 = MAh - floor; let a = 0.005, b2 = yc;
@@ -472,20 +713,16 @@ class Component extends DCLogic {
     let type, Lb;
     if (Fr < 2.5) { type = 'Vlugter'; Lb = 5 * (y2 - y1); } else if (Fr < 4.5) { type = 'USBR IV'; Lb = 6.1 * y2; } else if (v1 <= 18) { type = 'USBR III'; Lb = 2.7 * y2; } else { type = 'USBR II'; Lb = 4.3 * y2; }
     Lb = Math.ceil(Lb * 2) / 2; const ns = y1 * (18 + Fr) / 18;
-    // geometry
     const bc = n('bc'), md = n('md'), Lu = n('Lu'), cut1 = n('cut1'), cut2 = n('cut2'), t0 = 1.0;
     const Ebase = floor - t0, Hw = crest - Ebase, Bb = bc + md * (Hw - t0), d0 = zb - Ebase;
     const poly = [[0, 0], [Bb, 0], [Bb, t0], [bc, Hw], [0, Hw]];
     let ar = 0, cx = 0, cy = 0; for (let i = 0; i < poly.length; i++) { const [x0, y0] = poly[i], [x1, y1b] = poly[(i + 1) % poly.length], cr = x0 * y1b - x1 * y0; ar += cr; cx += (x0 + x1) * cr; cy += (y0 + y1b) * cr; }
     ar /= 2; cx /= 6 * ar; cy /= 6 * ar;
-    // seepage
     const so = this.soils()[p.soil] || this.soils()[3];
     const Lv = 2 * cut1 + d0 + 2 * cut2, Lh = Lu + Bb + Lb, Lw = Lv + Lh / 3, Lbl = Lv + Lh, dH = crest - floor;
-    // bearing
     const phi = n('phi') * Math.PI / 180, c = n('c'), gs = n('gs'), Df = d0;
     const Nq = Math.exp(Math.PI * Math.tan(phi)) * Math.pow(Math.tan(Math.PI / 4 + phi / 2), 2), Ncb = phi > 0 ? (Nq - 1) / Math.tan(phi) : 5.7, Ng = 2 * (Nq + 1) * Math.tan(phi);
     const qult = c * Ncb + gs * Df * Nq + 0.5 * gs * Bb * Ng, qall = qult / 3;
-    // stability
     const kh = n('kh'), Lxh = 2 * cut1 + Lu / 3 + d0, Lxt = Lxh + Bb / 3;
     const W = gc * ar;
     const stab = (hu, hd2, khv, req) => {
@@ -510,14 +747,11 @@ class Component extends DCLogic {
     };
     const cases = { low: { id: 'low', hu: Hw, hd: t0 + 0.3, kh, req: 1.25 }, high: { id: 'high', hu: MAh - Ebase, hd: Math.max(0, TWL - Ebase), kh: 0, req: 1.5 } };
     const st = { low: stab(cases.low.hu, cases.low.hd, kh, 1.25), high: stab(cases.high.hu, cases.high.hd, 0, 1.5) };
-    // basin floor uplift (normal)
     const pxb = cases.low.hu - Lxt / Lw * (cases.low.hu - cases.low.hd), dxReq = Math.max(0, 1.5 * gw * (pxb - cases.low.hd) / gc);
-    // bays
     const bays = []; let z = 0, pl = nP;
     for (let i = 0; i < nG; i++) { bays.push({ k: 'gate', z, w: bG }); z += bG; if (pl > 0) { bays.push({ k: 'pier', z, w: tP }); z += tP; pl--; } }
     const nb = pl + 1, ws = Math.max(0.5, (B - z - pl * tP) / nb);
     for (let i = 0; i < nb; i++) { bays.push({ k: 'spill', z, w: ws }); z += ws; if (i < nb - 1) { bays.push({ k: 'pier', z, w: tP }); z += tP; } }
-    // gates
     const sig = 160000, mkGate = (b, hg, hw) => {
       const F = gw * b * Math.max(0, hw * hg - hg * hg / 2), pm = gw * hw, tmm = Math.max(8, Math.ceil(0.5 * Math.sqrt(0.5 * pm / sig) * 1000 + 2));
       const Wg = 2.0 * b * hg, hoist = 1.2 * (0.4 * F + Wg);
@@ -711,27 +945,22 @@ class Component extends DCLogic {
     box(Bb, Bb + Lb, yF - 1, yF, 0, B, mC);
     box(Bb + Lb - 1, Bb + Lb, yF, yF + R.ns, 0, B, mC);
     if (R.type === 'USBR III' || R.type === 'USBR II') { const w = Math.max(0.4, R.y1), n = Math.min(40, Math.floor(B / (2.5 * w))); for (let i = 0; i < n; i++) { const z = (i + 0.5) * B / n; box(Bb + 0.2, Bb + 0.2 + 2 * w, yF, yF + w, z - w / 2, z + w / 2, mC); if (R.type === 'USBR III') box(Bb + 0.8 * R.y2, Bb + 0.8 * R.y2 + w, yF, yF + 0.2 * R.y2 + 0.3, z - w / 2, z + w / 2, mC); } }
-    // left bank + PLTA headrace channel
     box(-Lu, xP0 - 0.3, -2, yAb, -40, -1, mG, false); box(xP1 + 0.3, 120, -2, yAb, -40, -1, mG, false);
     box(xP0 - 0.3, xP1 + 0.3, -2, yChF, -40, -1, mC, false);
     box(xP0 - 0.3, xP0, yChF, yAb, -40, -1, mC); box(xP1, xP1 + 0.3, yChF, yAb, -40, -1, mC);
     box(xP0, xP1, yChF, yChF + R.hch, -40, -1, mW, false);
-    // right bank + PDAM chamber & pipe
     box(-Lu, 120, -2, yAb, B + 1, B + 40, mG, false);
     box(xD0 - 0.5, xD1 + 0.5, yAb, yAb + 2.5, B + 1.2, B + 4.2, mC);
     { const D = R.Dstd, pm = add(new T.CylinderGeometry(D / 2, D / 2, 36, 20), mS, (xD0 + xD1) / 2, yAb + 0.3 + D / 2, B + 22.2, false); pm.rotation.x = Math.PI / 2; }
-    // reservoir terrain
     strip(xEnd, -Lu, -1, B + 1, bed, mB);
     strip(xEnd, -Lu, -40, -1, x => bed(x) + yAb, mG); strip(xEnd, -Lu, B + 1, B + 40, x => bed(x) + yAb, mG);
     wall(xEnd, -Lu, -1, bed, x => bed(x) + yAb, mG); wall(xEnd, -Lu, B + 1, bed, x => bed(x) + yAb, mG);
     box(Bb + Lb, 120, -2, 0, 0, B, mB, false);
-    // water
     const hn = high ? R.hd : R.hnLow, hW0 = high ? yM : yC, Lw = high ? R.Lres : R.LresLow;
     const wl = x => { const d = -x; return bed(x) + hn + (d >= Lw ? 0 : (hW0 - hn) * Math.pow(1 - d / Lw, 2)); };
     strip(xEnd, 0, 0, B, wl, mW, 200);
     if (high) box(0, bc, yC, yM - 0.4, 0, B, mW, false);
     box(Bb, 120, yF, high ? yT : yF + 0.4, 0, B, mW, false);
-    // reservoir boundary
     const yb0 = bed(-Lr), yTop = yb0 + yAb;
     box(-Lr - 0.4 * sc, -Lr + 0.4 * sc, yb0 - 0.5, yTop + 4 * sc, -40, B + 40, mL, false);
     box(-Lr - 0.6 * sc, -Lr + 0.6 * sc, yTop, yTop + 5 * sc, -6 - sc, -6, mLs); box(-Lr - 0.6 * sc, -Lr + 0.6 * sc, yTop, yTop + 5 * sc, B + 6, B + 6 + sc, mLs);
@@ -741,7 +970,6 @@ class Component extends DCLogic {
       ['low', 'high'].forEach(cid => { const F = this.fem(R, cid), ids = F.crack.concat(F.warn); const grp = {}; ids.forEach(i => { const nm = this.locName(R, F.cxs[i], F.cys[i])[0]; const gg = grp[nm] || (grp[nm] = { x0: 1e9, x1: -1e9, y0: 1e9, y1: -1e9, c: false }); gg.x0 = Math.min(gg.x0, F.cxs[i]); gg.x1 = Math.max(gg.x1, F.cxs[i]); gg.y0 = Math.min(gg.y0, F.cys[i]); gg.y1 = Math.max(gg.y1, F.cys[i]); if (F.crack.includes(i)) gg.c = true; }); Object.values(grp).forEach(gg => box(gg.x0 - 0.3, gg.x1 + 0.3, yE + gg.y0 - 0.3, yE + gg.y1 + 0.3, z0 - 0.05, z1 + 0.05, gg.c ? mZ2 : mZ, false)); });
       box(Bb - 0.2, Bb + 0.2, yE - 0.1, yE + 0.35, z0 - 0.1, z1 + 0.1, mZ2, false);
     }
-    // dimensions drawn on the model
     g.dimGroup = new T.Group(); g.group.add(g.dimGroup);
     const dpos = [], A = [], V3 = (x, y, z) => new T.Vector3(x, y, z), f = (v, d = 2) => Number(v).toFixed(d);
     const dim = (a, b, off, t) => { const p1 = a.clone().add(off), p2 = b.clone().add(off), ol = off.length() || 1, tl = Math.max(0.35, a.distanceTo(b) * 0.012), tk = off.clone().multiplyScalar(tl / ol), dir = p2.clone().sub(p1).normalize().multiplyScalar(tl);
@@ -790,8 +1018,8 @@ class Component extends DCLogic {
     const g = this.g3, host = this._lblEl; if (!g || !host || !g.anchors) return;
     host.style.display = this.state.dims3d ? '' : 'none'; if (!this.state.dims3d) return;
     if (g.lblHost !== host) { host.innerHTML = ''; g.lblEls = g.anchors.map(a => { const d = document.createElement('div');
-      if (a.k === 'dim') { d.style.cssText = 'position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font:600 10.5px/1.2 Barlow,sans-serif;color:#1d2d3d;background:rgba(242,242,243,.85);padding:0 3px'; d.textContent = a.t; }
-      else { d.style.cssText = 'position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);white-space:nowrap'; d.innerHTML = '<span style="font:500 10.5px/1.25 Barlow,sans-serif;color:#1d2d3d;background:rgba(242,242,243,.92);border:1px solid rgba(29,31,32,.35);padding:2px 6px"></span><span style="width:1px;height:12px;background:#1d2d3d"></span><span style="width:5px;height:5px;background:#1d2d3d"></span>'; d.firstChild.textContent = a.t; }
+      if (a.k === 'dim') { d.style.cssText = 'position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font:600 10.5px/1.2 Barlow,sans-serif;color:#1d2d3d;background:rgba(242,242,243,.9);border-radius:3px;padding:1px 4px'; d.textContent = a.t; }
+      else { d.style.cssText = 'position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);white-space:nowrap'; d.innerHTML = '<span style="font:500 10.5px/1.25 Barlow,sans-serif;color:#1d2d3d;background:rgba(255,255,255,.94);border:1px solid rgba(29,31,32,.3);border-radius:3px;padding:2px 6px"></span><span style="width:1px;height:12px;background:#1d2d3d"></span><span style="width:5px;height:5px;background:#1d2d3d"></span>'; d.firstChild.textContent = a.t; }
       host.appendChild(d); return d; }); g.lblHost = host; }
     const w = g.w || host.clientWidth, h = g.h || host.clientHeight;
     const placed = [], hit = rc => placed.some(q => rc.x0 < q.x1 && rc.x1 > q.x0 && rc.y0 < q.y1 && rc.y1 > q.y0);
@@ -833,8 +1061,8 @@ class Component extends DCLogic {
     const s = this.state, p = s.inp, R = this.calc(p);
     const f = (v, d = 2) => (isFinite(v) ? Number(v).toFixed(d) : '–'), el = v => '+' + f(v, 2), fi = v => isFinite(v) ? Math.round(v).toLocaleString('id-ID') : '–';
     const set = k => e => { const v = e.target.value; this.setState(st => ({ inp: { ...st.inp, [k]: v } })); };
-    const fld = (k, l, en, u, wide) => ({ k, l, en, u, col: wide ? 'span 2' : 'auto', value: p[k], onChange: set(k) });
-    const on = (a, b) => a === b ? { bg: '#5980a6', fg: '#f2f2f3' } : { bg: 'transparent', fg: '#1d1f20' };
+    const fld = (k, l, en, u, wide) => ({ k, l, en, u, col: wide ? '1 / -1' : 'auto', value: p[k], onChange: set(k) });
+    const on = (a, b) => a === b ? { bg: '#2c455d', fg: '#ffffff' } : { bg: '#ffffff', fg: '#1d1f20' };
     const chk = (k, v, ok, extra = {}) => ({ k, v, ok: !!ok, bad: !ok, ...extra });
     const stepsMeta = [['Data Awal', 'Preliminary data'], ['Hidrologi', 'Hydrology'], ['Hidrolika', 'Hydraulics'], ['Kolam Olak', 'Stilling basin'], ['Stabilitas', 'Stability']];
     const groupsByStep = [
@@ -849,14 +1077,15 @@ class Component extends DCLogic {
     ];
     const isW = s.mode === 'wizard', isD = !isW;
     const tabMeta = { '3d': ['Model 3D', '3D model'], fem: ['Kontur FEM', 'Stress & strain'], crit: ['Zona Kritis', 'Crack & overturning'], gate: ['Pintu Air', 'Gates & materials'], rep: ['Laporan', 'Report & approval'] };
-    const steps = stepsMeta.map((m, i) => { const done = isD || i <= s.step, act = isW && i === s.step; return { n: i + 1, t: m[0], en: m[1], go: () => { this.setState({ mode: 'wizard', step: i }); window.scrollTo(0, 0); }, bg: done ? '#5980a6' : 'transparent', fg: done ? '#f2f2f3' : '#416180', line: act ? '#5980a6' : 'transparent' }; });
-    // hydro charts
+    const steps = stepsMeta.map((m, i) => {
+      const done = isD || i <= s.step, act = isW && i === s.step;
+      return { n: i + 1, t: m[0], en: m[1], go: () => { this.setState({ mode: 'wizard', step: i }); window.scrollTo(0, 0); }, bg: act ? '#2c455d' : (done ? '#5980a6' : '#ffffff'), fg: done ? '#ffffff' : '#416180', line: act ? '#2c455d' : 'transparent', rowBg: act ? '#eef4fa' : 'transparent' };
+    });
     const qmax = Math.max(...R.hyd.map(h => h[1])) * 1.1, cy = v => 130 - v / qmax * 115;
     const hpath = R.hyd.map((h, i) => (i ? 'L' : 'M') + (34 + h[0] / 36 * 296).toFixed(1) + ' ' + cy(h[1]).toFixed(1)).join(' ');
     const rqmax = Math.max(...R.rc.map(r => r[0])) * 1.05, rhmax = R.hd * 1.35 * 1.05;
     const rx = v => 34 + v / rqmax * 296, ry = v => 130 - v / rhmax * 115;
     const rpath = R.rc.map((r, i) => (i ? 'L' : 'M') + rx(r[0]).toFixed(1) + ' ' + ry(r[1]).toFixed(1)).join(' ');
-    // plan
     const ps = 300 / (R.B + 2), px0 = 20 + ps;
     const planRects = [{ x: 20, y: 22, w: ps, h: 120, fill: '#5d5d60' }, { x: px0 + R.B * ps, y: 22, w: ps, h: 120, fill: '#5d5d60' }];
     R.bays.forEach(b => { const x = px0 + b.z * ps, w = b.w * ps; if (b.k === 'pier') planRects.push({ x, y: 36, w, h: 70, fill: '#5d5d60' }); else if (b.k === 'gate') { planRects.push({ x, y: 44, w, h: 46, fill: '#e7e7ea' }); planRects.push({ x, y: 52, w, h: 4, fill: '#416180' }); } else planRects.push({ x, y: 44, w, h: 46, fill: '#c9c9cc' }); });
@@ -865,9 +1094,8 @@ class Component extends DCLogic {
     const vdim = (x, y1, y2, t, left) => ({ d: 'M' + x.toFixed(1) + ' ' + y1.toFixed(1) + ' L' + x.toFixed(1) + ' ' + y2.toFixed(1) + ' M' + (x - 3).toFixed(1) + ' ' + y1.toFixed(1) + ' L' + (x + 3).toFixed(1) + ' ' + y1.toFixed(1) + ' M' + (x - 3).toFixed(1) + ' ' + y2.toFixed(1) + ' L' + (x + 3).toFixed(1) + ' ' + y2.toFixed(1), tx: (left ? x - 4 : x + 4).toFixed(1), ty: ((y1 + y2) / 2 + 3).toFixed(1), an: left ? 'end' : 'start', t });
     const planDims = R.bays.map((b, i) => hdim(px0 + b.z * ps, px0 + (b.z + b.w) * ps, b.k === 'spill' ? 154 : (i % 2 ? 164 : 154), f(b.w, b.k === 'spill' ? 2 : 1)));
     planDims.push(hdim(px0, px0 + R.B * ps, 178, 'B = ' + f(R.B, 2) + ' m'));
-    // profile
     const xa = -R.Lu - 2, xb = R.Bb + R.Lb + 4, ya = R.Ebase - Math.max(R.cut1, R.cut2) - 0.4, yb = R.MAh + 0.8;
-    const sx2 = 332 / (xb - xa), sy2 = 150 / (yb - ya), sc2 = Math.min(sx2, sy2 * 2.2);
+    const sx2 = 332 / (xb - xa), sy2 = 150 / (yb - ya);
     const PX = x => 4 + (x - xa) * sx2, PY = y => 155 - (y - ya) * sy2;
     const pp = a => 'M' + a.map(q => PX(q[0]).toFixed(1) + ' ' + PY(q[1]).toFixed(1)).join(' L') + ' Z';
     const Bb = R.Bb, Lb = R.Lb, zb = R.zb, fl = R.floor, Eb = R.Ebase;
@@ -890,7 +1118,6 @@ class Component extends DCLogic {
       vdim(PX(-R.Lu + 0.6) + 2, PY(zb - 0.6), PY(zb - 0.6 - R.cut1), f(R.cut1), false),
       vdim(PX(Bb + Lb) + 3, PY(Eb), PY(Eb - R.cut2), f(R.cut2), false)
     ];
-    // stability diagram
     const stc = R.st[s.sCase], cs = R.cases[s.sCase];
     const dxa = -2.5, dxb = Bb + 3, dya = -2.4, dyb = Math.max(R.Hw, cs.hu) + 0.5, ds = Math.min(332 / (dxb - dxa), 150 / (dyb - dya));
     const DX = x => 4 + (x - dxa) * ds, DY = y => 8 + (dyb - y) * ds, dp = a => 'M' + a.map(q => DX(q[0]).toFixed(1) + ' ' + DY(q[1]).toFixed(1)).join(' L') + ' Z';
@@ -915,9 +1142,8 @@ class Component extends DCLogic {
         { k: 'Tegangan min.', en: 'Min bearing', v: f(stc.sMin, 1) + ' kPa', req: '≥ 0', ok: stc.sMin >= 0, bad: stc.sMin < 0 }
       ]
     };
-    // dashboard
     let fem = {}, femKV = [], zoneCards = [], rep = {}, repSections = [];
-    const FL = R.cases, Fl = isD ? this.fem(R, 'low') : null, Fh = isD ? this.fem(R, 'high') : null;
+    const Fl = isD ? this.fem(R, 'low') : null, Fh = isD ? this.fem(R, 'high') : null;
     if (isD) {
       const F = s.fCase === 'low' ? Fl : Fh, rg = this.fieldRange(F, s.fField);
       const meta = { s1: ['σ₁ tegangan utama maks.', 'kPa'], s3: ['σ₃ tegangan utama min.', 'kPa'], sy: ['σy tegangan vertikal', 'kPa'], txy: ['τxy tegangan geser', 'kPa'], vm: ['σvm von Mises', 'kPa'], e1: ['ε₁ regangan utama', 'µε'] }[s.fField];
@@ -948,11 +1174,13 @@ class Component extends DCLogic {
         { t: 'FEM & struktur', en: 'FEM & structure', rows: [S('Elemen retak Q rendah', String(Fl.crack.length), Fl.crack.length === 0), S('Elemen retak Q banjir', String(Fh.crack.length), Fh.crack.length === 0), S('Tebal lantai kolam', f(R.t0) + ' ≥ ' + f(R.dxReq) + ' m', R.t0 >= R.dxReq)] }
       ];
       const all = repSections.flatMap(x => x.rows), pass = all.filter(x => x.ok).length;
-      const stMap = { pending: ['Menunggu review', '#eef6ff', '#2c455d'], approved: ['Disetujui', '#416180', '#ffffff'], revision: ['Perlu revisi', '#f6dcc0', '#7a3412'] }[s.review];
+      const stMap = { pending: ['Menunggu review', '#eef4fa', '#2c455d'], approved: ['Disetujui', '#e6f4ea', '#137333'], revision: ['Perlu revisi', '#fef3e2', '#9a5b00'] }[s.review];
       rep = { pass, total: all.length, status: stMap[0], stBg: stMap[1], stFg: stMap[2] };
     }
-    const sw = v => v ? { bg: '#5980a6', knob: '#f2f2f3', left: '20px' } : { bg: 'transparent', knob: '#98989b', left: '2px' };
-    const nv = k => isD && s.tab === k ? '#416180' : '#1d1f20', nl = k => isD && s.tab === k ? '#5980a6' : 'transparent';
+    const sw = v => v ? { bg: '#2c455d', knob: '#ffffff', left: '20px' } : { bg: '#e2e5ea', knob: '#6c7278', left: '2px' };
+    const nv = k => isD && s.tab === k ? '#2c455d' : '#1d1f20';
+    const nl = k => isD && s.tab === k ? '#2c455d' : 'transparent';
+    const nbg = k => isD && s.tab === k ? '#eef4fa' : 'transparent';
     const gS = R.gS, gP = R.iP.gate, gD = R.iD.gate;
     const head = isW ? stepsMeta[s.step] : tabMeta[s.tab];
     const V = {
@@ -997,7 +1225,7 @@ class Component extends DCLogic {
       seep: { Lv: f(R.Lv), Lh: f(R.Lh), dH: f(R.dH), soil: R.so[0] },
       seepChecks: [
         chk('Lane: L_w = ΣLv + ⅓ΣLh', f(R.Lw) + ' m ≥ ' + f(R.so[2], 1) + ' × ' + f(R.dH) + ' = ' + f(R.so[2] * R.dH) + ' m', R.Lw >= R.so[2] * R.dH),
-        chk('Bligh: L = ΣLv + ΣLh', f(R.Lbl) + ' m ≥ ' + R.so[3] + ' × ' + f(R.dH) + ' = ' + f(R.so[3] * R.dH) + ' m', R.Lbl >= R.so[3] * R.dH),
+        chk('Bligh: L = ΣLv + ΣLh', f(R.Lbl) + ' m ≥ ' + f(R.so[3], 1) + ' × ' + f(R.dH) + ' = ' + f(R.so[3] * R.dH) + ' m', R.Lbl >= R.so[3] * R.dH),
         chk('Tebal lantai kolam (uplift)', f(R.t0) + ' m ≥ ' + f(R.dxReq) + ' m', R.t0 >= R.dxReq)
       ],
       caseOpts: [{ id: 'low', l: 'Q rendah', en: 'Low flow + seismic' }, { id: 'high', l: 'Q banjir', en: 'Flood Q' + R.T }].map(o => ({ ...o, on: () => this.setState({ sCase: o.id }), ...on(o.id, s.sCase) })),
@@ -1058,7 +1286,7 @@ class Component extends DCLogic {
       exportPdf: () => { this.flash('Menyiapkan laporan PDF…'); setTimeout(() => window.print(), 400); },
       hasToast: !!s.toast, toast: s.toast,
       tab3d: () => this.goTab('3d'), tabFem: () => this.goTab('fem'), tabCrit: () => this.goTab('crit'), tabGate: () => this.goTab('gate'), tabRep: () => this.goTab('rep'),
-      nav: { c3d: nv('3d'), l3d: nl('3d'), cFem: nv('fem'), lFem: nl('fem'), cCrit: nv('crit'), lCrit: nl('crit'), cGate: nv('gate'), lGate: nl('gate'), cRep: nv('rep'), lRep: nl('rep') }
+      nav: { c3d: nv('3d'), l3d: nl('3d'), bg3d: nbg('3d'), cFem: nv('fem'), lFem: nl('fem'), bgFem: nbg('fem'), cCrit: nv('crit'), lCrit: nl('crit'), bgCrit: nbg('crit'), cGate: nv('gate'), lGate: nl('gate'), bgGate: nbg('gate'), cRep: nv('rep'), lRep: nl('rep'), bgRep: nbg('rep') }
     };
     this.svgT().forEach((t, k) => { V['svg' + k] = React.createElement('div', { style: { width: '100%' }, dangerouslySetInnerHTML: { __html: this.fillTpl(t, V) } }); });
     return V;
